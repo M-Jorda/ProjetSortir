@@ -51,6 +51,14 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?Campus $campus = null;
 
+    #[ORM\ManyToOne(inversedBy: 'sortie')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Etat $etat = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sortie')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Lieu $lieu = null;
+
     public function __construct()
     {
         $this->participant = new ArrayCollection();
@@ -201,6 +209,30 @@ class Sortie
     public function setCampus(?Campus $campus): static
     {
         $this->campus = $campus;
+
+        return $this;
+    }
+
+    public function getEtat(): ?Etat
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?Etat $etat): static
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?Lieu $lieu): static
+    {
+        $this->lieu = $lieu;
 
         return $this;
     }
