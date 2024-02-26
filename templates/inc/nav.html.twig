@@ -6,7 +6,7 @@
         {% if is_granted('ROLE_ADMIN')%}
             <li><a href="#">Ville</a></li>
             <li><a href="#">Campus</a></li>
-            <li><a href="#">Ajouter membres</a></li>
+            <li><a href="{{ path('admin_add') }}">Ajouter membres</a></li>
         {% endif %}
 
         {% if app.user %}
