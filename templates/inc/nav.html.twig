@@ -1,19 +1,19 @@
-<div>
-    <ul>
-        <li><a href="{{ path('main_home') }}">Accueil</a></li>
-        <li><a href="{{ path('user_profile') }}">Mon profil</a></li>
+<div class="container">
+    <ul class="navbar-nav d-flex flex-row">
+        <li class="nav-item px-3"><a href="{{ path('main_home') }}" class="nav-link">Accueil</a></li>
 
         {% if is_granted('ROLE_ADMIN')%}
-            <li><a href="#">Ville</a></li>
-            <li><a href="#">Campus</a></li>
-            <li><a href="{{ path('admin_add') }}">Ajouter membres</a></li>
+            <li class="nav-item px-3"><a href="#" class="nav-link">Ville</a></li>
+            <li class="nav-item px-3"><a href="#" class="nav-link">Campus</a></li>
+            <li class="nav-item px-3"><a href="{{ path('admin_add') }}" class="nav-link">Ajouter membres</a></li>
         {% endif %}
 
         {% if app.user %}
-            <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+            <li class="nav-item px-3"><a href="{{ path('user_detail', {'id': app.user.id}) }}" class="nav-link">Mon profil</a></li>
+            <li class="nav-item px-3"><a href="{{ path('app_logout') }}" class="nav-link">Se déconnecter</a></li>
         {% else %}
-            <li><a href="{{ path('app_login') }}">Se connecter</a></li>
-            <li><a href="{{ path('app_register') }}">S'enregistrer</a></li>
+            <li class="nav-item px-3"><a href="{{ path('app_login') }}" class="nav-link">Se connecter</a></li>
+            <li class="nav-item px-3"><a href="{{ path('app_register') }}" class="nav-link">S'enregistrer</a></li>
         {% endif %}
     </ul>
 </div>
