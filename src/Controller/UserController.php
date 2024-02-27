@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class UserController extends AbstractController {
@@ -45,7 +46,8 @@ class UserController extends AbstractController {
         int $id,
         UserRepository $userRepo,
         Request $request,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+         UserPasswordHasherInterface $userPasswordHasher
     ) {
         $user = $userRepo->find($id);
 
@@ -57,6 +59,12 @@ class UserController extends AbstractController {
         $passwordForm->handleRequest($request);
 
         if ($passwordForm->isSubmitted() && $passwordForm->isValid()) {
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $passwordForm->get('password')->getData()
+                )
+            );
             $em->persist($user);
             $em->flush();
 
