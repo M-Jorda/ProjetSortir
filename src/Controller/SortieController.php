@@ -23,7 +23,7 @@ class SortieController extends AbstractController
 
     }
 
-    #[NoReturn] #[Route('/sortie/folder/{id}', name: 'app_sortie_folder')]
+    #[Route('/sortie/folder/{id}', name: 'app_sortie_folder')]
     public function folder(int $id, SortieRepository $sortieRepository, UserRepository $userRepository): Response
     {
         $sortie = $sortieRepository->find($id);
