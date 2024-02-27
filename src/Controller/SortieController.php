@@ -3,20 +3,41 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use App\Form\CreateSortieType;
+use App\Form\SortieVilleType;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class SortieController extends AbstractController
 {
     #[Route('/sortie/create', name: 'app_sortie_create')]
-    public function create(): Response
+    public function create(EntityManagerInterface $em, Request $request): Response
     {
         $sortie = new Sortie();
-        $createForm = $this->createForm(CreateSortieType::class, $sortie);
+        $ville = new Ville();
+
+        $createForm = $this->createFormBuilder([$ville, $sortie])
+        ->add('sortie', CreateSortieType::class)
+        ->add('ville', SortieVilleType::class)
+        ->getForm()
+        ->handleRequest($request);
+
+        if ($createForm->isSubmitted() && $createForm->isValid()) {
+
+            $em->persist($sortie);
+            $em->persist($ville);
+            $em->flush();
+
+            $this->addFlash('success', 'Sortie créée');
+            return $this->redirectToRoute( 'main_home');
+        }
+
         return $this->render('sortie/create.html.twig', [
             "createForm" => $createForm->createView()
         ]);

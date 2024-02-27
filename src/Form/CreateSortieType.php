@@ -54,11 +54,7 @@ class CreateSortieType extends AbstractType
                 'choice_label' => 'name',
 
             ])
-
-            ->add('ville', EntityType::class, [
-                'class' => Ville::class,
-                'label' => 'nom',
-            ]);
+        ;
 
 
 
