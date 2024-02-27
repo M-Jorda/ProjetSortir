@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un campus{% endblock %}
+
+{% block body %}
+    {{ form_start(campusForm) }}
+    {{ form_widget(campusForm) }}
+    <button>Ajouter un campus</button>
+    {{ form_end(campusForm) }}
+{% endblock %}
