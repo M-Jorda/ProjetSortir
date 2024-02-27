@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Sortie;
 use App\Entity\Ville;
+use App\Entity\Lieu;
 use App\Form\CreateSortieType;
 use App\Form\SortieVilleType;
+use App\Form\SortieLieuType;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,28 +23,41 @@ class SortieController extends AbstractController
     {
         $sortie = new Sortie();
         $ville = new Ville();
+        $lieu = new Lieu();
 
-        $createForm = $this->createFormBuilder([$ville, $sortie])
-        ->add('sortie', CreateSortieType::class)
-        ->add('ville', SortieVilleType::class)
-        ->getForm()
-        ->handleRequest($request);
+        $createForm = $this->createFormBuilder()
+            ->add('sortie', CreateSortieType::class, [
+                'data' => $sortie,
+                'label' => ' ',
+            ])
+            ->add('ville', SortieVilleType::class, [
+                'data' => $ville,
+                'label' => ' ',
+            ])
+            ->add('lieu', SortieLieuType::class, [
+                'data' => $lieu,
+                'label' => ' ',
+            ])
+            ->getForm();
+
+        $createForm->handleRequest($request);
 
         if ($createForm->isSubmitted() && $createForm->isValid()) {
-
             $em->persist($sortie);
             $em->persist($ville);
+            $em->persist($lieu);
             $em->flush();
 
             $this->addFlash('success', 'Sortie créée');
-            return $this->redirectToRoute( 'main_home');
+            return $this->redirectToRoute('main_home');
         }
 
         return $this->render('sortie/create.html.twig', [
-            "createForm" => $createForm->createView()
+            "createForm" => $createForm->createView(),
         ]);
-
     }
+
+
 
     #[Route('/sortie/folder/{id}', name: 'app_sortie_folder')]
     public function folder(int $id, SortieRepository $sortieRepository, UserRepository $userRepository): Response

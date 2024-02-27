@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Campus;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -53,10 +54,7 @@ class CreateSortieType extends AbstractType
                 'class' => Campus::class,
                 'choice_label' => 'name',
 
-            ])
-        ;
-
-
+            ]);
 
     }
 
