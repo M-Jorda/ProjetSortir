@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 
 
@@ -26,10 +27,10 @@ class CreateSortieType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom Sortie'
             ])
-            ->add('startDate', DateType::class, [
+            ->add('startDate', DateTimeType::class, [
                 'html5' => true,
                 'widget' => 'single_text',
-                'label' => 'Date et heure de la sortie'
+                'label' => 'Date et heure de la sortie',
             ])
             ->add('duration', TimeType::class, [
                 'label' => 'Durée',
@@ -50,14 +51,17 @@ class CreateSortieType extends AbstractType
             ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
-'choice_label' => 'id',
+                'choice_label' => 'name',
+
             ])
 
-            ->add('lieu', EntityType::class, [
-                'class' => Lieu::class,
-'choice_label' => 'id',
-            ])
-        ;
+            ->add('ville', EntityType::class, [
+                'class' => Ville::class,
+                'label' => 'nom',
+            ]);
+
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
