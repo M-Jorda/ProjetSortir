@@ -43,7 +43,7 @@ class AdminController extends AbstractController
            $em->flush();
 
            $this->addFlash('success', 'Utilisateur ajouté');
-           return $this->redirectToRoute( 'user_profile', ['id' => $user->getId()]);
+           return $this->redirectToRoute( 'user_detail', ['id' => $user->getId()]);
        }
 
        return $this->render('admin/addUser.html.twig', [

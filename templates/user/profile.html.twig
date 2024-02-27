@@ -3,5 +3,21 @@
 {% block title %}{% endblock %}
 
 {% block body %}
+    <article>
+        <div>
+            <img src="" alt="">
+        </div>
+        <div>
+            <h1>Mon profil</h1>
+            {{ form_start(userForm) }}
+            {{ form_widget(userForm) }}
+            <button type="submit">Enregistrer</button>
+            <a href="{{ path('main_home') }}">Annuler</a>
+            {{ form_end(userForm) }}
 
+            <a href="{{ path('app_user_editpassword', {'id': app.user.id}) }}">Modifier le mot de passe</a>
+        </div>
+        <div>
+        </div>
+    </article>
 {% endblock %}
