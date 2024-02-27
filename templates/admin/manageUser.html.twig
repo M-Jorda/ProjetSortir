@@ -3,5 +3,52 @@
 {% block title %}Gérer les utilisateurs{% endblock %}
 
 {% block body %}
-    <article><h1>Hello world</h1></article>
+    <article class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <h1>Gérer les utilisateurs</h1>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <h2>Filtrer les utilisateurs</h2>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="search">Le nom contient:</label>
+                    <input type="text" id="search" name="search" value="&#xf002;" class="form-control fas fa-search rounded-end">
+                    <button class="btn btn-primary" type="button">Rechercher</button>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Email</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Téléphone</th>
+                        <th scope="col">Campus</th>
+                        <th scope="col">Date d'ajout</th>
+                        <th scope="col">Dernière modification</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.lastname }}</td>
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.phoneNumber }}</td>
+                        <td>{{ user.campus.name }}</td>
+                        <td>{{ user.createdDate | date('d/m/y H:i') }}</td>
+                        <td>{{ user.updatedDate | date('d/m/y H:i') }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </article>
+
 {% endblock %}

@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\AddUserType;
 use App\Form\RegistrationFormType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,8 +15,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class AdminController extends AbstractController
 {
     #[Route('/manage', name: 'manage')]
-    public function manageUser() {
-        return $this->render('admin/manageUser.html.twig');
+    public function manageUser(UserRepository $userRepo) {
+        $users = $userRepo->findAll();
+
+        return $this->render('admin/manageUser.html.twig', [
+            "users" => $users
+        ]);
     }
 
     #[Route('/add', name: 'add')]
@@ -59,6 +63,11 @@ class AdminController extends AbstractController
     #[Route('/block', name: 'block')]
     public function blockUser() {
         return $this->render('admin/blockUser.html.twig');
+    }
+
+    #[Route('/', name: 'panel')]
+    public function adminPanel() {
+        return $this->render('admin/panel.html.twig');
     }
 
 }
