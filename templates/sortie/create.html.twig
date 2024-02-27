@@ -6,20 +6,42 @@
 
 {% block body %}
 
-    <div>
+    <div class="container">
         <h2>Créer une sortie</h2>
 
-        {{ form_start(createForm) }}
+        {{ form_start(createForm, {'attr': {'class': 'mt-4'}}) }}
 
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(createForm.sortie.name, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(createForm.sortie.startDate, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(createForm.sortie.limiteDateInscription, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(createForm.sortie.maxInscriptionsNumber, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(createForm.sortie.duration, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(createForm.sortie.infosSortie, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(createForm.sortie.campus, {'attr': {'class': 'form-control mb-3'}}) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(createForm.ville.name, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(createForm.ville.ZipCode, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(createForm.lieu.name, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(createForm.lieu.street, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(createForm.lieu.latitude, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(createForm.lieu.longitude, {'attr': {'class': 'form-control mb-3'}}) }}
+            </div>
+        </div>
 
-        {{ form_widget(createForm) }}
-
-        <button>Enregistrer</button>
-        <button>Publier la sortie</button>
-        <button>Annuler</button>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <button type="submit" class="btn btn-success">Publier la sortie</button>
+                <a href="#" class="btn btn-danger">Annuler</a>
+            </div>
+        </div>
 
         {{ form_end(createForm) }}
 
     </div>
+
 {% endblock %}
 

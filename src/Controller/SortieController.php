@@ -25,27 +25,14 @@ class SortieController extends AbstractController
         $ville = new Ville();
         $lieu = new Lieu();
 
-        $createForm = $this->createFormBuilder()
-            ->add('sortie', CreateSortieType::class, [
-                'data' => $sortie,
-                'label' => ' ',
-            ])
-            ->add('ville', SortieVilleType::class, [
-                'data' => $ville,
-                'label' => ' ',
-            ])
-            ->add('lieu', SortieLieuType::class, [
-                'data' => $lieu,
-                'label' => ' ',
-            ])
-            ->getForm();
-
-        $createForm->handleRequest($request);
+        $createForm = $this->createForm(\App\Form\CreateSortie\CreateSortieType::class, [$sortie, $ville, $lieu])
+            ->handleRequest($request);
 
         if ($createForm->isSubmitted() && $createForm->isValid()) {
-            $em->persist($sortie);
-            $em->persist($ville);
-            $em->persist($lieu);
+            $data = $createForm->getData();
+            $em->persist($data['sortie']);
+            $em->persist($data['lieu']);
+            $em->persist($data['ville']);
             $em->flush();
 
             $this->addFlash('success', 'Sortie créée');
