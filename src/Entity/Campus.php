@@ -16,7 +16,7 @@ class Campus
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $name = null;
+    private ?string $name;
 
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'campus')]
     private Collection $user;
