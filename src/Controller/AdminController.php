@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use App\Entity\User;
+use App\Entity\Ville;
+use App\Form\admin\AddCampusType;
+use App\Form\admin\AddCityType;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -68,6 +72,46 @@ class AdminController extends AbstractController
     #[Route('/', name: 'panel')]
     public function adminPanel() {
         return $this->render('admin/panel.html.twig');
+    }
+
+    #[Route('/ajouterVille', name: 'addCity')]
+    public function addCity(Request $request, EntityManagerInterface $em) {
+        $ville = new Ville();
+
+        $villeForm = $this->createForm(AddCityType::class, $ville)
+            ->handleRequest($request);
+
+        if ($villeForm->isSubmitted() && $villeForm->isValid()) {
+            $em->persist($ville);
+            $em->flush();
+
+            $this->addFlash('Success', 'Ville ajoutée');
+            return $this->redirectToRoute('admin_panel');
+        }
+
+        return $this->render('admin/addCity.html.twig', [
+            'villeForm' => $villeForm
+        ]);
+    }
+
+    #[Route('/ajouterCampus', name: 'addCampus')]
+    public function addCampus(Request $request, EntityManagerInterface $em) {
+        $campus = new Campus();
+
+        $campusForm = $this->createForm(AddCampusType::class, $campus)
+            ->handleRequest($request);
+
+        if ($campusForm->isSubmitted() && $campusForm->isValid()) {
+            $em->persist($campus);
+            $em->flush();
+
+            $this->addFlash('success', 'Campus ajouté');
+            return $this->redirectToRoute('admin_panel');
+        }
+
+        return $this->render('admin/addCampus.html.twig', [
+            'campusForm' => $campusForm
+        ]);
     }
 
 }
