@@ -74,9 +74,24 @@ class SortieController extends AbstractController
     }
 
     #[Route('/sortie/modify', name: 'app_sortie_modify')]
-    public function modify(): Response
+    public function modify(EntityManagerInterface $em, Request $request): Response
     {
-        return $this->render('sortie/modify.html.twig');
+        $sortie = new Sortie();
+        $form = $this->createForm(CreateSortieType::class, $sortie);
+
+        $form->handleRequest($request);
+
+        if ($form -> isSubmitted()&&$form -> isValid()){
+            $em->persist($sortie);
+
+            $em->flush();
+
+            return $this->redirectToRoute('app_main_home');
+
+        }
+        return $this->render('sortie/modify.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     #[Route('/sortie/delete', name: 'app_sortie_delete')]
