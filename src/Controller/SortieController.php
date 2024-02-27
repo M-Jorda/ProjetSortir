@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Sortie;
+use App\Form\CreateSortieType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -11,7 +13,12 @@ class SortieController extends AbstractController
     #[Route('/sortie/create', name: 'app_sortie_create')]
     public function create(): Response
     {
-        return $this->render('sortie/create.html.twig');
+        $sortie = new Sortie();
+        $createForm = $this->createForm(CreateSortieType::class, $sortie);
+        return $this->render('sortie/create.html.twig', [
+            "createForm" => $createForm->createView()
+    ]);
+
     }
 
     #[Route('/sortie/folder/{id}', name: 'app_sortie_folder')]

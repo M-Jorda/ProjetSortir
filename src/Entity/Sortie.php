@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use Composer\Semver\Interval;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\PseudoTypes\IntegerRange;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
@@ -105,9 +108,9 @@ class Sortie
         return $this;
     }
 
-    public function getDuration(): ?string
+    public function getDuration(): ?interval
     {
-        return $this->duration;
+        return null;
     }
 
     public function setDuration(string $duration): static
