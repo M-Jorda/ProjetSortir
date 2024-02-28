@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Entity\Ville;
 use App\Entity\Lieu;
@@ -24,6 +25,9 @@ class SortieController extends AbstractController
         $sortie = new Sortie();
         $ville = new Ville();
         $lieu = new Lieu();
+        $etat = new Etat();
+        $sortie->setState('En création');
+        $sortie->setEtat($etat->setLibelle(1));
 
         $createForm = $this->createForm(\App\Form\CreateSortie\CreateSortieType::class, [$sortie, $ville, $lieu])
             ->handleRequest($request);

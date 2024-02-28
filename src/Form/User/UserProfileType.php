@@ -26,7 +26,7 @@ class UserProfileType extends AbstractType
 //                'label' => 'Photo de profil (Image file)',
 //                'required' => false,
 //            ])
-            ->add('pictureName', TextType::class, [
+            ->add('pictureName', FileType::class, [
                 'required' => false
             ])
         ;
