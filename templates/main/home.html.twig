@@ -40,7 +40,7 @@
                 <td>{{ sortie.maxInscriptionsNumber}}</td>
                 <td>{{ sortie.etat.libelle}}</td>
                 <td>Doit afficher avec une croix si l'utilisateur est inscrit</td>
-                <td>{{ sortie.organisateur.firstName}}</td>
+                <td><a href="{{ path('app_user_participant',{'id':sortie.organisateur.id}) }}">{{ sortie.organisateur.firstName}}</a> </td>
                 <td>Afficher/Modifier/Se désister</td>
             </tr>
         {% endfor %}
