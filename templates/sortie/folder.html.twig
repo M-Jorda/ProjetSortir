@@ -17,17 +17,17 @@
     <table>
         <thead>
         <tr>
+            <th>Pseudo</th>
             <th>Nom</th>
-            <th>Prénom</th>
 
         </tr>
         </thead>
         <tbody>
         {% for participant in participants %}
             <tr>
-{#                <td><a href="{{ path('user_participant', {'id': participant.id}) }}">{{ pseudo }}</td>#}
-                <td>{{ participant.lastname }}</td>
-                <td>{{ participant.firstName }}</td>
+                <td><a href="{{ path('app_user_participant', {'id': participant.id}) }}">{{ participant.pseudo }}</td>
+                <td>{{ participant.firstname }} {{ participant.lastname }}</td>
+
             </tr>
         {% endfor %}
         </tbody>
