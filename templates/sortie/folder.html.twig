@@ -8,7 +8,6 @@
         <p>Durée :{{ sortie.duration }}</p>
         <p>Date limite d'inscription :{{ sortie.limiteDateInscription | date('d/m/y')}}</p>
         <p>Nombre de place :{{ sortie.maxInscriptionsNumber }}</p>
-        <p>State :{{ sortie.state }}</p>
         <p>Campus :{{ sortie.campus.name }}</p>
         <p>Lieu :{{ sortie.lieu.name }}</p>
         <p>Latitude :{{ sortie.lieu.latitude }}</p>
@@ -26,7 +25,7 @@
         <tbody>
         {% for participant in participants %}
             <tr>
-                <td><a href="{{ path('user_participant', {'id': participant.id}) }}">{{ pseudo }}</td>
+{#                <td><a href="{{ path('user_participant', {'id': participant.id}) }}">{{ pseudo }}</td>#}
                 <td>{{ participant.lastname }}</td>
                 <td>{{ participant.firstName }}</td>
             </tr>

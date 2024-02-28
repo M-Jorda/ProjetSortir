@@ -40,8 +40,6 @@ class Sortie
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $infosSortie = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $state = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'sorties')]
     private Collection $participant;
@@ -62,9 +60,7 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?Lieu $lieu = null;
 
-    #[ORM\ManyToOne(inversedBy: 'sortie')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Ville $ville = null;
+
 
 
     public function __construct()
@@ -161,17 +157,7 @@ class Sortie
         return $this;
     }
 
-    public function getState(): ?string
-    {
-        return $this->state;
-    }
 
-    public function setState(string $state): static
-    {
-        $this->state = $state;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, User>
@@ -245,17 +231,7 @@ class Sortie
         return $this;
     }
 
-    public function getVille(): ?Ville
-    {
-        return $this->ville;
-    }
 
-    public function setVille(?Ville $ville): static
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
 
 
 
