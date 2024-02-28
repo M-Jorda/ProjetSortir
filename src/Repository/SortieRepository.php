@@ -21,6 +21,34 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+
+    public function findByNameAndDate($name, $filterDate, $filterDateMax)
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        // Filtrer par nom (optionnel)
+        if ($name) {
+            $queryBuilder->andWhere('s.name LIKE :name');
+            $queryBuilder->setParameter('name', '%' . $name . '%');
+        }
+
+        // Filtrer par date (si fournie)
+        if ($filterDate) {
+            $queryBuilder->andWhere('s.startDate >= :filterDate');
+            $queryBuilder->setParameter('filterDate', $filterDate);
+        }
+        if ($filterDateMax) {
+            $queryBuilder->andWhere('s.startDate <= :filterDateMax');
+            $queryBuilder->setParameter('filterDateMax', $filterDateMax);
+        }
+
+        $query = $queryBuilder->getQuery();
+        $results = $query->getResult();
+        return $results;
+    }
+
+
+
+
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects
 //     */
