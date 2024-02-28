@@ -13,7 +13,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class UserController extends AbstractController {
-    #[Route('/detail/{id}', name: 'user_detail')]
+    #[Route('/detail/{id}', name: 'user_detail', requirements: ['id' => '\d+'], methods : ['POST'])]
     public function detail(
         int $id,
         UserRepository $userRepo,
@@ -41,7 +41,7 @@ class UserController extends AbstractController {
         ]);
     }
 
-    #[Route('/detail/editPassword/{id}')]
+    #[Route('/detail/editPassword/{id}', requirements: ['id' => '\d+'], methods : ['POST'])]
     public function editPassword(
         int $id,
         UserRepository $userRepo,

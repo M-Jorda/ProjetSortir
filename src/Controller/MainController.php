@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MainController extends AbstractController
 {
-    #[Route('/', name: 'main_home', methods: ['GET'])]
+    #[Route('/', name: 'main_home', methods: ['GET','POST'])]
     public function home(Request $request, SortieRepository $sortieRepository)
     {
         $sortieDTO = new SortieDTO();

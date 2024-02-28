@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/admin', name: 'admin_')]
 class AdminController extends AbstractController
 {
-    #[Route('/manage', name: 'manage')]
+    #[Route('/manage', name: 'manage', methods: ['GET'])]
     public function manageUser(UserRepository $userRepo) {
         $users = $userRepo->findAll();
 
@@ -27,7 +27,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/add', name: 'add')]
+    #[Route('/add', name: 'add', methods: ['POST'])]
     public function addUser(
         UserPasswordHasherInterface $userPasswordHasher,
         Request $request,
@@ -59,22 +59,22 @@ class AdminController extends AbstractController
        ]);
     }
 
-    #[Route('/delete', name: 'delete')]
+    #[Route('/delete', name: 'delete', methods: ['GET','POST'])]
     public function deleteUser() {
         return $this->render('admin/deleteUser.html.twig');
     }
 
-    #[Route('/block', name: 'block')]
+    #[Route('/block', name: 'block', methods: ['POST'])]
     public function blockUser() {
         return $this->render('admin/blockUser.html.twig');
     }
 
-    #[Route('/', name: 'panel')]
+    #[Route('/', name: 'panel', methods: ['GET','POST'])]
     public function adminPanel() {
         return $this->render('admin/panel.html.twig');
     }
 
-    #[Route('/ajouterVille', name: 'addCity')]
+    #[Route('/ajouterVille', name: 'addCity', methods: ['GET','POST'])]
     public function addCity(Request $request, EntityManagerInterface $em) {
         $ville = new Ville();
 
@@ -94,7 +94,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/ajouterCampus', name: 'addCampus')]
+    #[Route('/ajouterCampus', name: 'addCampus', methods: ['GET','POST'])]
     public function addCampus(Request $request, EntityManagerInterface $em) {
         $campus = new Campus();
 
