@@ -19,7 +19,7 @@ class DeleteSortieFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('motif', TextType::class, [
+            ->add('motif_delete', TextType::class, [
                 'label' => 'Motif de la suppression',
 
             ]);
@@ -28,7 +28,7 @@ class DeleteSortieFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Sortie::class,
+            'data_class' =>Etat ::class,
         ]);
     }
 }

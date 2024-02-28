@@ -18,6 +18,10 @@ class Etat
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
+    #[ORM\Column(length: 255, nullable: true )]
+    private ?string $motifDelete = null;
+
+
     #[ORM\OneToMany(targetEntity: Sortie::class, mappedBy: 'etat')]
     private Collection $sortie;
 
@@ -41,6 +45,19 @@ class Etat
         $this->libelle = $libelle;
 
         return $this;
+    }
+    public function setMotifDelete($motifDelete): static{
+        $this->motifDelete = $motifDelete;
+        return $this;
+
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMotifDelete(): ?string
+    {
+        return $this->motifDelete;
     }
 
     /**

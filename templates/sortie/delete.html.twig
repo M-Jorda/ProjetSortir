@@ -7,10 +7,10 @@ Annuler une sortie
 {% block body %}
 <h1>Annuler  une sortie</h1>
 
-<p>Nom de la sortie : </p>
-<p>Date de la sortie: </p>
-<p>Campus: </p>
-<p>Lieu: </p>
+    <p>Nom de la sortie :{{ sortie.name }}</p>
+    <p>Date et heure de la sortie :{{ sortie.startDate | date('d/m/y H:i') }}</p>
+    <p>Campus :{{ sortie.campus.name }}</p>
+    <p>Lieu :{{ sortie.lieu.name }}</p>
 
 
     {{ form_start(deleteForm) }}

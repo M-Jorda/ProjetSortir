@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Entity\Ville;
@@ -22,11 +23,7 @@ class SortieController extends AbstractController
 {
 
 
-    private $entityManager;
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
+
 
     #[Route('/sortie/create', name: 'app_sortie_create')]
     public function create(EntityManagerInterface $em, Request $request): Response
@@ -106,19 +103,20 @@ class SortieController extends AbstractController
     #[Route('/sortie/delete/{id}', name: 'app_sortie_delete')]
     public function delete(Sortie $sortie,Request $request, EntityManagerInterface $entityManager): Response
     {
-        $form=$this->createForm(DeleteSortieFormType::class);
-
+        $etat = new Etat();
+        $form=$this->createForm(DeleteSortieFormType::class, $etat);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
 
-            $this->entityManager->remove($sortie);
-            $this->entityManager->flush();
+            $entityManager->remove($sortie);
+            $entityManager->flush();
             $this->addFlash('success', 'Votre sortie a bien été supprimée');
-            return $this->redirectToRoute('app_main_home');
+            return $this->redirectToRoute('main_home');
 
         }
         return $this->render('sortie/delete.html.twig', [
             'deleteForm' => $form->createView(),
+            'sortie'=>$sortie
         ]);
     }
 
