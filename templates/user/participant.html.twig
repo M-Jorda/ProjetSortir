@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}  {% endblock %}
+
+{%  block body %}
+
+    <div>
+        <img src="" alt="">
+    </div>
+
+    <h2>{{ participant.pseudo }}</h2>
+
+    <div> Prénom : {{ participant.firstName }} </div>
+    <div> Nom : {{ participant.lastName }} </div>
+    <div> Téléphone : {{ participant.phoneNumber }} </div>
+    <div> Email : {{ participant.email }} </div>
+    <div> Campus : {{ participant.campus.name }} </div>
+
+    <a href="{{ path('app_sortie_folder') }}">Retour</a>
+
+{%  endblock %}
+

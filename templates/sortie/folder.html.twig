@@ -26,6 +26,7 @@
         <tbody>
         {% for participant in participants %}
             <tr>
+                <td><a href="{{ path('user_participant', {'id': participant.id}) }}">{{ pseudo }}</td>
                 <td>{{ participant.lastname }}</td>
                 <td>{{ participant.firstName }}</td>
             </tr>
