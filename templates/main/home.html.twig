@@ -4,4 +4,60 @@
 
 {% block body %}
     <article><h1>Hello world</h1></article>
+
+
+
+{#    <form method="get">#}
+{#        <div>#}
+{#        <label for="name">Rechercher par nom :</label>#}
+{#        <input type="text" name="name" id="name" value="{{ searchName }}">#}
+{#        </div>#}
+{#        <div>#}
+{#        <label for="filterDate">Filtrer par date min :</label>#}
+{#        <input type="date" name="filterDate" id="filterDate" value="{{ dateMin }}">#}
+{#        </div>#}
+{#        <div>#}
+{#        <label for="filterDateMax">Filtrer par date max :</label>#}
+{#        <input type="date" name="filterDateMax" id="filterDateMax" value="{{ dateMax }}">#}
+{#        </div>#}
+{#        <button type="submit">Rechercher</button>#}
+{#    </form>#}
+
+
+
+    <h2>Sortie :</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Nom de la sortie</th>
+            <th>Date de la sortie</th>
+            <th>Clôture</th>
+            <th>inscrits/places</th>
+            <th>Etat</th>
+            <th>Inscrit</th>
+            <th>Organisateur</th>
+            <th>Actions</th>
+
+            <th> </th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for sortie in sorties %}
+
+            <tr>
+                <td>{{ sortie.name }}</td>
+                <td>{{ sortie.startDate | date('d/m/y') }}</td>
+                <td>{{ sortie.limiteDateInscription | date('d/m/y')}}</td>
+                <td>{{ sortie.maxInscriptionsNumber}}</td>
+                <td>{{ sortie.etat.libelle}}</td>
+                <td>Doit afficher avec une croix si l'utilisateur est inscrit</td>
+                <td>{{ sortie.organisateur.firstName}}</td>
+                <td>Afficher/Modifier/Se désister</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
 {% endblock %}
