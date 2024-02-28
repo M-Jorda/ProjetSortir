@@ -6,9 +6,10 @@ use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Entity\Ville;
 use App\Entity\Lieu;
-use App\Form\CreateSortieType;
+use App\Form\CreateSortie\CreateSortieType;
 use App\Form\SortieVilleType;
 use App\Form\SortieLieuType;
+use App\Form\DeleteSortieFormType;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,7 +27,7 @@ class SortieController extends AbstractController
         $ville = new Ville();
         $lieu = new Lieu();
         $etat = new Etat();
-        $sortie->setState('En création');
+
         $sortie->setEtat($etat->setLibelle(1));
 
         $createForm = $this->createForm(\App\Form\CreateSortie\CreateSortieType::class, [$sortie, $ville, $lieu])
@@ -68,7 +69,7 @@ class SortieController extends AbstractController
     public function modify(EntityManagerInterface $em, Request $request): Response
     {
         $sortie = new Sortie();
-        $createForm = $this->createForm(CreateSortieType::class, $sortie);
+        $createForm = $this->createForm(\App\Form\CreateSortie\CreateSortieType::class, $sortie);
 
         $createForm->handleRequest($request);
 
@@ -87,7 +88,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/sortie/delete', name: 'app_sortie_delete')]
-    public function delete(): Response
+    public function delete(Request $request): Response
     {
         return $this->render('sortie/delete.html.twig');
     }
