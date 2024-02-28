@@ -6,16 +6,10 @@ use DateTime;
 
 class SortieDTO
 {
-    private ?string $name = null ;
+    private ?string $name = null;
     private ?DateTime $filterDate = null;
     private ?DateTime $filterDateMax = null;
 
-    public function __construct(?string $name = null, ?DateTime $filterDate = null, ?DateTime $filterDateMax = null)
-    {
-        $this->name = $name;
-        $this->filterDate = $filterDate;
-        $this->filterDateMax = $filterDateMax;
-    }
 
     public function getName(): string
     {

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\DTO\SortieDTO;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -22,23 +23,26 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
-    public function findByNameAndDate( array $data,$name, $filterDate, $filterDateMax)
+    public function findByNameAndDate( SortieDTO $data)
     {
+
         $queryBuilder = $this->createQueryBuilder('s');
+
         // Filtrer par nom (optionnel)
-        if (isset($data['name']) && $data['name']) {
+        if ($data->getName()) {
             $queryBuilder->andWhere('s.name LIKE :name');
-            $queryBuilder->setParameter('name', '%' . $name . '%');
+            $queryBuilder->setParameter('name', '%' . $data->getName() . '%');
+
         }
 
         // Filtrer par date (si fournie)
-        if (isset($data['filterDate']) && $data['filterDate']) {
+        if ($data->getFilterDate()) {
             $queryBuilder->andWhere('s.startDate >= :filterDate');
-            $queryBuilder->setParameter('filterDate', $filterDate);
+            $queryBuilder->setParameter('filterDate', $data->getFilterDate());
         }
-        if (isset($data['filterDateMax']) && $data['filterDateMax']) {
+        if ($data->getFilterDateMax()) {
             $queryBuilder->andWhere('s.startDate <= :filterDateMax');
-            $queryBuilder->setParameter('filterDateMax', $filterDateMax);
+            $queryBuilder->setParameter('filterDateMax', $data->getFilterDateMax());
         }
 
         $query = $queryBuilder->getQuery();

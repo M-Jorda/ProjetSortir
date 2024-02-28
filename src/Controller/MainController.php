@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MainController extends AbstractController
 {
-    #[Route('/', name: 'main_home', methods: ['GET','POST'])]
+    #[Route('/', name: 'main_home', methods: ['POST','GET'])]
     public function home(Request $request, SortieRepository $sortieRepository)
     {
         $sortieDTO = new SortieDTO();
@@ -24,14 +24,11 @@ class MainController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $data= $form->getData();
-            // Récupérer les données du formulaire
-            $name = $data->getName();
-            $filterDate = $data->getFilterDate();
-            $filterDateMax = $data->getFilterDateMax();
+
+
 
             // Utiliser la méthode du repository pour filtrer et trier les sorties
-            $sorties = $sortieRepository->findByNameAndDate($data,$name, $filterDate, $filterDateMax);
+            $sorties = $sortieRepository->findByNameAndDate($form->getData());
 
         }
 
