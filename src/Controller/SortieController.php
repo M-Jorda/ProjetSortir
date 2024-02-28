@@ -64,11 +64,11 @@ class SortieController extends AbstractController
     public function modify(EntityManagerInterface $em, Request $request): Response
     {
         $sortie = new Sortie();
-        $form = $this->createForm(CreateSortieType::class, $sortie);
+        $createForm = $this->createForm(CreateSortieType::class, $sortie);
 
-        $form->handleRequest($request);
+        $createForm->handleRequest($request);
 
-        if ($form -> isSubmitted()&&$form -> isValid()){
+        if ($createForm -> isSubmitted()&&$createForm -> isValid()){
             $em->persist($sortie);
 
             $em->flush();
@@ -76,8 +76,9 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('app_main_home');
 
         }
+
         return $this->render('sortie/modify.html.twig', [
-            'form' => $form->createView(),
+            "createForm" => $createForm->createView(),
         ]);
     }
 
