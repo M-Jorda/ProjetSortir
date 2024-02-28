@@ -20,6 +20,14 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SortieController extends AbstractController
 {
+
+
+    private $entityManager;
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/sortie/create', name: 'app_sortie_create')]
     public function create(EntityManagerInterface $em, Request $request): Response
     {
@@ -69,17 +77,24 @@ class SortieController extends AbstractController
     public function modify(EntityManagerInterface $em, Request $request): Response
     {
         $sortie = new Sortie();
-        $createForm = $this->createForm(\App\Form\CreateSortie\CreateSortieType::class, $sortie);
+        $ville = new Ville();
+        $lieu = new Lieu();
+        $etat = new Etat();
 
-        $createForm->handleRequest($request);
+        $sortie->setEtat($etat->setLibelle(1));
 
-        if ($createForm -> isSubmitted()&&$createForm -> isValid()){
-            $em->persist($sortie);
+        $createForm = $this->createForm(\App\Form\CreateSortie\CreateSortieType::class, [$sortie, $ville, $lieu])
+            ->handleRequest($request);
 
+        if ($createForm->isSubmitted() && $createForm->isValid()) {
+            $data = $createForm->getData();
+            $em->persist($data['sortie']);
+            $em->persist($data['lieu']);
+            $em->persist($data['ville']);
             $em->flush();
 
-            return $this->redirectToRoute('app_main_home');
-
+            $this->addFlash('success', 'Sortie modifié');
+            return $this->redirectToRoute('main_home');
         }
 
         return $this->render('sortie/modify.html.twig', [
@@ -87,9 +102,28 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/sortie/delete', name: 'app_sortie_delete')]
-    public function delete(Request $request): Response
+
+    #[Route('/sortie/delete/{id}', name: 'app_sortie_delete')]
+    public function delete(Sortie $sortie,Request $request, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('sortie/delete.html.twig');
+        $form=$this->createForm(DeleteSortieFormType::class);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+
+            $this->entityManager->remove($sortie);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Votre sortie a bien été supprimée');
+            return $this->redirectToRoute('app_main_home');
+
+        }
+        return $this->render('sortie/delete.html.twig', [
+            'deleteForm' => $form->createView(),
+        ]);
     }
+
+
+
+    
 }
+

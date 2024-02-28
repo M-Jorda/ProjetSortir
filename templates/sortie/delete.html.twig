@@ -13,9 +13,16 @@ Annuler une sortie
 <p>Lieu: </p>
 
 
-{{ form_start(form) }}
-    <button type ="submit" class ="btn btn-danger">Confirmer la supression</button>
-    {{ form_end(form) }}
+    {{ form_start(deleteForm) }}
+    <div class="row">
+        <div class="col">
+            {{ form_widget(deleteForm) }}
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+            <a href="{{ path('main_home') }}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </div>
+    {{ form_end(deleteForm) }}
 
-   <a href="{{ 'main_home' }}" class="btn btn-secondary">Annuler</a>
 {% endblock %}

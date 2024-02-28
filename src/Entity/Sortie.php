@@ -10,6 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\PseudoTypes\IntegerRange;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
@@ -20,24 +21,32 @@ class Sortie
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:'Le nom de la sortie doit être indiqué ')]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message:'Merci d\'indiquer la date de la sortie ')]
     private ?\DateTimeInterface $startDate = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $modifiedDate = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:'Merci de préciser la durée de la sortie ')]
+    #[Assert\Length(max: 255)]
     private ?string $duration = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message:'Merci de renseigner une date d\'inscription')]
     private ?\DateTimeInterface $limiteDateInscription = null;
 
     #[ORM\Column]
+    #[Assert\Type(type:'integer', message: 'Le nombre de participants doit être un entier')]
+    #[Assert\NotBlank(message: 'Merci de renseigner le nombre max de participants ')]
     private ?int $maxInscriptionsNumber = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotBlank(message:'Merci de décrire votre sortie en quelques mots')]
     private ?string $infosSortie = null;
 
 
