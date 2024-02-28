@@ -45,7 +45,7 @@ class Sortie
     #[Assert\NotBlank(message: 'Merci de renseigner le nombre max de participants ')]
     private ?int $maxInscriptionsNumber = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message:'Merci de décrire votre sortie en quelques mots')]
     private ?string $infosSortie = null;
 

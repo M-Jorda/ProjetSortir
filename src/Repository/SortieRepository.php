@@ -22,21 +22,21 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
-    public function findByNameAndDate($name, $filterDate, $filterDateMax)
+    public function findByNameAndDate( array $data,$name, $filterDate, $filterDateMax)
     {
         $queryBuilder = $this->createQueryBuilder('s');
         // Filtrer par nom (optionnel)
-        if ($name) {
+        if (isset($data['name']) && $data['name']) {
             $queryBuilder->andWhere('s.name LIKE :name');
             $queryBuilder->setParameter('name', '%' . $name . '%');
         }
 
         // Filtrer par date (si fournie)
-        if ($filterDate) {
+        if (isset($data['filterDate']) && $data['filterDate']) {
             $queryBuilder->andWhere('s.startDate >= :filterDate');
             $queryBuilder->setParameter('filterDate', $filterDate);
         }
-        if ($filterDateMax) {
+        if (isset($data['filterDateMax']) && $data['filterDateMax']) {
             $queryBuilder->andWhere('s.startDate <= :filterDateMax');
             $queryBuilder->setParameter('filterDateMax', $filterDateMax);
         }

@@ -5,27 +5,14 @@
 {% block body %}
     <article><h1>Hello world</h1></article>
 
+    {{ form_start(form) }}
 
+    {{ form_widget(form) }}
 
-    <form method="get">
-        <div>
-        <label for="name">Rechercher par nom :</label>
-        <input type="text" name="name" id="name" value="{{ searchName }}">
-        </div>
-        <div>
-        <label for="filterDate">Filtrer par date min :</label>
-        <input type="date" name="filterDate" id="filterDate" value="{{ dateMin }}">
-        </div>
-        <div>
-        <label for="filterDateMax">Filtrer par date max :</label>
-        <input type="date" name="filterDateMax" id="filterDateMax" value="{{ dateMax }}">
-        </div>
-        <button type="submit">Rechercher</button>
-    </form>
+    <button type="submit">Rechercher</button>
 
-
-
-    <h2>Sortie :</h2>
+    {{ form_end(form) }}
+    <h2>Sorties : </h2>
     <table>
         <thead>
         <tr>
@@ -47,7 +34,7 @@
         {% for sortie in sorties %}
 
             <tr>
-                <td>{{ sortie.name }}</td>
+                <td><a href="{{ path('app_sortie_folder',{'id':sortie.id}) }}">{{ sortie.name }}</a>  </td>
                 <td>{{ sortie.startDate | date('d/m/y') }}</td>
                 <td>{{ sortie.limiteDateInscription | date('d/m/y')}}</td>
                 <td>{{ sortie.maxInscriptionsNumber}}</td>
@@ -60,4 +47,7 @@
 
         </tbody>
     </table>
+    {% if sorties is empty %}
+        <p>Aucune sortie n'a été trouvée avec les critères de recherche actuels.</p>
+    {% endif %}
 {% endblock %}
