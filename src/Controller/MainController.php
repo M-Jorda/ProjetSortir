@@ -7,6 +7,7 @@ use App\Entity\Campus;
 use App\Form\SortieDTOType;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
@@ -15,10 +16,11 @@ use function PHPUnit\Framework\isEmpty;
 
 class MainController extends AbstractController
 {
-    #[Route('/', name: 'main_home', methods: ['POST','GET'])]
-    public function home(Request $request, SortieRepository $sortieRepository, Security $security)
+    #[Route('/', name: 'main_home', methods: ['POST', 'GET'])]
+    public function home(Request $request, SortieRepository $sortieRepository, Security $security, EntityManagerInterface $entityManager)
     {
         $sortieDTO = new SortieDTO();
+
 
         $user = $this->getUser();
 
@@ -26,7 +28,6 @@ class MainController extends AbstractController
         $form->handleRequest($request);
 
         $sorties = $sortieRepository->findAll();
-
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -49,20 +50,13 @@ class MainController extends AbstractController
                 $campus
             );
 
-            }
-
-
-
-
+        }
         return $this->render('main/home.html.twig', [
             'sorties' => $sorties,
             'form' => $form->createView(),
-            'user'=>$user,
+            'user' => $user,
         ]);
     }
-
-
-
 
 
 }
