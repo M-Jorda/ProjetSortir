@@ -1,24 +1,25 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Utilisateur;
 
 use App\Entity\Campus;
 use App\Entity\User;
 use App\Entity\Ville;
 use App\Form\admin\AddCampusType;
 use App\Form\admin\AddCityType;
-use App\Form\RegistrationFormType;
+use App\Form\Sécurité\RegistrationFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use function Symfony\Component\Clock\now;
 
 #[Route('/admin', name: 'admin_')]
 class AdminController extends AbstractController
 {
-    #[Route('/manage', name: 'manage', methods: ['GET'])]
+    #[Route('/manage', name: 'manage', methods: ['GET', 'POST'])]
     public function manageUser(UserRepository $userRepo) {
         $users = $userRepo->findAll();
 
@@ -27,15 +28,17 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/add', name: 'add', methods: ['POST'])]
+    #[Route('/add', name: 'add', methods: ['GET', 'POST'])]
     public function addUser(
         UserPasswordHasherInterface $userPasswordHasher,
         Request $request,
         EntityManagerInterface $em
     ) {
        $user = new User();
+       $date = new \DateTime();
        $user->setRoles(["ROLE_USER"]);
        $user->setBlocked(0);
+       $user->setCreatedDate($date);
 
        $userForm = $this->createForm(RegistrationFormType::class, $user);
        $userForm->handleRequest($request);
@@ -46,12 +49,13 @@ class AdminController extends AbstractController
                    $user,
                    $userForm->get('plainPassword')->getData()
                )
-           );
+           )
+           ->setPseudo($user->getFirstName() . $date->format('Y-m-d'));
            $em->persist($user);
            $em->flush();
 
            $this->addFlash('success', 'Utilisateur ajouté');
-           return $this->redirectToRoute( 'user_detail', ['id' => $user->getId()]);
+           return $this->redirectToRoute( 'admin_manage');
        }
 
        return $this->render('admin/addUser.html.twig', [
@@ -59,14 +63,37 @@ class AdminController extends AbstractController
        ]);
     }
 
-    #[Route('/delete', name: 'delete', methods: ['GET','POST'])]
-    public function deleteUser() {
-        return $this->render('admin/deleteUser.html.twig');
+    #[Route('/delete/{id}', name: 'delete', methods: ['GET','POST'])]
+    public function deleteUser(int $id, EntityManagerInterface $em) {
+
+        $userRepo = $em->getRepository(User::class);
+        $user = $userRepo->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException('Cet utilisateur n\'existe pas');
+        } else {
+            $em->remove($user);
+            $em->flush();
+
+            $this->addFlash('succes', 'Cet utilisateur à été supprimé');
+        }
+        return $this->redirectToRoute('admin_manage');
     }
 
-    #[Route('/block', name: 'block', methods: ['POST'])]
-    public function blockUser() {
-        return $this->render('admin/blockUser.html.twig');
+    #[Route('/block/{id}', name: 'block', methods: ['GET', 'POST'])]
+    public function blockUser(int $id, EntityManagerInterface $em) {
+        $userRepo = $em->getRepository(User::class);
+        $user = $userRepo->find($id);
+        $users = $userRepo->findAll();
+
+        if (!$user) {
+            throw $this->createNotFoundException('Cet utilisateur n\'existe pas');
+        }
+
+        $user->setBlocked(!$user->isBlocked());
+        $em->flush();
+
+        return $this->redirectToRoute('admin_manage');
     }
 
     #[Route('/', name: 'panel', methods: ['GET','POST'])]
