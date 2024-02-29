@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use App\Service\SortieStateService;
 use Composer\Semver\Interval;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -256,6 +257,12 @@ class Sortie
         }
 
         return false;
+    }
+
+    public function updateEtat(SortieStateService $sortieStateService): void
+    {
+        $etat = $sortieStateService->getEtatObject($this);
+        $this->etat = $etat;
     }
 
 
