@@ -16,12 +16,13 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register', methods : ['POST'])]
+    #[Route('/register', name: 'app_register', methods : ['GET', 'POST'])]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppCustomAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $campus = new Campus();
         $campus->setName('Lyon');
+        $user->setPseudo('HelloKitty');
 
         // Check si le campus existe
         $existingCampus = $entityManager->getRepository(Campus::class)->findOneBy(['name' => 'Lyon']);
