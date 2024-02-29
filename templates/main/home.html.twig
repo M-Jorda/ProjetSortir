@@ -65,4 +65,5 @@
     {% if sorties is empty %}
         <p>Aucune sortie n'a été trouvée avec les critères de recherche actuels.</p>
     {% endif %}
+    <a href="{{ path('app_sortie_create') }}">Ajouter une sortie</a>
 {% endblock %}
