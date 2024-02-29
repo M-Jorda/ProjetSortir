@@ -7,6 +7,7 @@ use App\Entity\Campus;
 use App\Form\SortieDTOType;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
+use App\Service\SortieStateService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +18,7 @@ use function PHPUnit\Framework\isEmpty;
 class MainController extends AbstractController
 {
     #[Route('/', name: 'main_home', methods: ['POST', 'GET'])]
-    public function home(Request $request, SortieRepository $sortieRepository, Security $security, EntityManagerInterface $entityManager)
+    public function home(Request $request, SortieRepository $sortieRepository, EntityManagerInterface $entityManager,SortieStateService $sortieStateService)
     {
         $sortieDTO = new SortieDTO();
 
@@ -50,13 +51,22 @@ class MainController extends AbstractController
                 $campus
             );
 
+
         }
+        foreach ($sorties as $sortie) {
+            $sortie->updateEtat($sortieStateService);
+        }
+
+        $entityManager->flush();
         return $this->render('main/home.html.twig', [
             'sorties' => $sorties,
             'form' => $form->createView(),
             'user' => $user,
+            'sortieStateService' => $sortieStateService,
         ]);
     }
+
+
 
 
 }

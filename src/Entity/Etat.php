@@ -18,15 +18,16 @@ class Etat
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
-    #[ORM\Column(length: 255, nullable: true )]
-    private ?string $motifDelete = null;
 
+    #[ORM\OneToMany(targetEntity: Archive::class, mappedBy:'etat')]
+    private Collection $archive;
 
     #[ORM\OneToMany(targetEntity: Sortie::class, mappedBy: 'etat')]
     private Collection $sortie;
 
     public function __construct()
     {
+        $this->archive = new ArrayCollection();
         $this->sortie = new ArrayCollection();
     }
 
@@ -46,23 +47,47 @@ class Etat
 
         return $this;
     }
-    public function setMotifDelete($motifDelete): static{
-        $this->motifDelete = $motifDelete;
-        return $this;
 
-    }
 
     /**
      * @return string|null
      */
-    public function getMotifDelete(): ?string
+
+    /**
+     * @return Collection<int, Archive>
+     *
+     */
+    public function getArchive(): Collection
     {
-        return $this->motifDelete;
+        return $this->archive;
     }
 
+    public function addArchive(Archive $archive): self
+    {
+        if (!$this->archive->contains($archive)) {
+            $this->archive[] = $archive;
+            $archive->setEtat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArchive(Archive $archive): self
+    {
+        if ($this->archive->removeElement($archive)) {
+            // set the owning side to null (unless already changed)
+            if ($archive->getEtat() === $this) {
+                $archive->setEtat(null);
+            }
+        }
+
+        return $this;
+    }
     /**
      * @return Collection<int, Sortie>
      */
+
+
     public function getSortie(): Collection
     {
         return $this->sortie;

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use App\Service\SortieStateService;
 use Composer\Semver\Interval;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -69,7 +70,9 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?Lieu $lieu = null;
 
-
+    #[ORM\OneToOne(inversedBy:'sortie')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Archive $archive = null;
 
 
     public function __construct()
@@ -257,6 +260,26 @@ class Sortie
 
         return false;
     }
+
+    public function updateEtat(SortieStateService $sortieStateService): void
+    {
+        $etat = $sortieStateService->getEtatObject($this);
+        $this->etat = $etat;
+    }
+
+
+    public function getArchive(): ?Archive
+    {
+        return $this->archive;
+    }
+
+    public function setArchive(?Archive $archive): self
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
 
 
 

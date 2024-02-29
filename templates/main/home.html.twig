@@ -44,7 +44,7 @@
                 <td>{{ sortie.startDate | date('d/m/y') }}</td>
                 <td>{{ sortie.limiteDateInscription | date('d/m/y') }}</td>
                 <td>{{ sortie.participant|length }}/{{ sortie.maxInscriptionsNumber }}</td>
-                <td>{{ sortie.etat.libelle }}</td>
+                <td>{{ sortieStateService.getEtatObject(sortie).libelle }}</td>
                 <td>{% if isUserInscrit %}X{% endif %}</td>
                 <td>
                     <a href="{{ path('app_user_participant',{'id':sortie.organisateur.id}) }}">{{ sortie.organisateur.firstName }}</a>
