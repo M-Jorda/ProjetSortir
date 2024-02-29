@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Utilisateur;
 
-use App\Form\ChangePasswordFormType;
 use App\Form\User\EditPasswordType;
 use App\Form\User\UserProfileType;
 use App\Repository\UserRepository;
@@ -13,7 +12,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class UserController extends AbstractController {
-    #[Route('/detail/{id}', name: 'user_detail', requirements: ['id' => '\d+'], methods : ['POST'])]
+    #[Route('/detail/{id}', name: 'user_detail', requirements: ['id' => '\d+'], methods : ['GET', 'POST'])]
     public function detail(
         int $id,
         UserRepository $userRepo,

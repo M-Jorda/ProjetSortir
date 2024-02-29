@@ -50,10 +50,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $Blocked = null;
 
-    #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'participant')]
+    #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'participant', cascade: ["remove"])]
     private Collection $sorties;
 
-    #[ORM\OneToMany(targetEntity: Sortie::class, mappedBy: 'organisateur')]
+    #[ORM\OneToMany(targetEntity: Sortie::class, mappedBy: 'organisateur', cascade: ["remove"])]
     private Collection $sortiesOrganized;
 
     #[ORM\ManyToOne(inversedBy: 'user')]
