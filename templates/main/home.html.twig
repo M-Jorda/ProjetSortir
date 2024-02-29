@@ -25,7 +25,7 @@
             <th>Organisateur</th>
             <th>Actions</th>
 
-            <th> </th>
+            <th></th>
 
         </tr>
         </thead>
@@ -40,14 +40,23 @@
             {% endfor %}
 
             <tr>
-                <td><a href="{{ path('app_sortie_folder',{'id':sortie.id}) }}">{{ sortie.name }}</a>  </td>
+                <td>{{ sortie.name }}  </td>
                 <td>{{ sortie.startDate | date('d/m/y') }}</td>
-                <td>{{ sortie.limiteDateInscription | date('d/m/y')}}</td>
-                <td>{{ sortie.maxInscriptionsNumber}}</td>
-                <td>{{ sortie.etat.libelle}}</td>
+                <td>{{ sortie.limiteDateInscription | date('d/m/y') }}</td>
+                <td>{{ sortie.participant|length }}/{{ sortie.maxInscriptionsNumber }}</td>
+                <td>{{ sortie.etat.libelle }}</td>
                 <td>{% if isUserInscrit %}X{% endif %}</td>
-                <td><a href="{{ path('app_user_participant',{'id':sortie.organisateur.id}) }}">{{ sortie.organisateur.firstName}}</a> </td>
-                <td>Afficher/Modifier/Se désister</td>
+                <td>
+                    <a href="{{ path('app_user_participant',{'id':sortie.organisateur.id}) }}">{{ sortie.organisateur.firstName }}</a>
+                </td>
+                <td><a href="{{ path('app_sortie_folder',{'id':sortie.id}) }}">Afficher</a>
+                    {% if isUserInscrit %}
+                        <a href="{{ path('app_sortie_unsubscribe', {'id': sortie.id}) }}"> - Se désister</a>
+                    {% else %}
+                        {% if app.user and sortie.maxInscriptionsNumber > sortie.participant|length and app.user not in sortie.participant %}
+                            <a href="{{ path('app_sortie_subscribe', {'id': sortie.id}) }}"> - S'inscrire</a>
+                        {% endif %}
+                    {% endif %}</td>
             </tr>
         {% endfor %}
 

@@ -242,6 +242,25 @@ class Sortie
 
 
 
+    public function isFull(): bool
+    {
+        return count($this->participant) >= $this->maxInscriptionsNumber;
+    }
+
+    public function hasUserSubscribed(User $user): bool
+    {
+        foreach ($this->participant as $participant) {
+            if ($participant === $user) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+
+
 
 
 }

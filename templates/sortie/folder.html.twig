@@ -35,6 +35,16 @@
 
 
 
+
+
+    {% if app.user and sortie.maxInscriptionsNumber == participants|length and app.user not in sortie.participant %}
+        <form action="{{ path('app_sortie_folder', {'id': sortie.id}) }}" method="POST">
+            <button type="submit" class="btn btn-primary">S'inscrire à la sortie</button>
+        </form>
+    {% endif %}
+
+
+
 {% endblock %}
 
 {% block title %}
