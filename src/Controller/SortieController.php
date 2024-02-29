@@ -14,6 +14,7 @@ use App\Form\DeleteSortieFormType;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,8 +58,14 @@ class SortieController extends AbstractController
 
 
     #[Route('/sortie/folder/{id}', name: 'app_sortie_folder')]
-    public function folder(int $id, SortieRepository $sortieRepository, UserRepository $userRepository): Response
+    public function folder(int $id, SortieRepository $sortieRepository, Request $request, Sortie $sortieAjout): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+
         $sortie = $sortieRepository->find($id);
         if (!$sortie) {
             throw $this->createNotFoundException('Dommage');
