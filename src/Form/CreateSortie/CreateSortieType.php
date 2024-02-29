@@ -11,9 +11,15 @@ class CreateSortieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('sortie', SortieType::class)
-            ->add('lieu', LieuType::class)
-            ->add('ville', VilleType::class)
+            ->add('sortie', SortieType::class, [
+                'label' => false,
+            ])
+            ->add('lieu', LieuType::class, [
+                'label' => false,
+            ])
+            ->add('ville', VilleType::class, [
+                'label' => false,
+            ])
             ->getForm()
         ;
     }

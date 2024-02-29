@@ -8,13 +8,11 @@ use App\Entity\Sortie;
 use App\Entity\Ville;
 use App\Entity\Lieu;
 use App\Form\CreateSortie\CreateSortieType;
+use App\Form\CreateSortie\SortieType;
 use App\Form\SortieVilleType;
-use App\Form\SortieLieuType;
 use App\Form\DeleteSortieFormType;
 use App\Repository\SortieRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,20 +28,19 @@ class SortieController extends AbstractController
     public function create(EntityManagerInterface $em, Request $request): Response
     {
         $sortie = new Sortie();
-        $ville = new Ville();
-        $lieu = new Lieu();
-        $etat = new Etat();
+        $etat = $em->getRepository(Etat::class)->find(1);
 
-        $sortie->setEtat($etat->setLibelle(1));
+        $sortie->setEtat($etat);
+        $sortie->setOrganisateur($this->getUser());
 
-        $createForm = $this->createForm(\App\Form\CreateSortie\CreateSortieType::class, [$sortie, $ville, $lieu])
-            ->handleRequest($request);
+        $createsortieForm = $this->createForm(CreateSortieType::class, [
+            'sortie' => $sortie
+        ])
+        ->handleRequest($request);
 
-        if ($createForm->isSubmitted() && $createForm->isValid()) {
-            $data = $createForm->getData();
-            $em->persist($data['sortie']);
-            $em->persist($data['lieu']);
-            $em->persist($data['ville']);
+        if ($createsortieForm->isSubmitted() && $createsortieForm->isValid()) {
+            $sortieData = $createsortieForm->get('sortie')->getData();
+            $em->persist($sortieData);
             $em->flush();
 
             $this->addFlash('success', 'Sortie créée');
@@ -51,7 +48,7 @@ class SortieController extends AbstractController
         }
 
         return $this->render('sortie/create.html.twig', [
-            "createForm" => $createForm->createView(),
+            "sortieForm" => $createsortieForm->createView(),
         ]);
     }
 

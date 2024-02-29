@@ -9,25 +9,25 @@
     <div class="container">
         <h2>Créer une sortie</h2>
 
-        {{ form_start(createForm, {'attr': {'class': 'mt-4'}}) }}
+        {{ form_start(sortieForm, {'attr': {'class': ' form mt-4'}}) }}
 
         <div class="row">
             <div class="col-md-6">
-                {{ form_row(createForm.sortie.name, {'attr': {'class': 'form-control mb-3'}}) }}
-                {{ form_row(createForm.sortie.startDate, {'attr': {'class': 'form-control mb-3'}}) }}
-                {{ form_row(createForm.sortie.limiteDateInscription, {'attr': {'class': 'form-control mb-3'}}) }}
-                {{ form_row(createForm.sortie.maxInscriptionsNumber, {'attr': {'class': 'form-control mb-3'}}) }}
-                {{ form_row(createForm.sortie.duration, {'attr': {'class': 'form-control mb-3'}}) }}
-                {{ form_row(createForm.sortie.infosSortie, {'attr': {'class': 'form-control mb-3'}}) }}
-                {{ form_row(createForm.sortie.campus, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(sortieForm.sortie.name) }}
+                {{ form_row(sortieForm.sortie.startDate) }}
+                {{ form_row(sortieForm.sortie.limiteDateInscription) }}
+                {{ form_row(sortieForm.sortie.maxInscriptionsNumber) }}
+                {{ form_row(sortieForm.sortie.duration) }}
+                {{ form_row(sortieForm.sortie.infosSortie) }}
             </div>
             <div class="col-md-6">
-                {{ form_row(createForm.ville.name, {'attr': {'class': 'form-control mb-3'}}) }}
-                {{ form_row(createForm.ville.ZipCode, {'attr': {'class': 'form-control mb-3'}}) }}
-                {{ form_row(createForm.lieu.name, {'attr': {'class': 'form-control mb-3'}}) }}
-                {{ form_row(createForm.lieu.street, {'attr': {'class': 'form-control mb-3'}}) }}
-                {{ form_row(createForm.lieu.latitude, {'attr': {'class': 'form-control mb-3'}}) }}
-                {{ form_row(createForm.lieu.longitude, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(sortieForm.sortie.campus) }}
+                {{ form_row(sortieForm.ville.name) }}
+                {{ form_row(sortieForm.ville.ZipCode) }}
+                {{ form_row(sortieForm.sortie.lieu) }}
+                {{ form_row(sortieForm.lieu.street) }}
+                {{ form_row(sortieForm.lieu.latitude) }}
+                {{ form_row(sortieForm.lieu.longitude) }}
             </div>
         </div>
 
@@ -39,8 +39,7 @@
             </div>
         </div>
 
-        {{ form_end(createForm) }}
-
+        {{ form_end(sortieForm) }}
     </div>
 
 {% endblock %}

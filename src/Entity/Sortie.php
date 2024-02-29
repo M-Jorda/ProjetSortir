@@ -28,7 +28,7 @@ class Sortie
     #[Assert\NotBlank(message:'Merci d\'indiquer la date de la sortie ')]
     private ?\DateTimeInterface $startDate = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $modifiedDate = null;
 
     #[ORM\Column(length: 255)]
@@ -111,7 +111,7 @@ class Sortie
         return $this->modifiedDate;
     }
 
-    public function setModifiedDate(\DateTimeInterface $modifiedDate): static
+    public function setModifiedDate(?\DateTimeInterface $modifiedDate): static
     {
         $this->modifiedDate = $modifiedDate;
 
