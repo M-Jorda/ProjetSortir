@@ -1,23 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{%  block title %}  {% endblock %}
+{% block title %}
+    Profil de {{ participant.pseudo }}
+{% endblock %}
 
-{%  block body %}
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h2 class="card-title">{{ participant.pseudo }}</h2>
+                        <img src="{{ asset('img/photoProfil/' ~ participant.picture) }}" alt="Photo de profil" class="img-thumbnail mb-4 profil_pic">
 
+                        <p class="card-text">Prénom : {{ participant.firstName }}</p>
+                        <p class="card-text">Nom : {{ participant.lastName }}</p>
+                        <p class="card-text">Téléphone : {{ participant.phoneNumber }}</p>
+                        <p class="card-text">Email : {{ participant.email }}</p>
+                        <p class="card-text">Campus : {{ participant.campus.name }}</p>
 
-    <h2>{{ participant.pseudo }}</h2>
-
-    <aside>
-        <img src="{{ asset('img/photoProfil/' ~participant.picture) }}" alt="Photo de profil">
-    </aside>
-
-    <div> Prénom : {{ participant.firstName }} </div>
-    <div> Nom : {{ participant.lastName }} </div>
-    <div> Téléphone : {{ participant.phoneNumber }} </div>
-    <div> Email : {{ participant.email }} </div>
-    <div> Campus : {{ participant.campus.name }} </div>
-
-    <a href="{{ path('main_home') }}">Retour</a>
-
-{%  endblock %}
-
+                        <a href="{{ path('main_home') }}" class="btn btn-outline-secondary mt-3">Retour</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
