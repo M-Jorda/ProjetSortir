@@ -26,7 +26,7 @@
     <main>
         {% for label, messages in app.flashes %}
             {% for message in messages %}
-                <div class="flash flash-{{ label }}">
+                <div class="text-center bold h3 p-4 flash flash-{{ label }}">
                     {{ message }}
                 </div>
             {% endfor %}

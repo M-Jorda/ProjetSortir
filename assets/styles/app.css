@@ -1,3 +1,7 @@
 body {
     background-color: skyblue;
 }
+
+.flash-success {background-color: lawngreen}
+
+.flash-failure {background-color: orangered}
