@@ -4,11 +4,12 @@
 
 {%  block body %}
 
-    <div>
-        <img src="" alt="">
-    </div>
 
     <h2>{{ participant.pseudo }}</h2>
+
+    <aside>
+        <img src="{{ asset('img/photoProfil/' ~user.picture) }}" alt="Photo de profil">
+    </aside>
 
     <div> Prénom : {{ participant.firstName }} </div>
     <div> Nom : {{ participant.lastName }} </div>
