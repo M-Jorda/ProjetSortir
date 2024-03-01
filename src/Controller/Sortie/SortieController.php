@@ -57,7 +57,6 @@ class SortieController extends AbstractController
     }
 
 
-
     #[Route('/sortie/folder/{id}', name: 'app_sortie_folder', methods: ['POST','GET'])]
     public function folder(int $id, SortieRepository $sortieRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
