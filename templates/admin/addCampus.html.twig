@@ -3,8 +3,25 @@
 {% block title %}Ajouter un campus{% endblock %}
 
 {% block body %}
-    {{ form_start(campusForm) }}
-    {{ form_widget(campusForm) }}
-    <button>Ajouter un campus</button>
-    {{ form_end(campusForm) }}
+    <section class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Ajouter un campus</h2>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(campusForm, {'attr': {'class': 'form'}}) }}
+                        <div class="add-form">
+                            {{ form_widget(campusForm, {'attr': {'class': 'mb-3'}}) }}
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" type="submit">Ajouter un campus</button>
+                        </div>
+                        {{ form_end(campusForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

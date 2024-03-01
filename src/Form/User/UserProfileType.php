@@ -26,6 +26,11 @@ class UserProfileType extends AbstractType
             ->add('firstName', TextType::class)
             ->add('phoneNumber', TextType::class)
             ->add('email', TextType::class)
+            ->add('campus', EntityType::class, [
+                'class' => Campus::class,
+                'choice_label' => 'name',
+                'disabled' => true
+            ])
             ->add('picture', FileType::class, [
                 'label' => 'Ma photo',
                 'required' => false,

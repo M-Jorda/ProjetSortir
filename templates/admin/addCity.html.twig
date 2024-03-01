@@ -3,8 +3,25 @@
 {% block title %}Ajouter une ville{% endblock %}
 
 {% block body %}
-    {{ form_start(villeForm) }}
-    {{ form_widget(villeForm) }}
-    <button>Ajouter une ville</button>
-    {{ form_end(villeForm) }}
+    <section class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Ajouter une ville</h2>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(villeForm, {'attr': {'class': 'form'}}) }}
+                        <div class="add-form">
+                            {{ form_widget(villeForm, {'attr': {'class': 'mb-3'}}) }}
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" type="submit">Ajouter une ville</button>
+                        </div>
+                        {{ form_end(villeForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

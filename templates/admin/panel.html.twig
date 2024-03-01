@@ -1,18 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin panel{% endblock %}
+{% block title %}Admin Panel{% endblock %}
 
 {% block body %}
-    <article class="container">
-        <div><h1>Admin Panel</h1></div>
-        <div class="card-container">
-            <div><a href="{{ path('admin_add') }}" class="card">Ajouter un membre</a></div>
-            <div><a href="{{ path('admin_manage') }}" class="card">Gérer les membres</a></div>
-            <div><a href="{{ path('admin_addCity') }}" class="card">Ajouter une ville</a></div>
-            <div><a href="{{ path('admin_addCampus') }}" class="card">Ajouter un campus</a></div>
+    <article class="container mt-5">
+        <div class="card text-center">
+            <h1 class="card-header">Admin Panel</h1>
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Ajouter un membre</h5>
+                                <p class="card-text">Créez un nouveau compte membre.</p>
+                                <a href="{{ path('admin_add') }}" class="btn btn-primary">Ajouter</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Gérer les membres</h5>
+                                <p class="card-text">Visualisez et modifiez les comptes existants.</p>
+                                <a href="{{ path('admin_manage') }}" class="btn btn-primary">Gérer</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Ajouter une ville</h5>
+                                <p class="card-text">Introduisez de nouvelles villes dans le système.</p>
+                                <a href="{{ path('admin_addCity') }}" class="btn btn-primary">Ajouter</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Ajouter un campus</h5>
+                                <p class="card-text">Incorporez de nouveaux campus.</p>
+                                <a href="{{ path('admin_addCampus') }}" class="btn btn-primary">Ajouter</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-
     </article>
 {% endblock %}
-

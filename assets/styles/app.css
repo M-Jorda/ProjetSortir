@@ -1,11 +1,26 @@
 body {
-    background-color: skyblue;
+    background-color: #8080800d;
 }
 
 .form-sortie {
     display: grid;
     grid-template-columns: 40% 40% 20%;
     width: 100%;
+}
+#form-profile {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+.add-form {
+    div {
+        div {
+            display: grid;
+            grid-template-columns: 30% 70%;
+            input {
+                margin-bottom: 0.3rem;
+            }
+        }
+    }
 }
 
 .filtres {
