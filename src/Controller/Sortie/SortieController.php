@@ -9,45 +9,42 @@ use App\Entity\Sortie;
 use App\Entity\User;
 use App\Entity\Ville;
 use App\Form\CreateSortie\CreateSortieType;
-use App\Form\CreateSortie\SortieType;
-use App\Form\CreateSortie\VilleType;
 use App\Form\SortieVilleType;
 use App\Form\Sécurité\DeleteSortieFormType;
-use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
-use App\Repository\VilleRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * @method getDoctrine()
+ */
 class SortieController extends AbstractController
 {
 
 
 
 
-    #[Route('/sortie/create', name: 'app_sortie_create')]
-    public function create(EntityManagerInterface $em, Request $request, LieuRepository $lieuRepository, VilleRepository $villeRepository): Response
+    #[Route('/sortie/create', name: 'app_sortie_create', methods: ['POST','GET'])]
+    public function create(EntityManagerInterface $em, Request $request): Response
     {
         $sortie = new Sortie();
         $etat = $em->getRepository(Etat::class)->find(1);
 
-        $villes = $villeRepository->findAll();
-
         $sortie->setEtat($etat);
         $sortie->setOrganisateur($this->getUser());
 
-        $createsortieForm = $this->createForm(SortieType::class, $sortie)
-            ->handleRequest($request);
+        $createForm = $this->createForm(CreateSortieType::class, [
+            'sortie' => $sortie
+        ])
+        ->handleRequest($request);
 
-
-        if ($createsortieForm->isSubmitted() && $createsortieForm->isValid()) {
-
-            $em->persist($sortie);
-
-
+        if ($createForm->isSubmitted() && $createForm->isValid()) {
+            $sortieData = $createForm->get('sortie')->getData();
+            $em->persist($sortieData);
             $em->flush();
 
             $this->addFlash('success', 'Sortie créée');
@@ -55,11 +52,9 @@ class SortieController extends AbstractController
         }
 
         return $this->render('sortie/create.html.twig', [
-            "sortieForm" => $createsortieForm->createView(),
-            'villes' => $villes
+            "sortieForm" => $createForm->createView(),
         ]);
     }
-
 
 
 
@@ -72,10 +67,7 @@ class SortieController extends AbstractController
                 return $this->redirectToRoute('app_login');
             }
 
-
-
             $sortie = $sortieRepository->find($id);
-
             if (!$sortie) {
                 throw $this->createNotFoundException('Dommage');
             }
@@ -146,34 +138,28 @@ class SortieController extends AbstractController
 
 
 
-    #[Route('/sortie/modify', name: 'app_sortie_modify')]
-    public function modify(EntityManagerInterface $em, Request $request): Response
+    #[Route('/sortie/{id}/modify', name: 'app_sortie_modify', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
+    public function modify(EntityManagerInterface $em, Request $request, Sortie $sortie): Response
     {
-        $sortie = new Sortie();
-        $ville = new Ville();
-        $lieu = new Lieu();
-        $etat = new Etat();
-
-        $sortie->setEtat($etat->setLibelle(1));
-
-        $createForm = $this->createForm(\App\Form\CreateSortie\CreateSortieType::class, [$sortie, $ville, $lieu])
+        $createForm = $this->createForm(CreateSortieType::class, [
+            'sortie' => $sortie
+        ])
             ->handleRequest($request);
 
         if ($createForm->isSubmitted() && $createForm->isValid()) {
-            $data = $createForm->getData();
-            $em->persist($data['sortie']);
-            $em->persist($data['lieu']);
-            $em->persist($data['ville']);
+
+            $sortieData = $createForm->get('sortie')->getData();
             $em->flush();
 
-            $this->addFlash('success', 'Sortie modifié');
+            $this->addFlash('success', 'Sortie modifiée');
             return $this->redirectToRoute('main_home');
         }
 
         return $this->render('sortie/modify.html.twig', [
-            "createForm" => $createForm->createView(),
+            "sortieForm" => $createForm->createView(),
         ]);
     }
+
 
 
     #[Route('/sortie/delete/{id}', name: 'app_sortie_delete')]
