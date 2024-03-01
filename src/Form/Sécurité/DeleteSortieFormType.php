@@ -2,11 +2,13 @@
 
 namespace App\Form\Sécurité;
 
-use App\Entity\Etat;
+
+use App\Entity\Sortie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class DeleteSortieFormType extends AbstractType
 {
@@ -15,6 +17,12 @@ class DeleteSortieFormType extends AbstractType
         $builder
             ->add('motif_delete', TextType::class, [
                 'label' => 'Motif de la suppression',
+                'constraints'=> [
+                    new NotBlank([
+
+                       'message' => 'Veuillez saisir un motif de suppression',
+                    ])
+                ]
 
             ]);
     }
@@ -22,7 +30,7 @@ class DeleteSortieFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' =>Etat ::class,
+            'data_class' =>Sortie ::class,
         ]);
     }
 }

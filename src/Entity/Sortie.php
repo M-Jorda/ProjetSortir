@@ -23,6 +23,9 @@ class Sortie
     #[Assert\NotBlank(message:'Le nom de la sortie doit être indiqué ')]
     private ?string $name = null;
 
+    #[ORM\Column(length:255, nullable:true)]
+    private?string $motif_delete = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(message:'Merci d\'indiquer la date de la sortie ')]
     #[Assert\GreaterThanOrEqual(propertyPath: 'limiteDateInscription')]
@@ -169,7 +172,22 @@ class Sortie
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getMotifDelete(): ?string
+    {
+        return $this->motif_delete;
+    }
 
+    /**
+     * @param string|null $motif_delete
+     */
+    public function setMotifDelete(?string $motif_delete): self
+    {
+        $this->motif_delete = $motif_delete;
+        return $this;
+    }
 
     /**
      * @return Collection<int, User>
