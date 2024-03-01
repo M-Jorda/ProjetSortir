@@ -92,7 +92,11 @@ class AdminController extends AbstractController
 
         $user->setBlocked(!$user->isBlocked());
         $em->flush();
-
+        if ($user->isBlocked()) {
+            $this->addFlash('success', 'L\'utilisateur à été bloqué');
+        } else {
+            $this->addFlash('success', 'L\'utilisateur à été debloqué');
+        }
         return $this->redirectToRoute('admin_manage');
     }
 
