@@ -9,9 +9,13 @@ use App\Entity\Sortie;
 use App\Entity\User;
 use App\Entity\Ville;
 use App\Form\CreateSortie\CreateSortieType;
+use App\Form\CreateSortie\SortieType;
+use App\Form\CreateSortie\VilleType;
 use App\Form\SortieVilleType;
 use App\Form\Sécurité\DeleteSortieFormType;
+use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,22 +29,25 @@ class SortieController extends AbstractController
 
 
     #[Route('/sortie/create', name: 'app_sortie_create')]
-    public function create(EntityManagerInterface $em, Request $request): Response
+    public function create(EntityManagerInterface $em, Request $request, LieuRepository $lieuRepository, VilleRepository $villeRepository): Response
     {
         $sortie = new Sortie();
         $etat = $em->getRepository(Etat::class)->find(1);
 
+        $villes = $villeRepository->findAll();
+
         $sortie->setEtat($etat);
         $sortie->setOrganisateur($this->getUser());
 
-        $createsortieForm = $this->createForm(CreateSortieType::class, [
-            'sortie' => $sortie
-        ])
-        ->handleRequest($request);
+        $createsortieForm = $this->createForm(SortieType::class, $sortie)
+            ->handleRequest($request);
+
 
         if ($createsortieForm->isSubmitted() && $createsortieForm->isValid()) {
-            $sortieData = $createsortieForm->get('sortie')->getData();
-            $em->persist($sortieData);
+
+            $em->persist($sortie);
+
+
             $em->flush();
 
             $this->addFlash('success', 'Sortie créée');
@@ -49,8 +56,10 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/create.html.twig', [
             "sortieForm" => $createsortieForm->createView(),
+            'villes' => $villes
         ]);
     }
+
 
 
 
@@ -63,7 +72,10 @@ class SortieController extends AbstractController
                 return $this->redirectToRoute('app_login');
             }
 
+
+
             $sortie = $sortieRepository->find($id);
+
             if (!$sortie) {
                 throw $this->createNotFoundException('Dommage');
             }

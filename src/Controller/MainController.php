@@ -18,7 +18,10 @@ use function PHPUnit\Framework\isEmpty;
 class MainController extends AbstractController
 {
     #[Route('/', name: 'main_home', methods: ['POST', 'GET'])]
-    public function home(Request $request, SortieRepository $sortieRepository, EntityManagerInterface $entityManager,SortieStateService $sortieStateService)
+    public function home(Request                $request,
+                         SortieRepository       $sortieRepository,
+                         EntityManagerInterface $entityManager,
+                         SortieStateService     $sortieStateService)
     {
         $sortieDTO = new SortieDTO();
 
@@ -65,8 +68,6 @@ class MainController extends AbstractController
             'sortieStateService' => $sortieStateService,
         ]);
     }
-
-
 
 
 }

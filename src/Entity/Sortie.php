@@ -4,13 +4,11 @@ namespace App\Entity;
 
 use App\Repository\SortieRepository;
 use App\Service\SortieStateService;
-use Composer\Semver\Interval;
+use App\Validator\Constraints\ValidVille;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\PseudoTypes\IntegerRange;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
@@ -27,6 +25,7 @@ class Sortie
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(message:'Merci d\'indiquer la date de la sortie ')]
+    #[Assert\GreaterThanOrEqual(propertyPath: 'limiteDateInscription')]
     private ?\DateTimeInterface $startDate = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
@@ -121,9 +120,10 @@ class Sortie
         return $this;
     }
 
-    public function getDuration(): ?interval
+    public function getDuration(): ?string
     {
-        return null;
+        return $this->duration;
+
     }
 
     public function setDuration(string $duration): static
