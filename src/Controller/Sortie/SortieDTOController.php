@@ -1,6 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Sortie;
+
+use App\Controller\DTOSortie;
+use App\Controller\DTOSortieType;
+use App\Controller\Request;
 
 class SortieDTOController
 {

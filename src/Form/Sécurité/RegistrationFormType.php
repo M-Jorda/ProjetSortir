@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Sécurité;
 
 use App\Entity\Campus;
 use App\Entity\User;

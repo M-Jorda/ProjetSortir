@@ -1,21 +1,19 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Sortie;
 
 
 use App\Entity\Etat;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\User;
 use App\Entity\Ville;
-use App\Entity\Lieu;
 use App\Form\CreateSortie\CreateSortieType;
-use App\Form\CreateSortie\SortieType;
 use App\Form\SortieVilleType;
-use App\Form\DeleteSortieFormType;
+use App\Form\Sécurité\DeleteSortieFormType;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
