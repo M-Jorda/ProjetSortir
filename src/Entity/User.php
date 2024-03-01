@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[AllowDynamicProperties] #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -26,6 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message:'Merci de renseigner un e-mail')]
     private ?string $email = null;
 
     /**
@@ -41,15 +42,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message:'Merci de renseigner un nom de famille')]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message:'Merci de renseigner un prénom')]
     private ?string $FirstName = null;
 
     #[ORM\Column(length: 15)]
+    #[Assert\NotBlank(message:'Merci de renseigner un numéro de téléphone')]
     private ?string $PhoneNumber = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message:'Merci de renseigner ce champ')]
     private ?bool $Blocked = null;
 
     #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'participant', cascade: ["remove"])]

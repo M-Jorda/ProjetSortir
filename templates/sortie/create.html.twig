@@ -1,43 +1,55 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Créer une sortie |  {{ parent() }}
+    Créer une sortie | {{ parent() }}
 {% endblock %}
 
 {% block body %}
-    {{ form_start(sortieForm) }}
+    <div class="container mt-5">
+        {{ form_start(sortieForm, {'attr': {'class': 'needs-validation', 'novalidate': true}}) }}
 
-    {{ form_row(sortieForm.name) }}
-    {{ form_row(sortieForm.startDate) }}
-    {{ form_row(sortieForm.limiteDateInscription) }}
-    {{ form_row(sortieForm.maxInscriptionsNumber) }}
-    {{ form_row(sortieForm.duration) }}
-    {{ form_row(sortieForm.infosSortie) }}
-    {{ form_row(sortieForm.campus) }}
-    {{ form_row(sortieForm.lieu) }}
-    {{ form_row(sortieForm.ville) }}
-    <a href="{{ path('app_ajout_lieu') }}">+</a>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    {{ form_row(sortieForm.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(sortieForm.startDate, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(sortieForm.limiteDateInscription, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(sortieForm.maxInscriptionsNumber, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(sortieForm.duration, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(sortieForm.infosSortie, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
 
-    <div class="row">
-        <div class="col">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    {{ form_row(sortieForm.campus, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="mb-3 d-flex">
+                    {{ form_row(sortieForm.lieu, {'attr': {'class': 'form-control me-2'}}) }}
+                    <a href="{{ path('app_ajout_lieu') }}" class="btn btn-secondary align-self-start">+</a>
+                </div>
+                <div class="mb-3">
+                    {{ form_row(sortieForm.ville, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
             <button type="submit" class="btn btn-primary">Enregistrer</button>
             <button type="submit" class="btn btn-success">Publier la sortie</button>
             <a href="#" class="btn btn-danger">Annuler</a>
         </div>
+
+        {{ form_end(sortieForm) }}
     </div>
-
-    {{ form_end(sortieForm) }}
-
-
-
-
-
-
-
-
-
-
-
-
 {% endblock %}
-
