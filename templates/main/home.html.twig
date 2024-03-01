@@ -3,67 +3,98 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    <article><h1>Hello world</h1></article>
+    <article class="container mt-5">
 
-    {{ form_start(form) }}
+        <div class="row">
+            <div class="col">
+                <h1>Hello world</h1>
+            </div>
+        </div>
 
-    {{ form_widget(form) }}
+        <div class="row mt-3">
+            <div class="col" id="form">
+                {{ form_start(form, {'attr': {'class': 'form-sortie'}}) }}
 
-    <button type="submit">Rechercher</button>
+                <div class="filtres">
+                    {{ form_row(form.campus) }}
+                    {{ form_row(form.name) }}
+                    <div class="date">
+                        {{ form_row(form.filterDate) }}
+                        {{ form_row(form.filterDateMax) }}
+                    </div>
 
-    {{ form_end(form) }}
-    <h2>Sorties : </h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Nom de la sortie</th>
-            <th>Date de la sortie</th>
-            <th>Clôture</th>
-            <th>inscrits/places</th>
-            <th>Etat</th>
-            <th>Inscrit</th>
-            <th>Organisateur</th>
-            <th>Actions</th>
+                </div>
 
-            <th></th>
+                <div class="checkBox">
+                    {{ form_row(form.checkboxOrga) }}
+                    {{ form_row(form.checkBoxInscrit) }}
+                    {{ form_row(form.checkBoxNotInscrit) }}
+                    {{ form_row(form.sortiePasse) }}
+                </div>
 
-        </tr>
-        </thead>
-        <tbody>
+                <button class="btn btn-primary btn-filtre" type="submit">Rechercher</button>
 
-        {% for sortie in sorties %}
-            {% set isUserInscrit = false %}
-            {% for participant in sortie.participant %}
-                {% if participant.id == user.id %}
-                    {% set isUserInscrit = true %}
-                {% endif %}
-            {% endfor %}
+                {{ form_end(form) }}
+            </div>
+        </div>
 
-            <tr>
-                <td>{{ sortie.name }}  </td>
-                <td>{{ sortie.startDate | date('d/m/y') }}</td>
-                <td>{{ sortie.limiteDateInscription | date('d/m/y') }}</td>
-                <td>{{ sortie.participant|length }}/{{ sortie.maxInscriptionsNumber }}</td>
-                <td>{{ sortieStateService.getEtatObject(sortie).libelle }}</td>
-                <td>{% if isUserInscrit %}X{% endif %}</td>
-                <td>
-                    <a href="{{ path('app_user_participant',{'id':sortie.organisateur.id}) }}">{{ sortie.organisateur.firstName }}</a>
-                </td>
-                <td><a href="{{ path('app_sortie_folder',{'id':sortie.id}) }}">Afficher</a>
-                    {% if isUserInscrit %}
-                        <a href="{{ path('app_sortie_unsubscribe', {'id': sortie.id}) }}"> - Se désister</a>
-                    {% else %}
-                        {% if app.user and sortie.maxInscriptionsNumber > sortie.participant|length and app.user not in sortie.participant %}
-                            <a href="{{ path('app_sortie_subscribe', {'id': sortie.id}) }}"> - S'inscrire</a>
+        <h2>Sorties :</h2>
+        <div class="table-responsive">
+            <table class="table">
+
+                <thead>
+                <tr>
+                    <th scope="col">Nom de la sortie</th>
+                    <th scope="col">Date de la sortie</th>
+                    <th scope="col">Clôture</th>
+                    <th scope="col">inscrits/places</th>
+                    <th scope="col">Etat</th>
+                    <th scope="col">Inscrit</th>
+                    <th scope="col">Organisateur</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for sortie in sorties %}
+                    {% set isUserInscrit = false %}
+                    {% for participant in sortie.participant %}
+                        {% if participant.id == user.id %}
+                            {% set isUserInscrit = true %}
                         {% endif %}
-                    {% endif %}</td>
-            </tr>
-        {% endfor %}
+                    {% endfor %}
 
-        </tbody>
-    </table>
-    {% if sorties is empty %}
-        <p>Aucune sortie n'a été trouvée avec les critères de recherche actuels.</p>
-    {% endif %}
-    <a href="{{ path('app_sortie_create') }}">Ajouter une sortie</a>
+                    <tr>
+                        <td>{{ sortie.name }}  </td>
+                        <td>{{ sortie.startDate | date('d/m/y') }}</td>
+                        <td>{{ sortie.limiteDateInscription | date('d/m/y') }}</td>
+                        <td>{{ sortie.participant|length }}/{{ sortie.maxInscriptionsNumber }}</td>
+                        <td>{{ sortieStateService.getEtatObject(sortie).libelle }}</td>
+                        <td>{% if isUserInscrit %}X{% endif %}</td>
+                        <td>
+                            <a href="{{ path('app_user_participant',{'id':sortie.organisateur.id}) }}">{{ sortie.organisateur.firstName }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('app_sortie_folder',{'id':sortie.id}) }}" class="btn btn-info btn-sm">Afficher</a>
+                            {% if isUserInscrit %}
+                                <a href="{{ path('app_sortie_unsubscribe', {'id': sortie.id}) }}" class="btn btn-warning btn-sm">Se désister</a>
+                            {% else %}
+                                {% if app.user and sortie.maxInscriptionsNumber > sortie.participant|length and app.user not in sortie.participant %}
+                                    <a href="{{ path('app_sortie_subscribe', {'id': sortie.id}) }}" class="btn btn-success btn-sm">S'inscrire</a>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if sorties is empty %}
+            <p class="alert alert-warning">Aucune sortie n'a été trouvée avec les critères de recherche actuels.</p>
+        {% endif %}
+
+        <a href="{{ path('app_sortie_create') }}" class="btn btn-primary">Ajouter une sortie</a>
+
+    </article>
 {% endblock %}

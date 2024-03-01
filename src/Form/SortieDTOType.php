@@ -31,12 +31,18 @@ class SortieDTOType extends AbstractType
 
             ])
             ->add('filterDate', DateType::class, [
-                'label' => 'Filtrer par date :',
+                'label' => 'Entre :',
                 'required' => false,
+                'html5' => true,
+                'widget' => 'single_text',
+
             ])
             ->add('filterDateMax',DateType::class, [
-                'label'=> 'Filtrer par date :',
+                'label'=> 'Et :',
                 'required'=>false,
+                'html5' => true,
+                'widget' => 'single_text',
+
             ])
             ->add('checkboxOrga',CheckboxType::class,[
                 'label'=> 'Sortie dont je suis l\'organisateur/trice',
