@@ -24,17 +24,13 @@ class Archive
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $motif_delete = null;
 
-    #[ORM\ManyToOne(targetEntity: Etat::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Etat $etat = null;
 
-    #[ORM\OneToOne(targetEntity: Sortie::class, mappedBy: 'Archive')]
+
+    #[ORM\OneToMany(targetEntity: Sortie::class, mappedBy: 'Archive')]
+    #[ORM\JoinColumn(nullable: false)]
     private Collection $sorties;
 
-    public function __construct()
-    {
-        $this->sorties = new ArrayCollection();
-    }
+
 
     public function getId(): ?int
     {
@@ -76,16 +72,7 @@ class Archive
 
         return $this;
     }
-    public function getEtat():?Etat
-    {
-        return $this->etat;
-    }
-    public function setEtat(?Etat $etat): self
-    {
-        $this->etat = $etat;
 
-        return $this;
-    }
     /**
      * @return Collection<int, Sortie>
      */
@@ -93,7 +80,12 @@ class Archive
     {
         return $this->sorties;
     }
+    public function setSortie(?Sortie $sortie): self
+    {
+        $this->sortie = $sortie;
 
+        return $this;
+    }
     public function addSortie(Sortie $sortie): self
     {
         if (!$this->sorties->contains($sortie)) {
@@ -114,6 +106,10 @@ class Archive
         }
 
         return $this;
+    }
+    public function __construct()
+    {
+        $this->sorties = new ArrayCollection();
     }
 }
 

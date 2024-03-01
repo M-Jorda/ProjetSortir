@@ -176,22 +176,32 @@ class SortieController extends AbstractController
     }
 
 
-    #[Route('/sortie/delete/{id}', name: 'app_sortie_delete')]
-    public function delete(Sortie $sortie,Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/sortie/delete/{id}', name: 'app_sortie_delete', methods: ['GET', 'POST'])]
+    public function delete(int $id ,Request $request, EntityManagerInterface $entityManager): Response
     {
-        $etat = new Etat();
-        $form=$this->createForm(DeleteSortieFormType::class, $etat);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+
+
+        $sortie = $entityManager->getRepository(Sortie::class)->find($id);
+        if(!$sortie){
+            throw $this -> createNotFoundException('La sortie avec l\'identifiant '.$id.'n\existe pas');
+        }
+        $deleteform = $this->createForm(\App\Form\Sécurité\DeleteSortieFormType::class, $sortie);
+        $deleteform->handleRequest($request);
+
+        if ($deleteform->isSubmitted()&&$deleteform->isValid()){
+
 
             $entityManager->remove($sortie);
             $entityManager->flush();
-            $this->addFlash('success', 'Votre sortie a bien été supprimée');
+
+            $this->addFlash('success', 'Sortie supprimée');
             return $this->redirectToRoute('main_home');
+
+
 
         }
         return $this->render('sortie/delete.html.twig', [
-            'deleteForm' => $form->createView(),
+            'deleteForm' => $deleteform->createView(),
             'sortie'=>$sortie
         ]);
     }
@@ -200,4 +210,5 @@ class SortieController extends AbstractController
 
 
 }
+
 
