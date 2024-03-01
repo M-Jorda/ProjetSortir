@@ -2,25 +2,32 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\User\EditPasswordType;
 use App\Form\User\UserProfileType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
 
 class UserController extends AbstractController {
-    #[Route('/detail/{id}', name: 'user_detail', requirements: ['id' => '\d+'], methods : ['POST'])]
-    public function detail(
-        int $id,
-        UserRepository $userRepo,
-        Request $request,
-        EntityManagerInterface $em
+    #[Route('/detail/{id}', name: 'user_detail', requirements: ['id' => '\d+'], methods : ['GET','POST'])]
+
+    public function detail (SluggerInterface       $slugger,
+                            int                    $id,
+                            UserRepository         $userRepo,
+                            Request                $request,
+                            EntityManagerInterface $em, Filesystem $filesystem
     ) {
         $user = $userRepo->find($id);
+
 
         if (!$user) {
             throw $this->createNotFoundException('Aucun utilisateur pour cet id');
@@ -29,16 +36,49 @@ class UserController extends AbstractController {
         $userForm->handleRequest($request);
 
         if ($userForm->isSubmitted() && $userForm->isValid()) {
-            $em->flush();
+            $pictureFile = $userForm->get('picture')->getData();
 
-            return $this->redirectToRoute('user_detail', [
-                'id' => $user->getId()
+            if($pictureFile) {
+                $originalFilename = pathinfo($pictureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$pictureFile->guessExtension();
+
+                try {
+                    $pictureFile->move(
+                        $this->getParameter('photo_profil_directory'),
+                        $newFilename
+                    );
+
+                    if ($user->getPicture())
+                    {
+                        $oldPhotoPath = $this->getParameter('photo_profil_directory').'/'.$user->getPicture();
+                        if ($filesystem->exists($oldPhotoPath))
+                        {
+                            $filesystem->remove($oldPhotoPath);
+                        }
+                    }
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $user->setPicture($newFilename);
+            }
+                     else{
+                        $user->setPicture($user->getPicture());
+
+            }
+                     $em->persist($user);
+                     $em->flush();
+
+                    return $this->redirectToRoute('user_detail', [
+                    'id' => $user->getId()
             ]);
-        }
 
-        return $this->render('user/profile.html.twig', [
-            'userForm' => $userForm
-        ]);
+        }
+                    return $this->render('user/profile.html.twig', [
+                        'user' => $user,
+                        'userForm' => $userForm->createView()
+            ]);
     }
 
     #[Route('/detail/editPassword/{id}', requirements: ['id' => '\d+'], methods : ['POST'])]
@@ -77,4 +117,6 @@ class UserController extends AbstractController {
             'passwordForm' => $passwordForm
         ]);
     }
+
+
 }

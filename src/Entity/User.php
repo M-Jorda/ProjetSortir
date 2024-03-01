@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use AllowDynamicProperties;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,12 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
+
+
+#[AllowDynamicProperties] #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-#[Vich\Uploadable()]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -60,12 +62,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Campus $campus = null;
 
-    #[Vich\UploadableField(mapping: 'user_images', fileNameProperty: 'imageName')]
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $PictureFile = null;
-
-    #[ORM\Column(length: 150, nullable: true)]
-    private ?string $pictureName = null;
 
     #[ORM\Column(length: 50, unique: true)]
     private ?string $pseudo = null;
@@ -75,6 +71,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedDate = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $picture = null;
+
+ //   #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+ //   private ?\DateTimeImmutable $updatedAt = null;
+
+
+
+
+
+
 
     public function __construct()
     {
@@ -144,6 +152,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
+
 
         return $this;
     }
@@ -274,45 +283,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPictureFile(): ?string
-    {
-        return $this->PictureFile;
-    }
 
-    public function setPictureFile(?string $PictureFile): static
-    {
-        $this->PictureFile = $PictureFile;
-
-        if (null !== $PictureFile) {
-            $this->modifiedDate = new \DateTime('now');
-        }
-
-        return $this;
-    }
 
     public function getPseudo(): ?string
     {
         return $this->pseudo;
     }
 
-    public function setPseudo(?string $pseudo): static
+    public function setPseudo(?string $pseudo)
     {
         $this->pseudo = $pseudo;
 
         return $this;
     }
 
-    public function getPictureName(): ?string
-    {
-        return $this->pictureName;
-    }
-
-    public function setPictureName(?string $pictureName): static
-    {
-        $this->pictureName = $pictureName;
-
-        return $this;
-    }
 
     public function getCreatedDate(): ?\DateTimeInterface
     {
@@ -337,17 +321,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    public function setUpdatedAtValue(): static
+    {
+        $this->updatedAt = new \DateTimeImmutable();
 
-//    La fonction se jou lors d'un persiste ou update
-    #[ORM\PrePersist]
-    #[ORM\PreUpdate]
-    public function updateTimesStamp() {
-//        La date d'update se met toujours à jour
-        $this->updatedDate = new \DateTimeImmutable();
-
-//        Si la date de création est vide, alors date de création se met à jour
-        if ($this->createdDate === null) {
-            $this->createdDate = new \DateTimeImmutable();
-        }
+       return $this;
     }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): static
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+
 }

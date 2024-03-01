@@ -5,12 +5,15 @@
 {% block body %}
     <article>
         <div>
-            <img src="" alt="">
-        </div>
-        <div>
             <h1>Mon profil</h1>
+
+            <aside>
+                <img src="{{ asset('img/photoProfil/' ~user.picture) }}" alt="Photo de profil">
+            </aside>
+
             {{ form_start(userForm) }}
             {{ form_widget(userForm) }}
+
             <button type="submit">Enregistrer</button>
             <a href="{{ path('main_home') }}">Annuler</a>
             {{ form_end(userForm) }}

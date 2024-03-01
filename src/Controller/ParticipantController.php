@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ParticipantController extends AbstractController
 {
-    #[Route('/user/{id}', name: 'app_user_participant', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[Route('/user/{id}', name: 'app_user_participant', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function participant(User $participant, UserRepository $userRepository): Response
     {
 
