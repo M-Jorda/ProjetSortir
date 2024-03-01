@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Utilisateur;
 
 use App\Entity\User;
 use App\Form\ChangePasswordFormType;
@@ -27,7 +27,6 @@ class UserController extends AbstractController {
                             EntityManagerInterface $em, Filesystem $filesystem
     ) {
         $user = $userRepo->find($id);
-
 
         if (!$user) {
             throw $this->createNotFoundException('Aucun utilisateur pour cet id');
