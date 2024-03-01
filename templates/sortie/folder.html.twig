@@ -1,52 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <div>
-        <p>Nom de la sortie :{{ sortie.name }}</p>
-        <p>Date et heure de la sortie :{{ sortie.startDate | date('d/m/y H:i') }}</p>
-        <p>{{ sortie.modifiedDate | date('d/m/y')}}</p>
-        <p>Durée :{{ sortie.duration }}</p>
-        <p>Date limite d'inscription :{{ sortie.limiteDateInscription | date('d/m/y')}}</p>
-        <p>Nombre de place :{{ sortie.maxInscriptionsNumber }}</p>
-        <p>Campus :{{ sortie.campus.name }}</p>
-        <p>Lieu :{{ sortie.lieu.name }}</p>
-        <p>Latitude :{{ sortie.lieu.latitude }}</p>
-        <p>Longitude :{{ sortie.lieu.longitude }}</p>
-    </div>
-    <h2>Participants :</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Pseudo</th>
-            <th>Nom</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        {% for participant in participants %}
-            <tr>
-                <td><a href="{{ path('app_user_participant', {'id': participant.id}) }}">{{ participant.pseudo }}</td>
-                <td>{{ participant.firstname }} {{ participant.lastname }}</td>
-
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-
-
-
-
-    {% if app.user and sortie.maxInscriptionsNumber == participants|length and app.user not in sortie.participant %}
-        <form action="{{ path('app_sortie_folder', {'id': sortie.id}) }}" method="POST">
-            <button type="submit" class="btn btn-primary">S'inscrire à la sortie</button>
-        </form>
-    {% endif %}
-
-
-
+{% block title %}
+    {{ sortie.name }} - Détails de la sortie
 {% endblock %}
 
-{% block title %}
+{% block body %}
+    <div class="container mt-4">
+        <h1>Détails de la sortie</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ sortie.name }}</h5>
+                <p class="card-text">Date et heure de la sortie : {{ sortie.startDate | date('d/m/y H:i') }}</p>
+                <p class="card-text">{{ sortie.modifiedDate | date('d/m/y') }}</p>
+                <p class="card-text">Durée : {{ sortie.duration }}</p>
+                <p class="card-text">Date limite d'inscription : {{ sortie.limiteDateInscription | date('d/m/y') }}</p>
+                <p class="card-text">Nombre de places : {{ sortie.maxInscriptionsNumber }}</p>
+                <p class="card-text">Campus : {{ sortie.campus.name }}</p>
+                <p class="card-text">Lieu : {{ sortie.lieu.name }}</p>
+                <p class="card-text">Latitude : {{ sortie.lieu.latitude }}</p>
+                <p class="card-text">Longitude : {{ sortie.lieu.longitude }}</p>
+            </div>
+        </div>
 
+        <h2 class="mt-4">Participants :</h2>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Pseudo</th>
+                    <th>Nom</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for participant in participants %}
+                    <tr>
+                        <td><a href="{{ path('app_user_participant', {'id': participant.id}) }}">{{ participant.pseudo }}</a></td>
+                        <td>{{ participant.firstname }} {{ participant.lastname }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if app.user and sortie.maxInscriptionsNumber > participants|length and app.user not in sortie.participant %}
+            <form action="{{ path('app_sortie_folder', {'id': sortie.id}) }}" method="POST" class="mt-3">
+                <button type="submit" class="btn btn-primary">S'inscrire à la sortie</button>
+            </form>
+        {% endif %}
+    </div>
 {% endblock %}
