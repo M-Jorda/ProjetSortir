@@ -78,7 +78,7 @@
                             <a href="{{ path('app_sortie_folder',{'id':sortie.id}) }}" class="btn btn-info btn-sm">Afficher</a>
                              {% if app.user == sortie.organisateur %}
                              <a href="{{ path('app_sortie_modify', {'id': sortie.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
-                             <a href="{{ path('app_sortie_modify', {'id': sortie.id}) }}" class="btn btn-danger btn-sm">Annuler</a>
+                             <a href="{{ path('app_sortie_delete', {'id': sortie.id}) }}" class="btn btn-danger btn-sm">Annuler</a>
                             {% else %}
                             {% endif %}
                             {% if isUserInscrit %}
