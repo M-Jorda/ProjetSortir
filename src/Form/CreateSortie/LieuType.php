@@ -30,7 +30,6 @@ class LieuType extends AbstractType
                 'mapped' => false,
             ])
         ;
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

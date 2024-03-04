@@ -8,85 +8,157 @@
 
     <div class="container mt-2">
         <div class="row justify-content-center">
-            <div class="col md-8">
-                <div class="card-header">
-                    <h2 class="text-center">Créer une sortie</h2>
-                </div>
-                <div class="card-body">
-                    {{ form_start(sortieForm, {'attr': {'class': ' form'}}) }}
-                    <div class="row add-form">
-                        <div class="col-md-6">
-                            <div class="mb-3 d-flex align-item-center">
-                                {{ form_label(sortieForm.sortie.name, null, {'label': 'Nom de la sortie : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
-                                {{ form_widget(sortieForm.sortie.name, {'attr': {'class': 'form-control mb-3'}}) }}
+            <div class="col-md-10">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h2 class="text-center">Créer une sortie</h2>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(sortieForm, {'attr': {'class': ' form'}}) }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.sortie.name, null, {'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.sortie.name, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.sortie.startDate, null, {'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.sortie.startDate, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.sortie.limiteDateInscription, null, {'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.sortie.limiteDateInscription, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.sortie.maxInscriptionsNumber, null, {'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.sortie.maxInscriptionsNumber, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.sortie.duration, null, {'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.sortie.duration, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.sortie.infosSortie, null, {'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.sortie.infosSortie, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="mb-3 d-flex align-item-center">
-                                {{ form_label(sortieForm.sortie.startDate, null, {'label': 'Date et heure de la sortie', 'html5': true, 'required': true, 'label_attr': {'class': 'me-2' }}) }}
-                                {{ form_widget(sortieForm.sortie.startDate, {'attr': {'class': 'form-control mb-3'}}) }}
+                            <div class="col-md-6">
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.sortie.campus, null, {'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.sortie.campus, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.ville.name, null, {'label_attr': {'class': 'me-2' }, 'label': 'ville : '}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.ville.name, {'attr': {'class': 'form-control mb-3'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.sortie.lieu, null, {'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="input-group">
+                                            {{ form_widget(sortieForm.sortie.lieu, {'attr': {'class': 'form-control'}}) }}
+                                            <span class="input-group-text">
+                                                <a href="{{ path('app_ajout_lieu') }}"><i class="fas fa-plus"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.ville.ZipCode, null, {'label': 'Code postal : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.ville.ZipCode, {'attr': {'class': 'form-control mb-3'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.lieu.street, null, {'label': 'Rue : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.lieu.street, {'attr': {'class': 'form-control mb-3'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.lieu.latitude, null, {'label': 'Latitude : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.lieu.latitude, {'attr': {'min': -90, 'max': 90, 'step': 1, 'class': 'form-control mb-3'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.lieu.longitude, null, {'label': 'Longitude : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.lieu.longitude, {'attr': {'min': -180, 'max': 180, 'step': 1, 'class': 'form-control mb-3'}}) }}
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="mb-3 d-flex align-item-center">
-                                {{ form_label(sortieForm.sortie.limiteDateInscription, null, {'label': 'Date limite d\'inscription', 'widget': 'single-text', 'html5': true, 'required': true, 'label_attr': {'class': 'me-2' }}) }}
-                                {{ form_widget(sortieForm.sortie.limiteDateInscription, {'attr': {'class': 'form-control mb-3'}}) }}
-                            </div>
-                            <div class="mb-3 d-flex align-item-center">
-                                {{ form_label(sortieForm.sortie.maxInscriptionsNumber, null, {'label': 'Nombre de places : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
-                                {{ form_widget(sortieForm.sortie.maxInscriptionsNumber, {'min': 0, 'max': 150, 'step': 1, 'attr': {'class': 'form-control mb-3'}}) }}
-                            </div>
-                            <div class="mb-3 d-flex align-item-center">
-                                {{ form_label(sortieForm.sortie.duration, null, {'label': 'Durée : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
-                                {{ form_widget(sortieForm.sortie.duration, {'attr': {'class': 'form-control mb-3', 'step': 30}}) }}
-                            </div>
-                            <div class="mb-3 d-flex align-item-center">
-                                {{ form_label(sortieForm.sortie.infosSortie, null, {'label': 'Desrciption et infos : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
-                                {{ form_widget(sortieForm.sortie.infosSortie, {'attr': {'class': 'form-control mb-3', 'rows': 4}}) }}
-                            </div>
-                        </div>
-                     <div class="col-md-6">
-                         <div class="mb-3 d-flex align-item-center">
-                             {{ form_label(sortieForm.sortie.campus, null, {'label': 'Campus : ', 'label_attr': {'class': 'me-2' }}) }}
-                             {{ form_widget(sortieForm.sortie.campus, {'attr': {'class': 'form-control mb-3'}}) }}
-                         </div>
-                         <div class="mb-3 d-flex align-item-center relatif">
-                             {{ form_label(sortieForm.sortie.lieu, null, {'label': 'Lieu : ', 'label_attr': {'class': 'me-2' }}) }}
-                             {{ form_widget(sortieForm.sortie.lieu, {'attr': {'class': 'form-control mb-3'}}) }}
-                             <a href="{{ path('app_ajout_lieu') }}" class="btn btn-secondary ms-2">+</a>
-                         </div>
-                         <div class="mb-3 d-flex align-item-center">
-                             {{ form_label(sortieForm.ville.name, null, {'label_attr': {'class': 'me-2' }, 'label': 'ville : '}) }}
-                             {{ form_widget(sortieForm.ville.name, {'attr': {'class': 'form-control mb-3'}}) }}
-                         </div>
-                         <div class="mb-3 d-flex align-item-center">
-                             {{ form_label(sortieForm.ville.ZipCode, null, {'label': 'Code postal : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
-                             {{ form_widget(sortieForm.ville.ZipCode, {'attr': {'class': 'form-control mb-3'}}) }}
-                         </div>
-                         <div class="mb-3 d-flex align-item-center">
-                             {{ form_label(sortieForm.lieu.street, null, {'label': 'Rue : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
-                             {{ form_widget(sortieForm.lieu.street, {'attr': {'class': 'form-control mb-3'}}) }}
-                         </div>
-                         <div class="mb-3 d-flex align-item-center">
-                             {{ form_label(sortieForm.lieu.latitude, null, {'label': 'Latitude : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
-                             {{ form_widget(sortieForm.lieu.latitude, {'attr': {'min': -90, 'max': 90, 'step': 1, 'class': 'form-control mb-3'}}) }}
-                         </div>
-                         <div class="mb-3 d-flex align-item-center">
-                             {{ form_label(sortieForm.lieu.longitude, null, {'label': 'Longitude : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
-                             {{ form_widget(sortieForm.lieu.longitude, {'attr': {'min': -180, 'max': 180, 'step': 1, 'class': 'form-control mb-3'}}) }}
-                         </div>
                         </div>
                     </div>
+
+                    <div class="row justify-content-center mb-5">
+                        <div class="col-auto">
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary mx-2">Enregistrer</button>
+                                <button type="submit" class="btn btn-warning mx-2">Publier la sortie</button>
+                                <a href="#" class="btn btn-danger mx-2">Annuler</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{ form_end(sortieForm) }}
                 </div>
             </div>
-        {{ form_errors(sortieForm) }}
-
-
-        <div class="row">
-            <div class="col">
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
-                <a href="#" class="btn btn-danger">Annuler</a>
-            </div>
         </div>
-
-        {{ form_end(sortieForm) }}
     </div>
 
 {% endblock %}
-

@@ -24,7 +24,6 @@ class VilleType extends AbstractType
             ->add('ZipCode', TextType::class, [
                 'mapped' => false,
             ]);
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

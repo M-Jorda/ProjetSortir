@@ -23,11 +23,11 @@ class SortieType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('startDate', DateTimeType::class, [
-                'widget' => 'single-text',
+                'widget' => 'single_text',
                 'html5' => true
             ])
             ->add('limiteDateInscription', DateType::class, [
-                'widget' => 'single-text',
+                'widget' => 'single_text',
                 'html5' => true
             ])
             ->add('maxInscriptionsNumber', IntegerType::class)
@@ -40,13 +40,7 @@ class SortieType extends AbstractType
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'name',
-            ])
-
-
-
-
-
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
