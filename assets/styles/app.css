@@ -65,3 +65,32 @@ body {
 .flash-success {background-color: lawngreen}
 
 .flash-failure {background-color: orangered}
+
+.alignEmailAndPassword {
+    margin-left: 35%;
+    margin-right: 35%;
+    padding-bottom: 2%;
+    margin-top: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.alignEmailAndPassword div.alignEmailAndPassword div {
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.alignEmailAndPassword input {
+    margin-top: 1%;
+    width: 100%;
+    }
+
+label.checkAndRememberMe {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
+}
+
+

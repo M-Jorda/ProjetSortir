@@ -31,7 +31,7 @@ class MainController extends AbstractController
         $form = $this->createForm(SortieDTOType::class, $sortieDTO);
         $form->handleRequest($request);
 
-        $sorties = $sortieRepository->findAll();
+        $sorties = $sortieRepository->findBy([],['startDate'=>'DESC'],null,null,new \DateTime('-30 days'));
 
         if ($form->isSubmitted() && $form->isValid()) {
 

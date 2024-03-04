@@ -79,7 +79,10 @@
                             {% if isUserInscrit %}
                                 <a href="{{ path('app_sortie_unsubscribe', {'id': sortie.id}) }}" class="btn btn-warning btn-sm">Se désister</a>
                             {% else %}
-                                {% if app.user and sortie.maxInscriptionsNumber > sortie.participant|length and  sortie.startDate > date('now') and app.user not in sortie.participant %}
+                                {% if app.user
+                                    and sortie.maxInscriptionsNumber > sortie.participant|length
+                                    and sortie.limiteDateInscription > date('now')
+                                    and app.user not in sortie.participant %}
                                     <a href="{{ path('app_sortie_subscribe', {'id': sortie.id}) }}" class="btn btn-success btn-sm">S'inscrire</a>
                                 {% endif %}
                             {% endif %}
