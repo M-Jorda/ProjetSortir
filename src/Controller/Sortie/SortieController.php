@@ -57,7 +57,7 @@ class SortieController extends AbstractController
     }
 
 
-    #[Route('/sortie/folder/{id}', name: 'app_sortie_folder', methods: ['POST','GET'])]
+    #[Route('/sortie/folder/{id}', name: 'app_sortie_folder', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
     public function folder(int $id, SortieRepository $sortieRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         if ($request->isMethod('POST')) {
@@ -89,7 +89,7 @@ class SortieController extends AbstractController
             'participants' => $participants,
         ]);
     }
-    #[Route('/sortie/{id}/unsubscribe', name: 'app_sortie_unsubscribe', methods: ['POST','GET'])]
+    #[Route('/sortie/{id}/unsubscribe', name: 'app_sortie_unsubscribe', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
     public function unsubscribe(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
@@ -111,7 +111,7 @@ class SortieController extends AbstractController
         // Redirigez l'utilisateur vers la liste des sorties ou affichez un message de confirmation
         return $this->redirectToRoute('main_home');
     }
-    #[Route('/sortie/{id}/subscribe', name: 'app_sortie_subscribe', methods: ['POST','GET'])]
+    #[Route('/sortie/{id}/subscribe', name: 'app_sortie_subscribe', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
     public function subscribe(Request $request, Sortie $sortie, SortieRepository $sortieRepository, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
@@ -161,7 +161,7 @@ class SortieController extends AbstractController
 
 
 
-    #[Route('/sortie/delete/{id}', name: 'app_sortie_delete')]
+    #[Route('/sortie/delete/{id}', name: 'app_sortie_delete', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
     public function delete(Sortie $sortie,Request $request, EntityManagerInterface $entityManager): Response
     {
         $etat = new Etat();
