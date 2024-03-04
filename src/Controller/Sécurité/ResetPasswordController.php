@@ -20,7 +20,7 @@ use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
-#[Route('/reset-password')]
+#[Route('/reset-password', methods : ['GET', 'POST'])]
 class ResetPasswordController extends AbstractController
 {
     use ResetPasswordControllerTrait;
@@ -31,10 +31,11 @@ class ResetPasswordController extends AbstractController
     ) {
     }
 
+
     /**
      * Display & process form to request a password reset.
      */
-    #[Route('', name: 'app_forgot_password_request', methods : ['POST'])]
+    #[Route('', name: 'app_forgot_password_request', methods : ['POST', 'GET'])]
     public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -122,7 +123,7 @@ class ResetPasswordController extends AbstractController
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('reset_password/reset.html.twig', [

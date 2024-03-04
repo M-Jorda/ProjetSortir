@@ -40,7 +40,7 @@ class Sortie
     private ?string $duration = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\NotBlank(message:'Merci de renseigner une date d\'inscription')]
+    #[Assert\NotBlank(message:'Merci de renseigner une date limite d\'inscription')]
     private ?\DateTimeInterface $limiteDateInscription = null;
 
     #[ORM\Column]
