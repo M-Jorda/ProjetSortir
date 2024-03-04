@@ -72,11 +72,6 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?Lieu $lieu = null;
 
-    #[ORM\OneToOne(inversedBy:'sortie')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Archive $archive = null;
-
-
     public function __construct()
     {
         $this->participant = new ArrayCollection();
@@ -284,24 +279,5 @@ class Sortie
         $etat = $sortieStateService->getEtatObject($this);
         $this->etat = $etat;
     }
-
-
-    public function getArchive(): ?Archive
-    {
-        return $this->archive;
-    }
-
-    public function setArchive(?Archive $archive): self
-    {
-        $this->archive = $archive;
-
-        return $this;
-    }
-
-
-
-
-
-
 
 }

@@ -68,8 +68,9 @@ body {
 .flash-failure {background-color: orangered}
 
 .alignEmailAndPassword {
-    margin-left: 35%;
-    margin-right: 35%;
+
+    margin-left: 25%;
+    margin-right: 25%;
     padding-bottom: 2%;
     margin-top: 20vh;
     display: flex;
@@ -94,4 +95,34 @@ label.checkAndRememberMe {
     flex-wrap: wrap-reverse;
 }
 
+.btnEtRememberMe {
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row-reverse;
+}
+.AAfficherSmartphone {
+    display: block;
+}
 
+@media screen and (min-width: 768px) {
+    .AAfficherSmartphone {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .navBar {
+        display: none !important;
+    }
+    .alignEmailAndPassword {
+        margin-left: 15%;
+        margin-right: 15%;
+        padding-bottom: 2%;
+        margin-top: 20vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;}
+    .smartphone {
+        display: none !important;
+    }
+}

@@ -27,13 +27,10 @@ class Ville
     #[ORM\OneToMany(targetEntity: Lieu::class, mappedBy: 'ville')]
     private Collection $lieu;
 
-    #[ORM\OneToMany(targetEntity: Sortie::class, mappedBy: 'ville')]
-    private Collection $Ville;
 
     public function __construct()
     {
         $this->lieu = new ArrayCollection();
-        $this->Ville = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,33 +92,5 @@ class Ville
         return $this;
     }
 
-    /**
-     * @return Collection<int, Sortie>
-     */
-    public function getVille(): Collection
-    {
-        return $this->Ville;
-    }
 
-    public function addVille(Sortie $ville): static
-    {
-        if (!$this->Ville->contains($ville)) {
-            $this->Ville->add($ville);
-            $ville->setVille($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVille(Sortie $ville): static
-    {
-        if ($this->Ville->removeElement($ville)) {
-            // set the owning side to null (unless already changed)
-            if ($ville->getVille() === $this) {
-                $ville->setVille(null);
-            }
-        }
-
-        return $this;
-    }
 }

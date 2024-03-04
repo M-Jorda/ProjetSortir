@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Home{% endblock %}
+
 
 {% block body %}
     <article class="container mt-5">
@@ -11,7 +12,7 @@
             </div>
         </div>
 
-        <div class="row mt-3">
+        <div class="smartphone row mt-3">
             <div class="col" id="form">
                 {{ form_start(form, {'attr': {'class': 'form-sortie'}}) }}
 
@@ -38,6 +39,8 @@
             </div>
         </div>
 
+
+
         <h2>Sorties :</h2>
         <div class="table-responsive">
             <table class="table">
@@ -46,14 +49,17 @@
                 <tr>
                     <th scope="col">Nom de la sortie</th>
                     <th scope="col">Date de la sortie</th>
-                    <th scope="col">Clôture</th>
-                    <th scope="col">inscrits/places</th>
-                    <th scope="col">Etat</th>
-                    <th scope="col">Inscrit</th>
-                    <th scope="col">Organisateur</th>
-                    <th scope="col">Actions</th>
+                    <th class="AAfficherSmartphone" scope="col">Lieu</th>
+                    <th class="smartphone" scope="col">Clôture</th>
+                    <th class="smartphone" scope="col">inscrits/places</th>
+                    <th class="smartphone" scope="col">Etat</th>
+                    <th class="smartphone" scope="col">Inscrit</th>
+                    <th class="smartphone" scope="col">Organisateur</th>
+                    <th class="smartphone" scope="col">Actions</th>
                 </tr>
                 </thead>
+
+
 
                 <tbody>
                 {% for sortie in sorties %}
@@ -64,17 +70,22 @@
                         {% endif %}
                     {% endfor %}
 
+
+
+
+
                     <tr>
-                        <td>{{ sortie.name }}  </td>
+                        <td> <a href="{{ path('app_sortie_folder',{'id':sortie.id}) }}" class="AAfficherSmartphone">{{ sortie.name }}</a>  <p class="smartphone">{{ sortie.name }}</p> </td>
                         <td>{{ sortie.startDate | date('d/m/y') }}</td>
-                        <td>{{ sortie.limiteDateInscription | date('d/m/y') }}</td>
-                        <td>{{ sortie.participant|length }}/{{ sortie.maxInscriptionsNumber }}</td>
-                        <td>{{ sortieStateService.getEtatObject(sortie).libelle }}</td>
-                        <td>{% if isUserInscrit %}X{% endif %}</td>
-                        <td>
+                        <td class="AAfficherSmartphone">{{ sortie.lieu.name}}</td>
+                        <td class="smartphone">{{ sortie.limiteDateInscription | date('d/m/y') }}</td>
+                        <td class="smartphone">{{ sortie.participant|length }}/{{ sortie.maxInscriptionsNumber }}</td>
+                        <td class="smartphone">{{ sortieStateService.getEtatObject(sortie).libelle }}</td>
+                        <td class="smartphone">{% if isUserInscrit %}X{% endif %}</td>
+                        <td class="smartphone">
                             <a href="{{ path('app_user_participant',{'id':sortie.organisateur.id}) }}">{{ sortie.organisateur.firstName }}</a>
                         </td>
-                        <td>
+                        <td class="smartphone">
                             <a href="{{ path('app_sortie_folder',{'id':sortie.id}) }}" class="btn btn-info btn-sm">Afficher</a>
                              {% if app.user == sortie.organisateur %}
                              <a href="{{ path('app_sortie_modify', {'id': sortie.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
@@ -98,9 +109,10 @@
             </table>
         </div>
         {% if sorties is empty %}
-            <p class="alert alert-warning">Aucune sortie n'a été trouvée avec les critères de recherche actuels.</p>
+            <p class="smartphone alert alert-warning">Aucune sortie n'a été trouvée avec les critères de recherche actuels.</p>
         {% endif %}
 
-        <a href="{{ path('app_sortie_create') }}" class="btn btn-primary">Ajouter une sortie</a>
+        <a href="{{ path('app_sortie_create') }}" class="smartphone btn btn-primary">Ajouter une sortie</a>
     </article>
+    
 {% endblock %}
