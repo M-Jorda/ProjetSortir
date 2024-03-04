@@ -164,8 +164,8 @@ class SortieController extends AbstractController
     #[Route('/sortie/delete/{id}', name: 'app_sortie_delete', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
     public function delete(Sortie $sortie,Request $request, EntityManagerInterface $entityManager): Response
     {
-        $etat = new Etat();
-        $form=$this->createForm(DeleteSortieFormType::class, $etat);
+
+        $form=$this->createForm(DeleteSortieFormType::class, $sortie);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
 
