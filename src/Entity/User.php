@@ -54,7 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $PhoneNumber = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message:'Merci de renseigner ce champ')]
+    #[Assert\NotBlank(message:'Merci de renseigner ce champ', groups: ['regAdmin'])]
     private ?bool $Blocked = null;
 
     #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'participant', cascade: ["remove"])]
