@@ -9,6 +9,7 @@ use App\Form\SortieType;
 use App\Repository\SortieRepository;
 use App\Service\SortieStateService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
@@ -28,10 +29,12 @@ class MainController extends AbstractController
 
         $user = $this->getUser();
 
+
         $form = $this->createForm(SortieDTOType::class, $sortieDTO);
         $form->handleRequest($request);
 
-        $sorties = $sortieRepository->findBy([],['startDate'=>'DESC'],null,null,new \DateTime('-30 days'));
+        $sorties = $sortieRepository->findBy([], ['startDate' => 'DESC'], null, null, new \DateTime('-30 days'));
+
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -60,6 +63,8 @@ class MainController extends AbstractController
             $sortie->updateEtat($sortieStateService);
         }
 
+
+
         $entityManager->flush();
         return $this->render('main/home.html.twig', [
             'sorties' => $sorties,
@@ -68,6 +73,7 @@ class MainController extends AbstractController
             'sortieStateService' => $sortieStateService,
         ]);
     }
+
 
 
 }
