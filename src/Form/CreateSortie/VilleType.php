@@ -18,20 +18,11 @@ class VilleType extends AbstractType
         $builder
             ->add('name', EntityType::class, [
                 'class' => Ville::class,
-                'choice_label' => 'id',
-                'label' => 'Ville : ',
-                'required' => true,
+                'choice_label' => 'name',
                 'mapped' => false,
-                'attr' => [
-                    'class' => 'form-control mb-3'
-                ]
             ])
             ->add('ZipCode', TextType::class, [
-                'label' => 'Code postal',
-                'required' => true,
-                'attr' => [
-                    'class' => 'form-control mb-3'
-                ]
+                'mapped' => false,
             ]);
         ;
     }

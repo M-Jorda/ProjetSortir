@@ -17,19 +17,19 @@ class Lieu
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message:'Merci de renseigner un nom')]
+    #[Assert\NotBlank(message:'Merci de renseigner un nom', groups: ['createSortieForm'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message:'Merci de renseigner une rue')]
+    #[Assert\NotBlank(message:'Merci de renseigner une rue', groups: ['group1'])]
     private ?string $street = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message: 'Merci de renseigner la latitude')]
+    #[Assert\NotBlank(message: 'Merci de renseigner la latitude', groups: ['group1'])]
     private ?float $latitude = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message: 'Merci de renseigner la longitude')]
+    #[Assert\NotBlank(message: 'Merci de renseigner la longitude', groups: ['group1'])]
     private ?float $longitude = null;
 
     #[ORM\OneToMany(targetEntity: Sortie::class, mappedBy: 'lieu')]

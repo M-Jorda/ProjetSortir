@@ -17,11 +17,11 @@ class Ville
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Merci de renseigner un nom')]
+    #[Assert\NotBlank(message: 'Merci de renseigner un nom', groups: ['createSortieForm'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 10)]
-    #[Assert\NotBlank(message: 'Merci d\'indiquer un code postal')]
+    #[Assert\NotBlank(message: 'Merci d\'indiquer un code postal', groups: ['createSortieForm'])]
     private ?string $ZipCode = null;
 
     #[ORM\OneToMany(targetEntity: Lieu::class, mappedBy: 'ville')]

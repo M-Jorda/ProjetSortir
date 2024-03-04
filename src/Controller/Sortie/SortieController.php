@@ -28,7 +28,7 @@ class SortieController extends AbstractController
 
 
 
-    #[Route('/sortie/create', name: 'app_sortie_create', methods: ['POST','GET'])]
+    #[Route('/sortie/create', name: 'app_sortie_create')]
     public function create(EntityManagerInterface $em, Request $request): Response
     {
         $sortie = new Sortie();
@@ -37,13 +37,14 @@ class SortieController extends AbstractController
         $sortie->setEtat($etat);
         $sortie->setOrganisateur($this->getUser());
 
-        $createForm = $this->createForm(CreateSortieType::class, [
-            'sortie' => $sortie
+        $createsortieForm = $this->createForm(CreateSortieType::class, [
+            'sortie' => $sortie,
+            'validation_groups' => ['createSortieForm'],
         ])
-        ->handleRequest($request);
+            ->handleRequest($request);
 
-        if ($createForm->isSubmitted() && $createForm->isValid()) {
-            $sortieData = $createForm->get('sortie')->getData();
+        if ($createsortieForm->isSubmitted() && $createsortieForm->isValid()) {
+            $sortieData = $createsortieForm->get('sortie')->getData();
             $em->persist($sortieData);
             $em->flush();
 
@@ -52,7 +53,7 @@ class SortieController extends AbstractController
         }
 
         return $this->render('sortie/create.html.twig', [
-            "sortieForm" => $createForm->createView(),
+            "sortieForm" => $createsortieForm->createView(),
         ]);
     }
 
