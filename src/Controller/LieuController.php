@@ -3,16 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Lieu;
+use App\Entity\Ville;
 use App\Form\AjoutLieuType;
 use Doctrine\ORM\EntityManagerInterface;
+use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
-
-class AjoutLieuController extends AbstractController
+#[Route('/lieu', name: 'lieu-')]
+class LieuController extends AbstractController
 {
-    #[Route('/ajout/lieu', name: 'app_ajout_lieu')]
+    #[Route('/ajout', name: 'ajout')]
     public function index(Request $request, EntityManagerInterface $entityManager)
     {
         $newLieu = new Lieu();
@@ -32,4 +34,21 @@ class AjoutLieuController extends AbstractController
             'form' => $form->createView(), // Passer la vue du formulaire, pas le formulaire lui-même
         ]);
     }
+
+    #[Route('/trier', name: 'trier')]
+    public function trierVilleLieu(int $id, EntityManagerInterface $em) {
+        $lieux = $em->getRepository(Ville::class)->getLieuPerVille($id);
+
+        $response = [];
+        foreach ($lieux as $lieu) {
+            $response[] = [
+                'id' => $lieu->getId(),
+                'nom' => $lieu->getName()
+            ];
+        }
+
+        return new Response(json_encode($response), 200, ['Content-Type' => 'application/json']);
+
+    }
+
 }
