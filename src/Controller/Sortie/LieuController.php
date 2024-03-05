@@ -26,7 +26,7 @@ class LieuController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Lieu ajouté avec succès.');
-            return $this->redirectToRoute('app_sortie_create');
+            return $this->redirectToRoute('sortie-create');
         }
 
         return $this->render('ajout_lieu/index.html.twig', [
