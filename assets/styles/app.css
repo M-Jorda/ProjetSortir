@@ -23,6 +23,21 @@ body {
     }
 }
 
+mode {
+    display: flex;
+    width: 50px;
+
+    span {
+        width: 50%;
+    }
+    .normal {
+        background-color: black;
+    }
+    .retro {
+        background-color: lawngreen;
+    }
+}
+
 .filtres {
     width: 80%;
 

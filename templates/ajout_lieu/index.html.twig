@@ -3,9 +3,70 @@
 {% block title %}Hello AjoutLieuController!{% endblock %}
 
 {% block body %}
+<article class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h2 class="text-center">Ajouter un lieu</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <div class="row mb-3 align-item-center">
+                            <div class="col-5">
+                                {{ form_label(form.name, null, {'label': 'Nom du lieu', 'label_attr': {'class': 'me-2'}}) }}
+                            </div>
+                            <div class="col-7">
+                                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="row mb-3 align-item-center">
+                            <div class="col-5">
+                                {{ form_label(form.street, null, {'label': 'Nom de la rue', 'label_attr': {'class': 'me-2'}}) }}
+                            </div>
+                            <div class="col-7">
+                                {{ form_widget(form.street, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="row mb-3 align-item-center">
+                            <div class="col-5">
+                                {{ form_label(form.latitude, null, {'label': 'Latitude', 'label_attr': {'class': 'me-2'}}) }}
+                            </div>
+                            <div class="col-7">
+                                {{ form_widget(form.latitude, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="row mb-3 align-item-center">
+                            <div class="col-5">
+                                {{ form_label(form.longitude, null, {'label': 'Longitude', 'label_attr': {'class': 'me-2'}}) }}
+                            </div>
+                            <div class="col-7">
+                                {{ form_widget(form.longitude, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="row mb-3 align-item-center">
+                            <div class="col-5">
+                                {{ form_label(form.ville, null, {'label': 'Nom de la ville', 'label_attr': {'class': 'me-2'}}) }}
+                            </div>
+                            <div class="col-7">
+                                {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="justify-content-center mb-5">
+                    <div class="col-auto">
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-primary mx-2">Ajouter lieu</button>
+                            <a href="{{ path('app_sortie_create') }}" class="btn btn-warning mx-2">Retour</a>
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</article>
 
-{{ form_start(form) }}
-{{ form_widget(form) }}
-    <button  >Ajouter lieu</button>
-{{ form_end(form) }}
 {% endblock %}
