@@ -144,5 +144,19 @@ class PieceController extends AbstractController
         ]);
     }
 
+    #[Route('/piece/redirection', name: 'piece_redirection', methods: ['GET'])]
+    public function redirectionPiece(EntityManagerInterface $entityManager, PieceRepository $pieceRepository)
+    {
+        $user = $this->getUser();
+
+
+
+
+        return $this->render('point/point.html.twig',[
+            'user'=>$user,
+
+        ]);
+    }
+
 }
 
