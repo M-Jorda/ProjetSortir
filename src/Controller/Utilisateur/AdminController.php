@@ -8,7 +8,9 @@ use App\Entity\Ville;
 use App\Form\admin\AddCampusType;
 use App\Form\admin\AddCityType;
 use App\Form\Sécurité\RegistrationFormType;
+use App\Repository\CampusRepository;
 use App\Repository\UserRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -111,7 +113,10 @@ class AdminController extends AbstractController
     }
 
     #[Route('/ajouterVille', name: 'addCity', methods: ['GET','POST'])]
-    public function addCity(Request $request, EntityManagerInterface $em) {
+    public function addCity(Request $request, EntityManagerInterface $em, VilleRepository $villeRepository) {
+
+        $villes = $villeRepository->findAll();
+
         $ville = new Ville();
 
         $villeForm = $this->createForm(AddCityType::class, $ville)
@@ -126,12 +131,15 @@ class AdminController extends AbstractController
         }
 
         return $this->render('admin/addCity.html.twig', [
-            'villeForm' => $villeForm
+            'villeForm' => $villeForm,
+            'villes'=> $villes
         ]);
     }
 
     #[Route('/ajouterCampus', name: 'addCampus', methods: ['GET','POST'])]
-    public function addCampus(Request $request, EntityManagerInterface $em) {
+    public function addCampus(Request $request, EntityManagerInterface $em, CampusRepository $campusRepository) {
+        $campuss = $campusRepository->findAll();
+
         $campus = new Campus();
 
         $campusForm = $this->createForm(AddCampusType::class, $campus)
@@ -146,7 +154,8 @@ class AdminController extends AbstractController
         }
 
         return $this->render('admin/addCampus.html.twig', [
-            'campusForm' => $campusForm
+            'campusForm' => $campusForm,
+            'campuss'=>$campuss
         ]);
     }
 
