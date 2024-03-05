@@ -1,34 +1,44 @@
 {% extends 'base.html.twig' %}
 
-    {% block title %}
-Annuler une sortie
-    {% endblock %}
+{% block title %}
+    Annuler une sortie
+{% endblock %}
 
 {% block body %}
-<h1>Annuler  une sortie</h1>
-
-    <p>Nom de la sortie :{{ sortie.name }}</p>
-    <p>Date et heure de la sortie :{{ sortie.startDate | date('d/m/y H:i') }}</p>
-    <p>{{ sortie.modifiedDate | date('d/m/y')}}</p>
-    <p>Durée :{{ sortie.duration }}</p>
-    <p>Date limite d'inscription :{{ sortie.limiteDateInscription | date('d/m/y')}}</p>
-    <p>Nombre de place :{{ sortie.maxInscriptionsNumber }}</p>
-    <p>Campus :{{ sortie.campus.name }}</p>
-    <p>Lieu :{{ sortie.lieu.name }}</p>
-
-
-
-
-    {{ form_start(deleteForm) }}
-    <div class="row">
-        <div class="col">
-            {{ form_widget(deleteForm) }}
+    <article class="container mt-5">
+        <div class="card">
+            <div class="card-header text-center">
+                <h1>Annuler une sortie</h1>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong>Nom de la sortie:</strong> {{ sortie.name }}</li>
+                            <li class="list-group-item"><strong>Date et heure de la sortie:</strong> {{ sortie.startDate | date('d/m/y H:i') }}</li>
+                            <li class="list-group-item"><strong>Campus:</strong> {{ sortie.campus.name }}</li>
+                            <li class="list-group-item"><strong>Lieu:</strong> {{ sortie.lieu.name }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        {{ form_start(deleteForm, {'attr': {'class': 'form delete-form'}}) }}
+                        <div class="mb-3">
+                            {{ form_widget(deleteForm, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+                            </div>
+                            <div class="col">
+                                <a href="{{ path('main_home') }}" class="btn btn-secondary">Annuler</a>
+                            </div>
+                        </div>
+                        {{ form_end(deleteForm) }}
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col">
-            <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
-            <a href="{{ path('main_home') }}" class="btn btn-secondary">Annuler</a>
-        </div>
-    </div>
-    {{ form_end(deleteForm) }}
-
+    </article>
 {% endblock %}

@@ -80,7 +80,7 @@ class UserController extends AbstractController {
             ]);
     }
 
-    #[Route('/detail/editPassword/{id}', requirements: ['id' => '\d+'], methods : ['POST'])]
+    #[Route('/detail/editPassword/{id}', requirements: ['id' => '\d+'], methods : ['GET','POST'])]
     public function editPassword(
         int $id,
         UserRepository $userRepo,
