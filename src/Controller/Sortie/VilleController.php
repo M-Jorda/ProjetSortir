@@ -53,15 +53,16 @@ class VilleController extends AbstractController
 
     #[Route('/get/{id}', name: 'get')]
     public function getVille(int $id, EntityManagerInterface $em) {
-        $villes = $em->getRepository(Ville::class)->findBy(["ville" => $id]);
+        $ville = $em->getRepository(Ville::class)->find($id);
 
-        $response = [];
-        foreach ($villes as $ville) {
-            $response[] = [
-                'id' => $ville->getId(),
-                'name' => $ville->getZipCode(),
-            ];
+        if (!$ville) {
+            return new JsonResponse(['message' => 'Ville non trouvée'], Response::HTTP_NOT_FOUND);
         }
+
+        $response = [
+            'id' => $ville->getId(),
+            'zipCode' => $ville->getZipCode(), // Assurez-vous que votre entité Ville a un getter pour le code postal
+        ];
 
         return new JsonResponse($response);
     }

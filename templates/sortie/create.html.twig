@@ -170,34 +170,67 @@
     </div>
 
     <script>
-        let lieu = document.getElementById('{{ sortieForm.lieu.vars.id }}');
-        let ville = document.getElementById('{{ sortieForm.ville.vars.id }}');
-        console.log(ville)
+        // Sélection des éléments DOM
+        let villeSelect = document.getElementById('{{ sortieForm.ville.vars.id }}');
+        let lieuSelect = document.getElementById('{{ sortieForm.lieu.vars.id }}');
+        let codePostal = document.getElementById('cPost');
+        let street = document.getElementById('street');
+        let longitude = document.getElementById('longitude');
+        let latitude = document.getElementById('latitude');
 
-        ville.addEventListener('change', (e) => {
+        // Écouteur d'événements pour la sélection de la ville
+        villeSelect.addEventListener('change', (e) => {
             let villeId = e.target.value;
-            console.log(villeId)
-            fetch('{{ path('lieu-get', {'id': 'placeholder'}) }}'.replace('placeholder', villeId))
-                .then(response => {
-                    if(!response.ok) {
-                        throw new Error(response.statusText);
-                    }
-                    return response.json();
-                })
+
+            // Récupérer les informations de la ville sélectionnée
+            fetch('{{ path('ville-get', {'id': 'placeholder'}) }}'.replace('placeholder', villeId))
+                .then(response => response.json())
                 .then(data => {
-                    lieu.innerHTML = '';
-                    data.forEach(item => {
-                        console.log(item)
-                        let option = document.createElement('option');
-                        option.value = item.id;
-                        option.innerText = item.name;
-                        lieu.appendChild(option);
-                    });
+                    codePostal.textContent = data.zipCode || 'Code postal non disponible';
+
+                    // Récupérer et afficher les lieux correspondants à la ville sélectionnée
+                    return fetch('{{ path('lieu-get', {'id': 'placeholder'}) }}'.replace('placeholder', villeId));
                 })
-                .catch(err => console.error('Erreur lors du chargement des lieux : ', err));
+                .then(response => response.json())
+                .then(data => {
+                    lieuSelect.innerHTML = '';
+                    data.forEach(lieu => {
+                        let option = new Option(lieu.name, lieu.id);
+                        lieuSelect.add(option);
+                    });
+                    // Simule un changement pour mettre à jour les informations du premier lieu chargé
+                    lieuSelect.dispatchEvent(new Event('change'));
+                })
+                .catch(err => console.error('Erreur lors de la récupération : ', err));
+        });
+
+        // Écouteur d'événements pour la sélection du lieu
+        lieuSelect.addEventListener('change', (e) => {
+            let lieuId = e.target.value;
+
+            // Assurez-vous que le lieuId n'est pas vide
+            if (!lieuId) {
+                street.textContent = '';
+                latitude.textContent = '';
+                longitude.textContent = '';
+                return;
+            }
+
+            // Récupérer et afficher les informations du lieu sélectionné
+            fetch('{{ path('lieu-get', {'id': 'placeholder'}) }}'.replace('placeholder', lieuId))
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        let details = data.find(d => d.id == lieuId);
+                        if (details) {
+                            street.textContent = details.street || 'Rue non disponible';
+                            latitude.textContent = details.latitude || 'Latitude non disponible';
+                            longitude.textContent = details.longitude || 'Longitude non disponible';
+                        }
+                    }
+                })
+                .catch(err => console.error('Erreur lors de la récupération des détails du lieu : ', err));
         });
     </script>
 
 {% endblock %}
-
-

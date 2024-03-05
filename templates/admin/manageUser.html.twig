@@ -39,28 +39,28 @@
                         {% if user.id %}
 
                             <tr>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.lastname }}</td>
-                        <td>{{ user.firstName }}</td>
-                        <td>{{ user.phoneNumber }}</td>
-                        <td>{{ user.campus.name }}</td>
-                        <td>{{ user.createdDate | date('d/m/y H:i') }}</td>
-                        <td>{{ user.updatedDate | date('d/m/y H:i') }}</td>
-                        <td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.lastname }}</td>
+                                <td>{{ user.firstName }}</td>
+                                <td>{{ user.phoneNumber }}</td>
+                                <td>{{ user.campus.name }}</td>
+                                <td>{{ user.createdDate | date('d/m/y H:i') }}</td>
+                                <td>{{ user.updatedDate | date('d/m/y H:i') }}</td>
+                                <td>
 
-                                <a href="{{ path('admin_delete', {'id': user.id}) }}" title="Supprimer un utilisateur" class="text-decoration-none text-dark mx-3"><img
-                                            src="{{ asset('img/xmark-solid.jpg') }}" style="width: 10px" class="img-fluid" alt="X"></a>
+                                        <a href="{{ path('admin_delete', {'id': user.id}) }}" title="Supprimer un utilisateur" class="text-decoration-none text-dark mx-3"><img
+                                                    src="{{ asset('img/xmark-solid.jpg') }}" style="width: 10px" class="img-fluid" alt="X"></a>
 
-                                {% if user.blocked %}
-                                    <a href="{{ path('admin_block', {'id': user.id}) }}" title="Débloquer un utilisateur" class="text-decoration-none text-dark"><img
-                                                src="{{ asset('img/unlock-solid.jpg') }}" style="width: 10px" class="img-fluid" alt="lock"></a>
-                                {% else %}
-                                    <a href="{{ path('admin_block', {'id': user.id}) }}" title="Bloquer un utilisateur" class="text-decoration-none text-dark"><img
-                                                src="{{ asset('img/lock-solid.jpg') }}" style="width: 10px" class="img-fluid" alt="unlock"></a>
-                                {% endif %}
+                                        {% if user.blocked %}
+                                            <a href="{{ path('admin_block', {'id': user.id}) }}" title="Débloquer un utilisateur" class="text-decoration-none text-dark"><img
+                                                        src="{{ asset('img/unlock-solid.jpg') }}" style="width: 10px" class="img-fluid" alt="lock"></a>
+                                        {% else %}
+                                            <a href="{{ path('admin_block', {'id': user.id}) }}" title="Bloquer un utilisateur" class="text-decoration-none text-dark"><img
+                                                        src="{{ asset('img/lock-solid.jpg') }}" style="width: 10px" class="img-fluid" alt="unlock"></a>
+                                        {% endif %}
 
-                        </td>
-                    </tr>
+                                </td>
+                            </tr>
                         {% endif %}
 
 

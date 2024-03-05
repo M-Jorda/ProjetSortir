@@ -1,163 +1,228 @@
 {% extends 'base.html.twig' %}
-{%  block title  %}
+{% block title %}
     Modifier une sortie | Parent
 {% endblock %}
 
 {% block body %}
     <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-       <div class="card mt-5">
-         <div class="card-header">
-           <h2 class="text-center">Modifier une sortie</h2>
-         </div>
-    <div class="card-body">
-
-
-    {{ form_start (sortieForm, {'attr': {'class': 'form'}}) }}
-    <div class="row">
-      <div class="col-md-6">
-          <div class="mb-3 row align-items-center">
-              <div class="col-5">
-                  {{ form_label(sortieForm.sortie.name, null, {'label_attr': {'class': 'me-2'}}) }}
-              </div>
-              <div class="col-7">
-                  {{ form_widget(sortieForm.sortie.name, {'attr': {'class': 'form-control'}}) }}
-              </div>
-          </div>
-
-
-
-
-    <div class="row mb-3 align-items-center">
-    <div class="col-5">
-        {{ form_label(sortieForm.sortie.startDate, null, {'label_attr': {'class':'me-2'}}) }}
-    </div>
-    <div class="col-7">
-        {{ form_widget(sortieForm.sortie.startDate, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    </div>
-
-    <div class="row mb-3 align-items-center">
-    <div class="col-5">
-        {{ form_label(sortieForm.sortie.limiteDateInscription, null, {'label_attr': {'class':'me-2'}}) }}
-    </div>
-    <div class="col-7">
-        {{ form_widget(sortieForm.sortie.limiteDateInscription, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    </div>
-
-    <div class="row mb-3 align-items-center">
-        <div class="col-5">
-            {{ form_label(sortieForm.sortie.maxInscriptionsNumber, null, {'label_attr': {'class': 'me-2'}}) }}
-        </div>
-        <div class="col-7">
-            {{ form_widget(sortieForm.sortie.maxInscriptionsNumber, {'attr': {'class': 'form-control'}}) }}
-        </div>
-    </div>
-    <div class="row mb-3 align-items-center">
-        <div class="col-5">
-            {{ form_label(sortieForm.sortie.duration, null, {'label_attr': {'class': 'me-2'}}) }}
-        </div>
-        <div class="col-7">
-            {{ form_widget(sortieForm.sortie.duration, {'attr': {'class': 'form-control'}}) }}
-        </div>
-    </div>
-    <div class="row mb-3 align-items-center">
-        <div class="col-5">
-            {{ form_label(sortieForm.sortie.infosSortie, null, {'label_attr': {'class': 'me-2'}}) }}
-        </div>
-        <div class="col-7">
-            {{ form_widget(sortieForm.sortie.infosSortie, {'attr': {'class': 'form-control'}}) }}
-        </div>
-    </div>
-       </div>
-            <div class="col-md-6">
-                <div class="row mb-3 align-items-center">
-                    <div class="col-5">
-                        {{ form_label(sortieForm.sortie.campus, null, {'label_attr': {'class': 'me-2'}}) }}
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h2 class="text-center">Modifier une sortie</h2>
                     </div>
-                    <div class="col-7">
-                        {{ form_widget(sortieForm.sortie.campus, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                </div>
 
-                <div class="row mb-3 align-items-center">
-                    <div class="col-5">
-                        {{ form_label(sortieForm.ville.name, null, {'label_attr': {'class': 'me-2' }, 'label': 'ville : '}) }}
-                    </div>
-                    <div class="col-7">
-                        {{ form_widget(sortieForm.ville.name, {'attr': {'class': 'form-control mb-3'}}) }}
-                    </div>
-                </div>
+                    <div class="card-body">
+                        {{ form_start (sortieForm, {'attr': {'class': 'form'}}) }}
+                        <div class="row">
+                            <div class="col-md-6">
 
-                <div class="row mb-3 align-items-center">
-                    <div class="col-5">
-                        {{ form_label(sortieForm.sortie.lieu, null, {'label_attr': {'class': 'me-2'}}) }}
+                                <div class="mb-3 row align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.name, null, {'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.name, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.startDate, null, {'label_attr': {'class':'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.startDate, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.limiteDateInscription, null, {'label_attr': {'class':'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.limiteDateInscription, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.maxInscriptionsNumber, null, {'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.maxInscriptionsNumber, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.duration, null, {'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.duration, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.infosSortie, null, {'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.infosSortie, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.campus, null, {'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.campus, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.ville, null, {'label_attr': {'class': 'me-2' }, 'label': 'ville : '}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(sortieForm.ville, {'attr': {'class': 'form-control mb-3'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(sortieForm.lieu, null, {'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="input-group">
+                                            {{ form_widget(sortieForm.lieu, {'attr': {'class': 'form-control'}}) }}
+                                            <span class="input-group-text">
+                                            <a href="{{ path('lieu-ajout') }}"><i class="fas fa-plus"></i></a>
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        <label for="street">Rue : </label>
+                                    </div>
+                                    <div class="col-7">
+                                    <span id="street">
+
+                                    </span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        <label for="cPost">Code postal : </label>
+                                    </div>
+                                    <div class="col-7">
+                                    <span id="cPost">
+
+                                    </span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        <label for="latitude">Latitude : </label>
+                                    </div>
+                                    <div class="col-7">
+                                    <span id="latitude">
+
+                                    </span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        <label for="longitude">Longitude : </label>
+                                    </div>
+                                    <div class="col-7">
+                                    <span id="longitude">
+
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-7">
-                        <div class="input-group">
-                            {{ form_widget(sortieForm.sortie.lieu, {'attr': {'class': 'form-control'}}) }}
-                            <span class="input-group-text">
-                                                <a href="{{ path('lieu-ajout') }}"><i class="fas fa-plus"></i></a>
-                                            </span>
+                    <div class="row justify-content-center mb-5">
+                        <div class="col-auto">
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                <button type="submit" class="btn btn-success" name="publish">Publier la sortie</button>
+                                <button type="submit" class=btn-secondary" name="cancel">Annuler</button>
+                            </div>
+
+                            {{ form_end(sortieForm) }}
+                            {% if user.piece is not null and user.piece.piece5 == 0 %}
+                                <a href="{{ path('piece_point5') }}"><img class="pieceEnorme"
+                                                                          src="{{ asset('img/PieceMK8.png') }}" alt=""></a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-
-                <div class="row mb-3 align-items-center">
-                    <div class="col-5">
-                        {{ form_label(sortieForm.ville.ZipCode, null, {'label': 'Code postal : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
-                    </div>
-                    <div class="col-7">
-                        {{ form_widget(sortieForm.ville.ZipCode, {'attr': {'class': 'form-control mb-3'}}) }}
-                    </div>
-                </div>
-
-                <div class="row mb-3 align-items-center">
-                    <div class="col-5">
-                        {{ form_label(sortieForm.lieu.street, null, {'label': 'Rue : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
-                    </div>
-                    <div class="col-7">
-                        {{ form_widget(sortieForm.lieu.street, {'attr': {'class': 'form-control mb-3'}}) }}
-                    </div>
-                </div>
-
-                <div class="row mb-3 align-items-center">
-                    <div class="col-5">
-                        {{ form_label(sortieForm.lieu.latitude, null, {'label': 'Latitude : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
-                    </div>
-                    <div class="col-7">
-                        {{ form_widget(sortieForm.lieu.latitude, {'attr': {'min': -90, 'max': 90, 'step': 1, 'class': 'form-control mb-3'}}) }}
-                    </div>
-                </div>
-
-                <div class="row mb-3 align-items-center">
-                    <div class="col-5">
-                        {{ form_label(sortieForm.lieu.longitude, null, {'label': 'Longitude : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
-                    </div>
-                    <div class="col-7">
-                        {{ form_widget(sortieForm.lieu.longitude, {'attr': {'min': -180, 'max': 180, 'step': 1, 'class': 'form-control mb-3'}}) }}
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
 
+    <script>
+        // Sélection des éléments DOM
+        let villeSelect = document.getElementById('{{ sortieForm.ville.vars.id }}');
+        let lieuSelect = document.getElementById('{{ sortieForm.lieu.vars.id }}');
+        let codePostal = document.getElementById('cPost');
+        let street = document.getElementById('street');
+        let longitude = document.getElementById('longitude');
+        let latitude = document.getElementById('latitude');
 
-    <div class ="row justify-content-center mb-5">
-        <div class="col-auto">
-            <div class ="d-flex justify-content-center">
-        <button type ="submit" class ="btn btn-primary">Enregistrer</button>
-        <button type ="submit" class="btn btn-success" name="publish">Publier la sortie</button>
-                <button  type="submit" class =btn-secondary" name="cancel">Annuler</button>
-    </div>
+        function updateLieuDetails(lieuId) {
+            // Récupérer et afficher les informations du lieu sélectionné
+            fetch('{{ path('lieu-get', {'id': 'placeholder'}) }}'.replace('placeholder', lieuId))
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        let details = data.find(d => d.id == lieuId);
+                        if (details) {
+                            street.textContent = details.street || 'Rue non disponible';
+                            latitude.textContent = details.latitude || 'Latitude non disponible';
+                            longitude.textContent = details.longitude || 'Longitude non disponible';
+                        }
+                    }
+                })
+                .catch(err => console.error('Erreur lors de la récupération des détails du lieu : ', err));
+        }
 
-    {{ form_end(sortieForm) }}
-    {% if user.piece is not null and user.piece.piece5 == 0%}
-        <a href="{{ path('piece_point5') }}"><img href="" class="pieceEnorme" src="{{ asset('img/PieceMK8.png') }}" alt=""></a>
-    {% endif %}
+        function updateVilleDetails(villeId) {
+            // Récupérer les informations de la ville sélectionnée
+            fetch('{{ path('ville-get', {'id': 'placeholder'}) }}'.replace('placeholder', villeId))
+                .then(response => response.json())
+                .then(data => {
+                    codePostal.textContent = data.zipCode || 'Code postal non disponible';
+                    return fetch('{{ path('lieu-get', {'id': 'placeholder'}) }}'.replace('placeholder', villeId));
+                })
+                .then(response => response.json())
+                .then(data => {
+                    lieuSelect.innerHTML = '';
+                    data.forEach(lieu => {
+                        let option = new Option(lieu.name, lieu.id);
+                        lieuSelect.add(option);
+                    });
+                    updateLieuDetails(lieuSelect.value);
+                })
+                .catch(err => console.error('Erreur lors de la récupération : ', err));
+        }
+
+        // Écouteur d'événements pour la sélection de la ville
+        villeSelect.addEventListener('change', () => updateVilleDetails(villeSelect.value));
+
+        // Écouteur d'événements pour la sélection du lieu
+        lieuSelect.addEventListener('change', () => updateLieuDetails(lieuSelect.value));
+
+    </script>
+
 
 
 {% endblock %}
