@@ -19,55 +19,55 @@
                             <div class="col-md-6">
                                 <div class="row mb-3 align-items-center">
                                     <div class="col-5">
-                                        {{ form_label(sortieForm.sortie.name, null, {'label_attr': {'class': 'me-2'}}) }}
+                                        {{ form_label(sortieForm.name, null, {'label': 'Nom de la sorte : ', 'label_attr': {'class': 'me-2'}}) }}
                                     </div>
                                     <div class="col-7">
-                                        {{ form_widget(sortieForm.sortie.name, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_widget(sortieForm.name, {'attr': {'class': 'form-control'}}) }}
                                     </div>
                                 </div>
 
                                 <div class="row mb-3 align-items-center">
                                     <div class="col-5">
-                                        {{ form_label(sortieForm.sortie.startDate, null, {'label_attr': {'class': 'me-2'}}) }}
+                                        {{ form_label(sortieForm.startDate, null, {'label': 'Date et heure de la sortie : ', 'label_attr': {'class': 'me-2'}}) }}
                                     </div>
                                     <div class="col-7">
-                                        {{ form_widget(sortieForm.sortie.startDate, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_widget(sortieForm.startDate, {'attr': {'class': 'form-control'}}) }}
                                     </div>
                                 </div>
 
                                 <div class="row mb-3 align-items-center">
                                     <div class="col-5">
-                                        {{ form_label(sortieForm.sortie.limiteDateInscription, null, {'label_attr': {'class': 'me-2'}}) }}
+                                        {{ form_label(sortieForm.limiteDateInscription, null, {'label': 'Date limite d\'inscription : ', 'label_attr': {'class': 'me-2'}}) }}
                                     </div>
                                     <div class="col-7">
-                                        {{ form_widget(sortieForm.sortie.limiteDateInscription, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_widget(sortieForm.limiteDateInscription, {'attr': {'class': 'form-control'}}) }}
                                     </div>
                                 </div>
 
                                 <div class="row mb-3 align-items-center">
                                     <div class="col-5">
-                                        {{ form_label(sortieForm.sortie.maxInscriptionsNumber, null, {'label_attr': {'class': 'me-2'}}) }}
+                                        {{ form_label(sortieForm.maxInscriptionsNumber, null, {'label': 'Nombre de places : ', 'label_attr': {'class': 'me-2'}}) }}
                                     </div>
                                     <div class="col-7">
-                                        {{ form_widget(sortieForm.sortie.maxInscriptionsNumber, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_widget(sortieForm.maxInscriptionsNumber, {'attr': {'class': 'form-control'}}) }}
                                     </div>
                                 </div>
 
                                 <div class="row mb-3 align-items-center">
                                     <div class="col-5">
-                                        {{ form_label(sortieForm.sortie.duration, null, {'label_attr': {'class': 'me-2'}}) }}
+                                        {{ form_label(sortieForm.duration, null, {'label': 'Durée : ', 'label_attr': {'class': 'me-2'}}) }}
                                     </div>
                                     <div class="col-7">
-                                        {{ form_widget(sortieForm.sortie.duration, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_widget(sortieForm.duration, {'attr': {'class': 'form-control'}}) }}
                                     </div>
                                 </div>
 
                                 <div class="row mb-3 align-items-center">
                                     <div class="col-5">
-                                        {{ form_label(sortieForm.sortie.infosSortie, null, {'label_attr': {'class': 'me-2'}}) }}
+                                        {{ form_label(sortieForm.infosSortie, null, {'label': 'Description et infos : ', 'label_attr': {'class': 'me-2'}}) }}
                                     </div>
                                     <div class="col-7">
-                                        {{ form_widget(sortieForm.sortie.infosSortie, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_widget(sortieForm.infosSortie, {'attr': {'class': 'form-control'}}) }}
                                     </div>
                                 </div>
 
@@ -75,29 +75,29 @@
                             <div class="col-md-6">
                                 <div class="row mb-3 align-items-center">
                                     <div class="col-5">
-                                        {{ form_label(sortieForm.sortie.campus, null, {'label_attr': {'class': 'me-2'}}) }}
+                                        {{ form_label(sortieForm.campus, null, {'label': 'Campus : ', 'label_attr': {'class': 'me-2'}}) }}
                                     </div>
                                     <div class="col-7">
-                                        {{ form_widget(sortieForm.sortie.campus, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_widget(sortieForm.campus, {'attr': {'class': 'form-control'}}) }}
                                     </div>
                                 </div>
 
                                 <div class="row mb-3 align-items-center">
                                     <div class="col-5">
-                                        {{ form_label(sortieForm.ville.name, null, {'label_attr': {'class': 'me-2' }, 'label': 'ville : '}) }}
+                                        {{ form_label(sortieForm.ville, null, {'label': 'Ville : ', 'label_attr': {'class': 'me-2' }}) }}
                                     </div>
                                     <div class="col-7">
-                                        {{ form_widget(sortieForm.ville.name, {'attr': {'class': 'form-control mb-3'}}) }}
+                                        {{ form_widget(sortieForm.ville, {'attr': {'class': 'form-control mb-3 ville'}}) }}
                                     </div>
                                 </div>
 
                                 <div class="row mb-3 align-items-center">
                                     <div class="col-5">
-                                        {{ form_label(sortieForm.sortie.lieu, null, {'label_attr': {'class': 'me-2'}}) }}
+                                        {{ form_label(sortieForm.lieu, null, {'label': 'Lieu : ', 'label_attr': {'class': 'me-2'}}) }}
                                     </div>
                                     <div class="col-7">
                                         <div class="input-group">
-                                            {{ form_widget(sortieForm.sortie.lieu, {'attr': {'class': 'form-control'}}) }}
+                                            {{ form_widget(sortieForm.lieu, {'attr': {'class': 'form-control'}}) }}
                                             <span class="input-group-text">
                                                 <a href="{{ path('lieu-ajout') }}"><i class="fas fa-plus"></i></a>
                                             </span>
@@ -107,37 +107,45 @@
 
                                 <div class="row mb-3 align-items-center">
                                     <div class="col-5">
-                                        {{ form_label(sortieForm.ville.ZipCode, null, {'label': 'Code postal : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
+                                        <label for="street">Rue : </label>
                                     </div>
                                     <div class="col-7">
-                                        {{ form_widget(sortieForm.ville.ZipCode, {'attr': {'class': 'form-control mb-3'}}) }}
+                                        <span id="street">
+
+                                        </span>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3 align-items-center">
                                     <div class="col-5">
-                                        {{ form_label(sortieForm.lieu.street, null, {'label': 'Rue : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
+                                        <label for="cPost">Code postal : </label>
                                     </div>
                                     <div class="col-7">
-                                        {{ form_widget(sortieForm.lieu.street, {'attr': {'class': 'form-control mb-3'}}) }}
+                                        <span id="cPost">
+
+                                        </span>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3 align-items-center">
                                     <div class="col-5">
-                                        {{ form_label(sortieForm.lieu.latitude, null, {'label': 'Latitude : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
+                                        <label for="latitude">Latitude : </label>
                                     </div>
                                     <div class="col-7">
-                                        {{ form_widget(sortieForm.lieu.latitude, {'attr': {'min': -90, 'max': 90, 'step': 1, 'class': 'form-control mb-3'}}) }}
+                                        <span id="latitude">
+
+                                        </span>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3 align-items-center">
                                     <div class="col-5">
-                                        {{ form_label(sortieForm.lieu.longitude, null, {'label': 'Longitude : ', 'required': true, 'label_attr': {'class': 'me-2' }}) }}
+                                        <label for="longitude">Longitude : </label>
                                     </div>
                                     <div class="col-7">
-                                        {{ form_widget(sortieForm.lieu.longitude, {'attr': {'min': -180, 'max': 180, 'step': 1, 'class': 'form-control mb-3'}}) }}
+                                        <span id="longitude">
+
+                                        </span>
                                     </div>
                                 </div>
 
@@ -161,4 +169,35 @@
         </div>
     </div>
 
+    <script>
+        let lieu = document.getElementById('{{ sortieForm.lieu.vars.id }}');
+        let ville = document.getElementById('{{ sortieForm.ville.vars.id }}');
+        console.log(ville)
+
+        ville.addEventListener('change', (e) => {
+            let villeId = e.target.value;
+            console.log(villeId)
+            fetch('{{ path('lieu-get', {'id': 'placeholder'}) }}'.replace('placeholder', villeId))
+                .then(response => {
+                    if(!response.ok) {
+                        throw new Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    lieu.innerHTML = '';
+                    data.forEach(item => {
+                        console.log(item)
+                        let option = document.createElement('option');
+                        option.value = item.id;
+                        option.innerText = item.name;
+                        lieu.appendChild(option);
+                    });
+                })
+                .catch(err => console.error('Erreur lors du chargement des lieux : ', err));
+        });
+    </script>
+
 {% endblock %}
+
+

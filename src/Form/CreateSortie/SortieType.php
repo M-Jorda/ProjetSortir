@@ -40,7 +40,13 @@ class SortieType extends AbstractType
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'name',
+            ])
+            ->add('ville', EntityType::class, [
+                'class' => Ville::class,
+                'choice_label' => 'name',
+                'mapped' => false
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

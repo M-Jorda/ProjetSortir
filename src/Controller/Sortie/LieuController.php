@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Sortie;
 
 use App\Entity\Lieu;
-use App\Entity\Ville;
 use App\Form\AjoutLieuType;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+
 #[Route('/lieu', name: 'lieu-')]
 class LieuController extends AbstractController
 {
@@ -35,20 +34,22 @@ class LieuController extends AbstractController
         ]);
     }
 
-    #[Route('/trier', name: 'trier')]
+    #[Route('/get/{id}', name: 'get')]
     public function trierVilleLieu(int $id, EntityManagerInterface $em) {
-        $lieux = $em->getRepository(Ville::class)->getLieuPerVille($id);
+        $lieux = $em->getRepository(Lieu::class)->findBy(["ville" => $id]);
 
         $response = [];
         foreach ($lieux as $lieu) {
             $response[] = [
                 'id' => $lieu->getId(),
-                'nom' => $lieu->getName()
+                'name' => $lieu->getName(),
+                'street' => $lieu->getStreet(),
+                'latitude' => $lieu->getLatitude(),
+                'longitude' => $lieu->getLongitude(),
             ];
         }
 
-        return new Response(json_encode($response), 200, ['Content-Type' => 'application/json']);
-
+        return new JsonResponse($response);
     }
 
 }
