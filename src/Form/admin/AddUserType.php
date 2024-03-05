@@ -21,7 +21,7 @@ class AddUserType extends AbstractType
             ->add('email', TextType::class)
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
         ;
     }

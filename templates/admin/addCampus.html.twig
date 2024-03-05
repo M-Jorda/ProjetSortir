@@ -21,29 +21,34 @@
                         {{ form_end(campusForm) }}
                     </div>
                 </div>
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+
+                                <thead>
+                                <tr>
+                                    <th scope="col">Campus</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for campus in campuss %}
+                                    <tr>
+                                        <td> {{ campus.name}} </td>
+
+
+
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    <div class="table-responsive">
-        <table class="table">
 
-            <thead>
-            <tr>
-                <th scope="col">Campus</th>
-
-
-            </tr>
-            </thead>
-            <tbody>
-            {% for campus in campuss %}
-                <tr>
-                    <td> {{ campus.name}} </td>
-
-
-
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
 {% endblock %}
