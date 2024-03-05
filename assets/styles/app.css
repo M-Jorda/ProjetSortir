@@ -22,6 +22,12 @@ body {
         }
     }
 }
+.not-connected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Prend toute la hauteur de la fenêtre */
+}
 
 mode {
     display: flex;

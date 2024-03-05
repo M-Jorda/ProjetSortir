@@ -23,6 +23,8 @@
         </div>
     </header>
 
+    {% if app.user %}
+
     <main>
         {% for label, messages in app.flashes %}
             {% for message in messages %}
@@ -38,5 +40,10 @@
     <footer>
 
     </footer>
+    {% else %}
+        <div class="not-connected">
+            <img src="{{ asset('img/NotConnected.png') }}" alt="Vous n'êtes pas connecté">
+        </div>
+    {% endif %}
     </body>
 </html>
