@@ -36,6 +36,21 @@ class VilleController extends AbstractController
         ]);
     }
 
+    #[Route('/delete/{id}', name: 'delete', methods: ['GET', 'POST'])]
+    public function delete(int $id, EntityManagerInterface $em) {
+        $ville = $em->getRepository(Ville::class)->find($id);
+
+        if(!$ville) {
+            throw $this->createNotFoundException('Cette ville n\existe pas');
+        } else {
+            $em->remove($ville);
+            $em->flush();
+
+            $this->addFlash('success', 'Celle ville à été correctement supprimé');
+        }
+        $this->redirectToRoute('ville-add');
+    }
+
     #[Route('/get/{id}', name: 'get')]
     public function getVille(int $id, EntityManagerInterface $em) {
         $villes = $em->getRepository(Ville::class)->findBy(["ville" => $id]);
