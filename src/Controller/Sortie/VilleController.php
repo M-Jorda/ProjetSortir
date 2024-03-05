@@ -17,6 +17,7 @@ class VilleController extends AbstractController
     #[Route('/add', name: 'add', methods: ['GET','POST'])]
     public function addCity(Request $request, EntityManagerInterface $em) {
         $ville = new Ville();
+        $villes = $em->getRepository(Ville::class)->findAll();
 
         $villeForm = $this->createForm(AddCityType::class, $ville)
             ->handleRequest($request);
@@ -30,7 +31,8 @@ class VilleController extends AbstractController
         }
 
         return $this->render('admin/addCity.html.twig', [
-            'villeForm' => $villeForm
+            'villeForm' => $villeForm,
+            'villes' => $villes
         ]);
     }
 

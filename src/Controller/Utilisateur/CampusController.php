@@ -15,6 +15,7 @@ class CampusController extends AbstractController
     #[Route('/campus/add', name: 'campus-add', methods: ['GET','POST'])]
     public function addCampus(Request $request, EntityManagerInterface $em) {
         $campus = new Campus();
+        $campuss = $em->getRepository(Campus::class)->findAll();
 
         $campusForm = $this->createForm(AddCampusType::class, $campus)
             ->handleRequest($request);
@@ -28,7 +29,8 @@ class CampusController extends AbstractController
         }
 
         return $this->render('admin/addCampus.html.twig', [
-            'campusForm' => $campusForm
+            'campusForm' => $campusForm,
+            'campuss' => $campuss
         ]);
     }
 }

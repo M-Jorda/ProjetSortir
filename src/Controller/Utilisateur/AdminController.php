@@ -109,45 +109,4 @@ class AdminController extends AbstractController
             'user'=>$user
         ]);
     }
-
-    #[Route('/ajouterVille', name: 'addCity', methods: ['GET','POST'])]
-    public function addCity(Request $request, EntityManagerInterface $em) {
-        $ville = new Ville();
-
-        $villeForm = $this->createForm(AddCityType::class, $ville)
-            ->handleRequest($request);
-
-        if ($villeForm->isSubmitted() && $villeForm->isValid()) {
-            $em->persist($ville);
-            $em->flush();
-
-            $this->addFlash('Success', 'Ville ajoutée');
-            return $this->redirectToRoute('admin_panel');
-        }
-
-        return $this->render('admin/addCity.html.twig', [
-            'villeForm' => $villeForm
-        ]);
-    }
-
-    #[Route('/ajouterCampus', name: 'addCampus', methods: ['GET','POST'])]
-    public function addCampus(Request $request, EntityManagerInterface $em) {
-        $campus = new Campus();
-
-        $campusForm = $this->createForm(AddCampusType::class, $campus)
-            ->handleRequest($request);
-
-        if ($campusForm->isSubmitted() && $campusForm->isValid()) {
-            $em->persist($campus);
-            $em->flush();
-
-            $this->addFlash('success', 'Campus ajouté');
-            return $this->redirectToRoute('admin_panel');
-        }
-
-        return $this->render('admin/addCampus.html.twig', [
-            'campusForm' => $campusForm
-        ]);
-    }
-
 }
