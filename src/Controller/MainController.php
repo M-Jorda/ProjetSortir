@@ -3,18 +3,14 @@
 namespace App\Controller;
 
 use App\DTO\SortieDTO;
-use App\Entity\Campus;
 use App\Form\SortieDTOType;
-use App\Form\SortieType;
 use App\Repository\SortieRepository;
 use App\Service\SortieStateService;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Core\Security;
-use function PHPUnit\Framework\isEmpty;
+
 
 class MainController extends AbstractController
 {

@@ -21,7 +21,7 @@ class SortieStateService
         $this->entityManager = $entityManager;
     }
 
-    public function getEtatFerme(): Etat
+    public function getEtatPasse(): Etat
     {
         $etatRepository = $this->entityManager->getRepository(Etat::class);
         $etatFerme = $etatRepository->findOneBy(['libelle' => 'Passé']);
@@ -39,13 +39,13 @@ class SortieStateService
         $tomorrow = new \DateTime('tomorrow');
 
         if ($now > $sortie->getLimiteDateInscription()) {
-            return $this->getEtatFerme();
+            return $this->getEtatPasse();
         }
         if ($sortie->getLimiteDateInscription() <= $now && $now <= $tomorrow) {
             return $this->getEtatEnCours();
         }
         if ($sortie->getParticipant()->count() == $sortie->getMaxInscriptionsNumber()) {
-            return $this->getEtatCloture();
+            return $this->getEtatComplet();
         }
 
         return $this->getEtatOuvert();
@@ -74,13 +74,13 @@ class SortieStateService
         return $etatOuvert;
     }
 
-    private function getEtatCloture(): Etat
+    private function getEtatComplet(): Etat
     {
         $etatRepository = $this->entityManager->getRepository(Etat::class);
-        $etatOuvert = $etatRepository->findOneBy(['libelle' => 'cloturé']);
+        $etatOuvert = $etatRepository->findOneBy(['libelle' => 'Complet']);
 
         if (!$etatOuvert instanceof Etat) {
-            throw new \RuntimeException('L\'état "cloturé" n\'existe pas dans la base de données.');
+            throw new \RuntimeException('L\'état "Complet" n\'existe pas dans la base de données.');
         }
 
         return $etatOuvert;

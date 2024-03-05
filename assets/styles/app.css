@@ -104,6 +104,38 @@ label.checkAndRememberMe {
     display: block;
 }
 
+.piece {
+    width: 5%;
+}
+
+.pieceO {
+    width: 2%;
+}
+
+.pieceMoyen {
+    width: 20%;
+}
+
+.pieceEnorme {
+    margin-top: 70%;
+    width: 100%;
+}
+
+.pagePiece {
+    position: fixed;
+    top: 9%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.pagePiece h1 {
+    font-size: 5em;
+}
+.pagePiece p {
+    font-size: 2em;
+}
+
 @media screen and (min-width: 768px) {
     .AAfficherSmartphone {
         display: none;

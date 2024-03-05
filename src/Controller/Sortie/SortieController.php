@@ -61,6 +61,7 @@ class SortieController extends AbstractController
     #[Route('/sortie/folder/{id}', name: 'app_sortie_folder', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
     public function folder(int $id, SortieRepository $sortieRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
         if ($request->isMethod('POST')) {
             $user = $this->getUser();
             if (!$user) {
@@ -88,6 +89,7 @@ class SortieController extends AbstractController
         return $this->render('sortie/folder.html.twig', [
             'sortie' => $sortie,
             'participants' => $participants,
+            'user'=>$user,
         ]);
     }
     #[Route('/sortie/{id}/unsubscribe', name: 'app_sortie_unsubscribe', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
@@ -113,7 +115,7 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('main_home');
     }
     #[Route('/sortie/{id}/subscribe', name: 'app_sortie_subscribe', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
-    public function subscribe(Request $request, Sortie $sortie, SortieRepository $sortieRepository, EntityManagerInterface $entityManager): Response
+    public function subscribe(Sortie $sortie,EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
 
@@ -141,6 +143,7 @@ class SortieController extends AbstractController
     #[Route('/sortie/{id}/modify', name: 'app_sortie_modify', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
     public function modify(EntityManagerInterface $em, Request $request, Sortie $sortie): Response
     {
+        $user = $this->getUser();
         $createForm = $this->createForm(CreateSortieType::class, [
             'sortie' => $sortie
         ])
@@ -157,6 +160,7 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/modify.html.twig', [
             "sortieForm" => $createForm->createView(),
+            'user'=>$user
         ]);
     }
 

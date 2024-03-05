@@ -27,6 +27,10 @@
                         </div>
                     </div>
                 </div>
+                {% if user.piece is not null and user.piece.piece4 == 0%}
+                    <a href="{{ path('piece_point4') }}"><img href="" class="piece" src="{{ asset('img/PieceMK8.png') }}" alt=""></a>
+                {% endif %}
+
                 <div class="row justify-content-center">
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card">

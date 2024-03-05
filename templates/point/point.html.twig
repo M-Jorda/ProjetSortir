@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    point
+{% endblock %}
+
+{% block body %}
+    <div class="pagePiece bg-dark pb-5">
+        <div class="container mt-5 d-flex flex-column align-items-center">
+            <h1 class="text-warning mb-5 ">La quête des pieces !</h1>
+
+            <p class="text-warning ">Bravo ! tu as su trouver le bouton (pas caché du tout) pour lancer la quête EPIC
+                des pieces.
+                Pour pouvoir la completer il te faudra trouver les 5 pieces perdu dans le sites, ouvre bien les yeux
+                elles pouraient te filler entre les doigts !</p>
+
+            <div class="d-flex flex-row mt-5">
+                {% if user.piece.piece1 == 1 %}
+                    <div><img class="pieceMoyen" src="{{ asset('img/PieceMK8.png') }}" alt=""></div>
+                {% endif %}
+                {% if user.piece.piece2 == 1%}
+                    <div><img class="pieceMoyen" src="{{ asset('img/PieceMK8.png') }}" alt=""></div>
+                {% endif %}
+                {% if user.piece.piece3 == 1%}
+                    <div><img class="pieceMoyen" src="{{ asset('img/PieceMK8.png') }}" alt=""></div>
+                {% endif %}
+                {% if user.piece.piece4 == 1%}
+                    <div><img class="pieceMoyen" src="{{ asset('img/PieceMK8.png') }}" alt=""></div>
+                {% endif %}
+                {% if user.piece.piece5 == 1%}
+                    <div><img class="pieceMoyen" src="{{ asset('img/PieceMK8.png') }}" alt=""></div>
+                {% endif %}
+            </div>
+                {% if user.piece.piece1 == 1
+                    and user.piece.piece2 == 1
+                    and user.piece.piece3 == 1
+                    and user.piece.piece4 == 1
+                    and user.piece.piece5 == 1  %}
+                    <p class="text-warning mt-5">Bravo ! Quête accomplie !</p>
+                {% endif %}
+
+            <a class="btn btn-warning mt-5" href="{{ path('piece_reset') }}">Reset de la quête</a>
+
+
+
+
+            {#   piece 1 :{{ user.piece.piece1 }} <br> #}
+            {#   piece 2 :{{ user.piece.piece2 }}<br> #}
+            {#   piece 3 :{{ user.piece.piece3 }}<br> #}
+            {#   piece 4 : {{ user.piece.piece4 }}<br> #}
+            {#   piece 5 : {{ user.piece.piece5 }}<br> #}
+            {#   {{ user.piece.id }} #}
+        </div>
+    </div>
+{% endblock %}

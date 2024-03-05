@@ -32,13 +32,16 @@
                     {{ form_row(form.checkBoxNotInscrit) }}
                     {{ form_row(form.sortiePasse) }}
                 </div>
+                    <div>
+                    <button class="btn btn-primary btn-filtre" type="submit">Rechercher</button>
+                        {% if user.piece is not null and user.piece.piece2 == 0%}
 
-                <button class="btn btn-primary btn-filtre" type="submit">Rechercher</button>
-
+                        <a href="{{ path('piece_point2') }}"><img href="" class="piece" src="{{ asset('img/PieceMK8.png') }}" alt=""></a>
+                        {% endif %}
+                    </div>
                 {{ form_end(form) }}
             </div>
         </div>
-
 
 
         <h2>Sorties :</h2>
@@ -60,7 +63,6 @@
                 </thead>
 
 
-
                 <tbody>
                 {% for sortie in sorties %}
                     {% set isUserInscrit = false %}
@@ -75,9 +77,11 @@
 
 
                     <tr>
-                        <td> <a href="{{ path('app_sortie_folder',{'id':sortie.id}) }}" class="AAfficherSmartphone">{{ sortie.name }}</a>  <p class="smartphone">{{ sortie.name }}</p> </td>
+                        <td><a href="{{ path('app_sortie_folder',{'id':sortie.id}) }}"
+                               class="AAfficherSmartphone">{{ sortie.name }}</a>
+                            <p class="smartphone">{{ sortie.name }}</p></td>
                         <td>{{ sortie.startDate | date('d/m/y') }}</td>
-                        <td class="AAfficherSmartphone">{{ sortie.lieu.name}}</td>
+                        <td class="AAfficherSmartphone">{{ sortie.lieu.name }}</td>
                         <td class="smartphone">{{ sortie.limiteDateInscription | date('d/m/y') }}</td>
                         <td class="smartphone">{{ sortie.participant|length }}/{{ sortie.maxInscriptionsNumber }}</td>
                         <td class="smartphone">{{ sortieStateService.getEtatObject(sortie).libelle }}</td>
@@ -87,19 +91,23 @@
                         </td>
                         <td class="smartphone">
                             <a href="{{ path('app_sortie_folder',{'id':sortie.id}) }}" class="btn btn-info btn-sm">Afficher</a>
-                             {% if app.user == sortie.organisateur %}
-                             <a href="{{ path('app_sortie_modify', {'id': sortie.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
-                             <a href="{{ path('app_sortie_delete', {'id': sortie.id}) }}" class="btn btn-danger btn-sm">Annuler</a>
+                            {% if app.user == sortie.organisateur %}
+                                <a href="{{ path('app_sortie_modify', {'id': sortie.id}) }}"
+                                   class="btn btn-primary btn-sm">Modifier</a>
+                                <a href="{{ path('app_sortie_delete', {'id': sortie.id}) }}"
+                                   class="btn btn-danger btn-sm">Annuler</a>
                             {% else %}
                             {% endif %}
                             {% if isUserInscrit %}
-                                <a href="{{ path('app_sortie_unsubscribe', {'id': sortie.id}) }}" class="btn btn-warning btn-sm">Se désister</a>
+                                <a href="{{ path('app_sortie_unsubscribe', {'id': sortie.id}) }}"
+                                   class="btn btn-warning btn-sm">Se désister</a>
                             {% else %}
                                 {% if app.user
                                     and sortie.maxInscriptionsNumber > sortie.participant|length
                                     and sortie.limiteDateInscription > date('now')
                                     and app.user not in sortie.participant %}
-                                    <a href="{{ path('app_sortie_subscribe', {'id': sortie.id}) }}" class="btn btn-success btn-sm">S'inscrire</a>
+                                    <a href="{{ path('app_sortie_subscribe', {'id': sortie.id}) }}"
+                                       class="btn btn-success btn-sm">S'inscrire</a>
                                 {% endif %}
                             {% endif %}
                         </td>
@@ -109,10 +117,19 @@
             </table>
         </div>
         {% if sorties is empty %}
-            <p class="smartphone alert alert-warning">Aucune sortie n'a été trouvée avec les critères de recherche actuels.</p>
+            <p class="smartphone alert alert-warning">Aucune sortie n'a été trouvée avec les critères de recherche
+                actuels.</p>
         {% endif %}
 
         <a href="{{ path('app_sortie_create') }}" class="smartphone btn btn-primary">Ajouter une sortie</a>
+        {% if user.piece is not null and user.piece.piece3 == 0%}
+            <a href="{{ path('piece_point3') }}"><img href="" class="piece" src="{{ asset('img/PieceMK8.png') }}" alt=""></a>
+        {% endif %}
+
+
+
+
+
     </article>
-    
+
 {% endblock %}

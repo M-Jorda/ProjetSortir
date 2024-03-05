@@ -84,7 +84,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
- //   #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+
+
+    #[ORM\ManyToOne(targetEntity: Piece::class, inversedBy: "point", cascade: ["persist"])]
+    private ?Piece $piece = null;
+
+
+    //   #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
  //   private ?\DateTimeImmutable $updatedAt = null;
 
 
@@ -345,6 +351,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPicture(?string $picture): static
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+
+    public function getPiece(): ?Piece
+    {
+        return $this->piece;
+    }
+
+    public function setPiece(?Piece $piece): static
+    {
+        $this->piece = $piece;
 
         return $this;
     }

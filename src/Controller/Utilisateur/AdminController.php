@@ -21,10 +21,12 @@ class AdminController extends AbstractController
 {
     #[Route('/manage', name: 'manage', methods: ['GET', 'POST'])]
     public function manageUser(UserRepository $userRepo) {
+
         $users = $userRepo->findAll();
 
         return $this->render('admin/manageUser.html.twig', [
-            "users" => $users
+            "users" => $users,
+
         ]);
     }
 
@@ -102,7 +104,10 @@ class AdminController extends AbstractController
 
     #[Route('/', name: 'panel', methods: ['GET','POST'])]
     public function adminPanel() {
-        return $this->render('admin/panel.html.twig');
+        $user = $this->getUser();
+        return $this->render('admin/panel.html.twig',[
+            'user'=>$user
+        ]);
     }
 
     #[Route('/ajouterVille', name: 'addCity', methods: ['GET','POST'])]

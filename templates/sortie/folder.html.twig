@@ -6,7 +6,10 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Détails de la sortie</h1>
+        {% if user.piece is not null and user.piece.piece1 == 0%}
+            <h1>Détails de la s<a href="{{ path('piece_point1') }}"><img href="" class="pieceO" src="{{ asset('img/PieceMK8.png') }}" alt=""></a>rtie</h1>
+        {% endif %}
+
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">{{ sortie.name }}</h5>

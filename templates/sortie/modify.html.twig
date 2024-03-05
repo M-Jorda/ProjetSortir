@@ -18,5 +18,9 @@
     </div>
 
     {{ form_end(sortieForm) }}
+    {% if user.piece is not null and user.piece.piece5 == 0%}
+        <a href="{{ path('piece_point5') }}"><img href="" class="pieceEnorme" src="{{ asset('img/PieceMK8.png') }}" alt=""></a>
+    {% endif %}
+
 
 {% endblock %}
