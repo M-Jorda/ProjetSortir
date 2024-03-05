@@ -29,6 +29,19 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
+    public function trierSortie30j()
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+
+        $dateRange = new \DateTime('-30 days');
+
+        $queryBuilder->where('s.startDate >= :dateRange');
+        $queryBuilder->setParameter('dateRange', $dateRange);
+        $queryBuilder->orderBy('s.startDate', 'DESC');
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+
+    }
     public function findByNameAndDate( $name,
                                        $filterDate,
                                        $filterDateMax,
@@ -111,6 +124,8 @@ class SortieRepository extends ServiceEntityRepository
         $results = $query->getResult();
         return $results;
     }
+
+
 
 
 
