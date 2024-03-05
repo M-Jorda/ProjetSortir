@@ -16,7 +16,7 @@ class DeleteSortieFormType extends AbstractType
     {
         $builder
             ->add('motif_delete', TextType::class, [
-                'label' => 'Motif de la suppression',
+                'label' => 'Motif',
                 'constraints'=> [
                     new NotBlank([
 

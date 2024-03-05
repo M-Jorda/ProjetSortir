@@ -1,5 +1,5 @@
 body {
-    background-color: #8080800d;
+    background-color: #E5E5E5;
 }
 
 .form-sortie {
@@ -63,9 +63,9 @@ body {
     height: auto;
 }
 
-.flash-success {background-color: lawngreen}
+.flash-success {background-color: #FCA311}
 
-.flash-failure {background-color: orangered}
+.flash-failure {background-color: #C1121F}
 
 .alignEmailAndPassword {
 
@@ -157,4 +157,19 @@ label.checkAndRememberMe {
     .smartphone {
         display: none !important;
     }
+}
+label[for="delete_sortie_form_motif_delete"] {
+    display: inline-block;
+    margin-right: 50px;
+    max-width: 300px;
+    font-weight: bold;
+}
+input, tr {
+    background-color: #EDEDE9;
+}
+.nav-link  {
+    color: #F6BD60;
+}
+header {
+    background-color: #333333;
 }
