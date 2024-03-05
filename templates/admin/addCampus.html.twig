@@ -6,6 +6,7 @@
     <section class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
+
                 <div class="card">
                     <div class="card-header">
                         <h2 class="text-center">Ajouter un campus</h2>
@@ -21,29 +22,31 @@
                         {{ form_end(campusForm) }}
                     </div>
                 </div>
+
                 <div class="card mt-5">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table">
 
+                            <table class="table">
                                 <thead>
                                 <tr>
                                     <th scope="col">Campus</th>
-
-
+                                    <th scope="col">Manage</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for campus in campuss %}
+                                    {% if campus.id %}
                                     <tr>
                                         <td> {{ campus.name}} </td>
-
-
-
+                                        <td><a href="{{ path('campus-delete', {'id': campus.id}) }}" title="Supprimer un campus" class="text-decoration-none text-dark mx-3"><img
+                                                        src="{{ asset('img/xmark-solid.jpg') }}" style="width: 10px" class="img-fluid" alt="X"></a></td>
                                     </tr>
+                                    {% endif %}
                                 {% endfor %}
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
                 </div>
