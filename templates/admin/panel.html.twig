@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 {% if user.piece is not null and user.piece.piece4 == 0%}
-                    <a href="{{ path('piece_point4') }}"><img href="" class="piece" src="{{ asset('img/PieceMK8.png') }}" alt=""></a>
+                    <a href="{{ path('piece_point4') }}"><img class="piece" src="{{ asset('img/PieceMK8.png') }}" alt=""></a>
                 {% endif %}
 
                 <div class="row justify-content-center">
@@ -37,7 +37,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Ajouter une ville</h5>
                                 <p class="card-text">Introduisez de nouvelles villes dans le système.</p>
-                                <a href="{{ path('admin_addCity') }}" class="btn btn-primary">Ajouter</a>
+                                <a href="{{ path('ville-add') }}" class="btn btn-primary">Ajouter</a>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Ajouter un campus</h5>
                                 <p class="card-text">Incorporez de nouveaux campus.</p>
-                                <a href="{{ path('admin_addCampus') }}" class="btn btn-primary">Ajouter</a>
+                                <a href="{{ path('campus-add') }}" class="btn btn-primary">Ajouter</a>
                             </div>
                         </div>
                     </div>

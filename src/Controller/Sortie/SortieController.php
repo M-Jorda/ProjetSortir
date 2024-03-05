@@ -2,17 +2,12 @@
 
 namespace App\Controller\Sortie;
 
-
 use App\Entity\Etat;
-use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\User;
-use App\Entity\Ville;
-use App\Form\CreateSortie\CreateSortieType;
-use App\Form\SortieVilleType;
+use App\Form\CreateSortie\SortieType;
 use App\Form\Sécurité\DeleteSortieFormType;
 use App\Repository\SortieRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,30 +17,27 @@ use Symfony\Component\Routing\Attribute\Route;
 /**
  * @method getDoctrine()
  */
+#[Route('/sortie', name: 'sortie-')]
 class SortieController extends AbstractController
 {
 
-
-
-
-    #[Route('/sortie/create', name: 'app_sortie_create')]
+    #[Route('/create', name: 'create')]
     public function create(EntityManagerInterface $em, Request $request): Response
     {
         $sortie = new Sortie();
         $etat = $em->getRepository(Etat::class)->find(1);
 
+        //Set l'etat a ouvert et l'organisateur , celui qui est connecté
         $sortie->setEtat($etat);
         $sortie->setOrganisateur($this->getUser());
 
-        $createsortieForm = $this->createForm(CreateSortieType::class, [
-            'sortie' => $sortie,
-            'validation_groups' => ['createSortieForm'],
-        ])
+        //Création du formulaire
+        $createsortieForm = $this->createForm(SortieType::class, $sortie)
             ->handleRequest($request);
 
         if ($createsortieForm->isSubmitted() && $createsortieForm->isValid()) {
-            $sortieData = $createsortieForm->get('sortie')->getData();
-            $em->persist($sortieData);
+            //persist le résultat du formulaire si il est valide
+            $em->persist($sortie);
             $em->flush();
 
             $this->addFlash('success', 'Sortie créée');
@@ -57,8 +49,7 @@ class SortieController extends AbstractController
         ]);
     }
 
-
-    #[Route('/sortie/folder/{id}', name: 'app_sortie_folder', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
+    #[Route('/folder/{id}', name: 'folder', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
     public function folder(int $id, SortieRepository $sortieRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
@@ -92,7 +83,8 @@ class SortieController extends AbstractController
             'user'=>$user,
         ]);
     }
-    #[Route('/sortie/{id}/unsubscribe', name: 'app_sortie_unsubscribe', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
+
+    #[Route('/{id}/unsubscribe', name: 'unsubscribe', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
     public function unsubscribe(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
@@ -114,7 +106,8 @@ class SortieController extends AbstractController
         // Redirigez l'utilisateur vers la liste des sorties ou affichez un message de confirmation
         return $this->redirectToRoute('main_home');
     }
-    #[Route('/sortie/{id}/subscribe', name: 'app_sortie_subscribe', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
+
+    #[Route('/{id}/subscribe', name: 'subscribe', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
     public function subscribe(Sortie $sortie,EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
@@ -138,20 +131,16 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('main_home');
     }
 
-
-
-    #[Route('/sortie/{id}/modify', name: 'app_sortie_modify', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
+    #[Route('/{id}/modify', name: 'modify', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
     public function modify(EntityManagerInterface $em, Request $request, Sortie $sortie): Response
     {
         $user = $this->getUser();
-        $createForm = $this->createForm(CreateSortieType::class, [
-            'sortie' => $sortie
-        ])
+        $createForm = $this->createForm(SortieType::class, $sortie)
             ->handleRequest($request);
 
         if ($createForm->isSubmitted() && $createForm->isValid()) {
 
-            $sortieData = $createForm->get('sortie')->getData();
+            $em->persist($sortie);
             $em->flush();
 
             $this->addFlash('success', 'Sortie modifiée');
@@ -164,9 +153,7 @@ class SortieController extends AbstractController
         ]);
     }
 
-
-
-    #[Route('/sortie/delete/{id}', name: 'app_sortie_delete', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
+    #[Route('/delete/{id}', name: 'delete', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
     public function delete(Sortie $sortie,Request $request, EntityManagerInterface $entityManager): Response
     {
 
@@ -185,9 +172,4 @@ class SortieController extends AbstractController
             'sortie'=>$sortie
         ]);
     }
-
-
-
-
 }
-
