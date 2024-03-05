@@ -3,6 +3,7 @@
 
         {% if is_granted('ROLE_ADMIN')%}
             <li class="nav-item px-3"><a href="{{ path('admin_panel') }}" class="nav-link">Admin</a></li>
+
         {% endif %}
 
         {% if app.user %}
@@ -12,6 +13,9 @@
         {% else %}
             <li class="nav-item px-3"><a href="{{ path('app_login') }}" class="nav-link">Se connecter</a></li>
             <li class="nav-item px-3"><a href="{{ path('app_register') }}" class="nav-link">S'enregistrer</a></li>
+        {% endif %}
+        {% if is_granted('ROLE_PIECE') %}
+            <li class="nav-item px-3"><a href="{{ path('piece_quete') }}" class="nav-link">Piece</a></li>
         {% endif %}
     </ul>
 </div>

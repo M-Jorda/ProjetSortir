@@ -134,6 +134,7 @@ class PieceController extends AbstractController
         $piece = new Piece();
 
         $user->setPiece($piece);
+        $user->setRoles(['ROLE_PIECE']);
         $entityManager->persist($user);
         $entityManager->flush();
 
