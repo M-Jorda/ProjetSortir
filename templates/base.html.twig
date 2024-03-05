@@ -42,7 +42,9 @@
     </footer>
     {% else %}
         <div class="not-connected">
-            <img src="{{ asset('img/NotConnected.png') }}" alt="Vous n'êtes pas connecté">
+            <a href="{{ path('app_login') }}">
+                <img src="{{ asset('img/NotConnected.png') }}" alt="Vous n'êtes pas connecté">
+            </a>
         </div>
     {% endif %}
     </body>
