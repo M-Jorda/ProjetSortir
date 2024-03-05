@@ -48,7 +48,7 @@ class VilleController extends AbstractController
 
             $this->addFlash('success', 'Celle ville à été correctement supprimé');
         }
-        $this->redirectToRoute('ville-add');
+        return $this->redirectToRoute('ville-add');
     }
 
     #[Route('/get/{id}', name: 'get')]
