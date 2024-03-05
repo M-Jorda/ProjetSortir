@@ -42,8 +42,12 @@
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
+        {{ form_row(registrationForm.lastname) }}
+        {{ form_row(registrationForm.firstName) }}
+        {{ form_row(registrationForm.phoneNumber) }}
+        {{ form_row(registrationForm.campus) }}
 
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn btn-primary">Register</button>
         {{ form_end(registrationForm) }}    </main>
 
     <footer>
