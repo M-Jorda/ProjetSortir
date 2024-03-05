@@ -16,7 +16,7 @@
     <body>
     <header class="navBar navbar-dark bg-dark ">
         <div class="container">
-            <h1 class="navbar-brand w-25"><img src="{{ asset('img/logo_sortir.png') }}" alt="Logo_Sortir" class="w-50">projetSortir</h1>
+            <h1 class="navbar-brand w-25"><a href="{{ path('main_home') }}"><img src="{{ asset('img/logo_sortir.png') }}" alt="Logo_Sortir" class="w-50"></a></h1>
             <nav>
                 {% include 'inc/nav.html.twig' %}
             </nav>
