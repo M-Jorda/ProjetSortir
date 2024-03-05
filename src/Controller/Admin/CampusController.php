@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Utilisateur;
+namespace App\Controller\Admin;
 
 use App\Entity\Campus;
 use App\Form\admin\AddCampusType;
@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/campus', name: 'campus-')]
+#[Route('/admin/campus', name: 'campus-')]
 class CampusController extends AbstractController
 {
 

@@ -3,7 +3,7 @@
 namespace App\Controller\Sortie;
 
 use App\Entity\Lieu;
-use App\Form\AjoutLieuType;
+use App\Form\Sortie\AjoutLieuType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

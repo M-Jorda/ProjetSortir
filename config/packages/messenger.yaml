@@ -1,6 +1,9 @@
 framework:
     messenger:
-        failure_transport: failed
+        buses:
+            command-bus:
+                middleware:
+                    - 'router_context'
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration

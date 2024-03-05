@@ -1,12 +1,8 @@
 <?php
 
-namespace App\Controller\Utilisateur;
+namespace App\Controller\Admin;
 
-use App\Entity\Campus;
 use App\Entity\User;
-use App\Entity\Ville;
-use App\Form\admin\AddCampusType;
-use App\Form\admin\AddCityType;
 use App\Form\Sécurité\RegistrationFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use function Symfony\Component\Clock\now;
 
 #[Route('/admin', name: 'admin_')]
 class AdminController extends AbstractController

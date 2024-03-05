@@ -5,7 +5,7 @@ namespace App\Controller\Sortie;
 use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Entity\User;
-use App\Form\CreateSortie\SortieType;
+use App\Form\Sortie\SortieType;
 use App\Form\Sécurité\DeleteSortieFormType;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;

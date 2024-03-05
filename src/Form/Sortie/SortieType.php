@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\CreateSortie;
+namespace App\Form\Sortie;
 
 use App\Entity\Campus;
 use App\Entity\Lieu;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller\Sortie;
+namespace App\Controller\Admin;
 
+use App\Controller\Sortie\Response;
 use App\Entity\Ville;
 use App\Form\admin\AddCityType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/ville', name: 'ville-')]
+#[Route('/admin/ville', name: 'ville-')]
 class VilleController extends AbstractController
 {
 
