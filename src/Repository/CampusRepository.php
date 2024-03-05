@@ -21,6 +21,12 @@ class CampusRepository extends ServiceEntityRepository
         parent::__construct($registry, Campus::class);
     }
 
+    public function getCampusById(int $id): ?Campus
+    {
+        return $this->findOneBy(['campus_id' => $id]);
+    }
+
+
     //    /**
     //     * @return Campus[] Returns an array of Campus objects
     //     */
