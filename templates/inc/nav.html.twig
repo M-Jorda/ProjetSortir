@@ -1,22 +1,20 @@
-<div class="container">
-    <ul class="navbar-nav d-flex flex-row">
+<ul class="navbar-nav d-flex flex-row justify-content-end">
 
-        {% if is_granted('ROLE_ADMIN')%}
-            <li class="nav-item px-3"><a href="{{ path('admin_panel') }}" class="nav-link">Admin</a></li>
+    {% if is_granted('ROLE_ADMIN')%}
+        <li class="nav-item px-3"><a href="{{ path('admin_panel') }}" class="nav-link">Admin</a></li>
 
-        {% endif %}
+    {% endif %}
 
-        {% if app.user %}
-            <li class="nav-item px-3"><a href="{{ path('main_home') }}" class="nav-link">Accueil</a></li>
-            <li class="nav-item px-3"><a href="{{ path('user_detail', {'id': app.user.id}) }}" class="nav-link">Mon profil</a></li>
-            <li class="nav-item px-3"><a href="{{ path('app_logout') }}" class="nav-link">Se déconnecter</a></li>
-        {% else %}
-            <li class="nav-item px-3"><a href="{{ path('app_login') }}" class="nav-link">Se connecter</a></li>
-            <li class="nav-item px-3"><a href="{{ path('app_register') }}" class="nav-link">S'enregistrer</a></li>
-        {% endif %}
-        {% if is_granted('ROLE_PIECE') %}
-            <li class="nav-item px-3"><a href="{{ path('admin_panel') }}" class="nav-link">Admin</a></li>
-            <li class="nav-item px-3"><a href="{{ path('piece_redirection') }}" class="nav-link">Piece</a></li>
-        {% endif %}
-    </ul>
-</div>
+    {% if app.user %}
+        <li class="nav-item px-3"><a href="{{ path('main_home') }}" class="nav-link">Accueil</a></li>
+        <li class="nav-item px-3"><a href="{{ path('user_detail', {'id': app.user.id}) }}" class="nav-link">Mon profil</a></li>
+        <li class="nav-item px-3"><a href="{{ path('app_logout') }}" class="nav-link">Se déconnecter</a></li>
+    {% else %}
+        <li class="nav-item px-3"><a href="{{ path('app_login') }}" class="nav-link">Se connecter</a></li>
+        <li class="nav-item px-3"><a href="{{ path('app_register') }}" class="nav-link">S'enregistrer</a></li>
+    {% endif %}
+    {% if is_granted('ROLE_PIECE') %}
+        <li class="nav-item px-3"><a href="{{ path('admin_panel') }}" class="nav-link">Admin</a></li>
+        <li class="nav-item px-3"><a href="{{ path('piece_redirection') }}" class="nav-link">Piece</a></li>
+    {% endif %}
+</ul>
