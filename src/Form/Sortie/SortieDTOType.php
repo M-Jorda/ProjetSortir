@@ -44,20 +44,20 @@ class SortieDTOType extends AbstractType
 
             ])
             ->add('checkboxOrga',CheckboxType::class,[
-                'label'=> 'Sortie dont je suis l\'organisateur/trice',
+                'label'=> 'Sorties dont je suis l\'organisateur/trice',
                 'required'=>false,
 
             ])
             ->add('checkBoxInscrit',CheckboxType::class,[
-                'label'=>'Sortie auxquelles je suis inscrit/e',
+                'label'=>'Sorties auxquelles je suis inscrit/e',
                 'required'=>false,
             ])
             ->add('checkBoxNotInscrit',CheckboxType::class,[
-                'label'=>'Sortie auxquelles je ne suis pas inscrit/e',
+                'label'=>'Sorties auxquelles je ne suis pas inscrit/e',
                 'required'=>false,
             ])
             ->add('sortiePasse',CheckboxType::class,[
-                'label'=>'Sortie passées',
+                'label'=>'Sorties passées',
                 'required'=>false,
             ])
 

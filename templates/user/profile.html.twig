@@ -8,7 +8,7 @@
     <article class="container mt-5">
         <div class="card">
             <div class="card-header text-center">
-                <h1>Mon profil</h1>
+                <h1 class="text-light"> Mon profil </h1>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -30,11 +30,11 @@
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mt-4">
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="submit" class="btn btn-danger">Enregistrer</button>
                             {% if user.piece is null %}
                             <a class="text-light" href="{{ path('piece_quete') }}">Commence la quête des pieces !</a>
                             {% endif %}
-                            <a href="{{ path('main_home') }}" class="btn btn-outline-secondary">Annuler</a>
+                            <a href="{{ path('main_home') }}" class="btn btn-secondary">Annuler</a>
                         </div>
                         {{ form_end(userForm) }}
                     </div>

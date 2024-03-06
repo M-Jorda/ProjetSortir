@@ -6,30 +6,30 @@
 
 {% block body %}
     <div class="container mt-4">
-        {% if user.piece is not null and user.piece.piece1 == 0 %}
-            <h1>Détails de la s<a href="{{ path('piece_point1') }}"><img href="" class="pieceO"
-                                                                         src="{{ asset('img/PieceMK8.png') }}"
-                                                                         alt=""></a>rtie</h1>
-        {% endif %}
+        <h1>Détails de la s{% if user.piece is not null and user.piece.piece1 == 0 %} <a
+                href="{{ path('piece_point1') }}"><img href="" class="pieceO"
+                                                       src="{{ asset('img/PieceMK8.png') }}"
+                                                       alt=""></a> {% else %}o{% endif %}rtie</h1>
 
         <div class="card">
             <div class="container">
                 <div class="card-body d-flex justify-content-around">
                     <div>
                         <h5 class="mb-5">{{ sortie.name }}</h5>
-                        <p class="mb-4">Date et heure de la sortie :   {{ sortie.startDate | date('d/m/y H:i') }}</p>
-                        <p class="mb-4">Date limite d'inscription :   {{ sortie.limiteDateInscription | date('d/m/y') }}</p>
-                        <p class="mb-4">Nombre de places :   {{ sortie.maxInscriptionsNumber }}</p>
-                        <p class="mb-4">Durée :   {{ sortie.duration }} minutes</p>
-                        <p class="mb-4">Description et infos :  {{ sortie.infosSortie }} </p>
+                        <p class="mb-4">Date et heure de la sortie : {{ sortie.startDate | date('d/m/y H:i') }}</p>
+                        <p class="mb-4">Date limite d'inscription
+                            : {{ sortie.limiteDateInscription | date('d/m/y') }}</p>
+                        <p class="mb-4">Nombre de places : {{ sortie.maxInscriptionsNumber }}</p>
+                        <p class="mb-4">Durée : {{ sortie.duration }} minutes</p>
+                        <p class="mb-4">Description et infos : {{ sortie.infosSortie }} </p>
                     </div>
                     <div>
-                        <p class="mb-4">Campus :   {{ sortie.campus.name }}</p>
-                        <p class="mb-4">Lieu :   {{ sortie.lieu.name }}</p>
-                        <p class="mb-4">Rue :   {{ sortie.lieu.street }}</p>
-                        <p class="mb-4">Code Postal :   {{ sortie.lieu.ville.zipCode }}</p>
-                        <p class="mb-4">Latitude :   {{ sortie.lieu.latitude }}</p>
-                        <p class="mb-4">Longitude :   {{ sortie.lieu.longitude }}</p>
+                        <p class="mb-4">Campus : {{ sortie.campus.name }}</p>
+                        <p class="mb-4">Lieu : {{ sortie.lieu.name }}</p>
+                        <p class="mb-4">Rue : {{ sortie.lieu.street }}</p>
+                        <p class="mb-4">Code Postal : {{ sortie.lieu.ville.zipCode }}</p>
+                        <p class="mb-4">Latitude : {{ sortie.lieu.latitude }}</p>
+                        <p class="mb-4">Longitude : {{ sortie.lieu.longitude }}</p>
                     </div>
                 </div>
             </div>
