@@ -17,11 +17,11 @@
                 {{ form_start(form, {'attr': {'class': 'form-sortie'}}) }}
 
                 <div class="filtres">
-                    {{ form_row(form.campus) }}
-                    {{ form_row(form.name) }}
+                    {{ form_row(form.campus, {'attr': {'class': 'form-control'}, 'label_attr': {'class': 'me-2'}}) }}
+                    {{ form_row(form.name, {'attr': {'class': 'form-control'}, 'label_attr': {'class': 'me-2'}}) }}
                     <div class="date">
-                        {{ form_row(form.filterDate) }}
-                        {{ form_row(form.filterDateMax) }}
+                        {{ form_row(form.filterDate, {'attr': {'class': 'form-control'}, 'label_attr': {'class': 'me-2'}}) }}
+                        {{ form_row(form.filterDateMax, {'attr': {'class': 'form-control'}, 'label_attr': {'class': 'me-2'}}) }}
                     </div>
 
                 </div>
