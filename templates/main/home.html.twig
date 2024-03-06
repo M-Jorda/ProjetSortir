@@ -87,7 +87,7 @@
                         <td class="smartphone">{{ sortie.limiteDateInscription | date('d/m/y') }}</td>
                         <td class="smartphone">{{ sortie.participant|length }}/{{ sortie.maxInscriptionsNumber }}</td>
                         <td class="smartphone">{{ sortieStateService.getEtatObject(sortie).libelle }}</td>
-                        <td class="smartphone">{% if isUserInscrit %}X{% endif %}</td>
+                        <td class="smartphone">{% if isUserInscrit %}<img src="{{ asset('img/Management/xmark.png') }}" alt="X" style="width: 15px; height: auto">{% endif %}</td>
                         <td class="smartphone">
                             <a href="{{ path('app_user_participant',{'id':sortie.organisateur.id}) }}">{{ sortie.organisateur.firstName }}</a>
                         </td>
