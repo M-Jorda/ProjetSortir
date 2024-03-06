@@ -25,6 +25,8 @@ class MainController extends AbstractController
 
         $user = $this->getUser();
 
+        $dateNow = new \DateTime('now');
+
 
         $form = $this->createForm(SortieDTOType::class, $sortieDTO);
         $form->handleRequest($request);
@@ -68,6 +70,7 @@ class MainController extends AbstractController
             'form' => $form->createView(),
             'user' => $user,
             'sortieStateService' => $sortieStateService,
+            'date'=>$dateNow
         ]);
     }
 
