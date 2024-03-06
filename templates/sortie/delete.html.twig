@@ -8,10 +8,10 @@
     <article class="container mt-5">
         <div class="card">
             <div class="card-header text-center">
-                <h1>Annuler une sortie</h1>
+                <h1 class="text-light">Annuler une sortie</h1>
             </div>
-            <div class="card-body">
-                <div class="row">
+            <div class="card-body  text-center">
+                <div class="row justify-content-center">
                     <div class="col-md-6">
                         <ul class="list-group">
                             <li class="list-group-item"><strong>Nom de la sortie:</strong> {{ sortie.name }}</li>
@@ -21,7 +21,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="row mt-3">
+                <div class="row justify-content-center mt-3">
                     <div class="col-md-6">
                         {{ form_start(deleteForm, {'attr': {'class': 'form delete-form'}}) }}
                         <div class="mb-3">

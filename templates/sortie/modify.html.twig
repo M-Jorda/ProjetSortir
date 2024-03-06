@@ -9,7 +9,7 @@
             <div class="col-md-10">
                 <div class="card mt-5">
                     <div class="card-header">
-                        <h2 class="text-center">Modifier une sortie</h2>
+                        <h2 class="text-center text-light">Modifier une sortie</h2>
                     </div>
 
                     <div class="card-body">
@@ -147,15 +147,17 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
+                        <div class="row justify-content-center mb-5 mt-5">
+                            <div class="col-auto">
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-danger">Enregistrer</button>
+                                    <button type="submit" class="btn btn-success mx-2" name="publish">Publier la sortie</button>
+                                    <button type="submit" class="btn btn-secondary" name="cancel">Annuler</button>
+                                </div>
                     </div>
-                    <div class="row justify-content-center mb-5">
-                        <div class="col-auto">
-                            <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary">Enregistrer</button>
-                                <button type="submit" class="btn btn-success" name="publish">Publier la sortie</button>
-                                <button type="submit" class=btn-secondary" name="cancel">Annuler</button>
-                            </div>
+
 
                             {{ form_end(sortieForm) }}
                             {% if user.piece is not null and user.piece.piece5 == 0 %}
