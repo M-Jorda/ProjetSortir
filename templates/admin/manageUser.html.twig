@@ -20,16 +20,21 @@
                         </div>
                         <div class="col-7">
                             <div class="input-group">
-                                <span class="input-group-text">
-                                    <a href="{{ path('admin_manage') }}"><img src="{{ asset('img/Management/loupe.jpg') }}" style="width: 15px; height: auto" alt=""></a>
+                                <span class="input-group-text text-decoration-none">
+                                    <button><img src="{{ asset('img/Management/loupe.jpg') }}"
+                                                 style="height: 15px; width: auto;" alt=""></button>
                                 </span>
                                 {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary" type="button">Rechercher</button>
+                    <div class="d-flex">
+                        <a href="{{ path('admin_manage') }}" class="btn btn-primary mx-5 mt-4">Réinitialiser le
+                            filtre</a>
+                        <a href="{{ path('admin_panel') }}" class="btn btn-primary mt-4">Retour</a>
+                    </div>
                     {{ form_end(form) }}
-                 </div>
+                </div>
             </div>
         </div>
         <div class="row mt-3">
@@ -61,16 +66,22 @@
                                 <td>{{ user.updatedDate | date('d/m/y H:i') }}</td>
                                 <td>
 
-                                        <a href="{{ path('admin_delete', {'id': user.id}) }}" title="Supprimer un utilisateur" class="text-decoration-none text-dark mx-3"><img
-                                                    src="{{ asset('img/Management/xmark.png') }}" style="width: 10px" class="img-fluid" alt="X"></a>
+                                    <a href="{{ path('admin_delete', {'id': user.id}) }}"
+                                       title="Supprimer un utilisateur" class="text-decoration-none text-dark mx-3"><img
+                                                src="{{ asset('img/Management/xmark.png') }}" style="width: 10px"
+                                                class="img-fluid" alt="X"></a>
 
-                                        {% if user.blocked %}
-                                            <a href="{{ path('admin_block', {'id': user.id}) }}" title="Débloquer un utilisateur" class="text-decoration-none text-dark"><img
-                                                        src="{{ asset('img/Management/unlock.jpg') }}" style="width: 10px" class="img-fluid" alt="lock"></a>
-                                        {% else %}
-                                            <a href="{{ path('admin_block', {'id': user.id}) }}" title="Bloquer un utilisateur" class="text-decoration-none text-dark"><img
-                                                        src="{{ asset('img/Management/lock.jpg') }}" style="width: 10px" class="img-fluid" alt="unlock"></a>
-                                        {% endif %}
+                                    {% if user.blocked %}
+                                        <a href="{{ path('admin_block', {'id': user.id}) }}"
+                                           title="Débloquer un utilisateur" class="text-decoration-none text-dark"><img
+                                                    src="{{ asset('img/Management/unlock.jpg') }}" style="width: 10px"
+                                                    class="img-fluid" alt="lock"></a>
+                                    {% else %}
+                                        <a href="{{ path('admin_block', {'id': user.id}) }}"
+                                           title="Bloquer un utilisateur" class="text-decoration-none text-dark"><img
+                                                    src="{{ asset('img/Management/lock.jpg') }}" style="width: 10px"
+                                                    class="img-fluid" alt="unlock"></a>
+                                    {% endif %}
 
                                 </td>
                             </tr>

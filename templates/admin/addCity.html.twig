@@ -36,6 +36,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-auto">
                                     <button class="btn btn-primary" type="submit">Ajouter un campus</button>
+                                    <a href="{{ path('admin_panel') }}" class="btn btn-primary">Retour</a>
                                 </div>
                             </div>
                             {{ form_end(villeForm) }}
@@ -51,10 +52,10 @@
                                     <div class="mb-3">
                                         {{ form_start(filterForm) }}
                                         <div class="row align-items-center">
-                                            <div class="col-5">
+                                            <div class="col-3">
                                                 {{ form_label(filterForm, null, {'label': 'Le nom contient : ', 'label_attr': {'class': 'me-2'}}) }}
                                             </div>
-                                            <div class="col-7">
+                                            <div class="col-5">
                                                 <div class="input-group">
                                                     {{ form_widget(filterForm) }}
                                                     <button class="input-group-text" type="submit">
@@ -63,6 +64,10 @@
                                                     </button>
                                                 </div>
                                             </div>
+                                            <div class="col-4">
+                                                <a href="{{ path('ville-manage') }}" class="btn btn-primary">Réinitialiser
+                                                    le filtre</a>
+                                            </div>
                                         </div>
                                         {{ form_end(filterForm) }}
 
@@ -70,36 +75,39 @@
                                 </div>
                             </div>
                         </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
 
-                                <thead>
-                                <tr>
-                                    <th scope="col">Ville</th>
-                                    <th scope="col">Code postal</th>
-                                    <th scope="col">Manage</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for ville in villes %}
-                                    {% if ville.id %}
+                                    <thead>
                                     <tr>
-                                        <td> {{ ville.name}} </td>
-                                        <td>{{ ville.zipCode}}</td>
-                                        <td><a href="{{ path('ville-delete', {'id': ville.id}) }}" title="Supprimer une ville" class="text-decoration-none text-dark mx-3"><img
-                                                        src="{{ asset('img/Management/xmark.png') }}" style="width: 10px" class="img-fluid" alt="X"></a></td>
+                                        <th scope="col">Ville</th>
+                                        <th scope="col">Code postal</th>
+                                        <th scope="col">Manage</th>
+
                                     </tr>
-                                    {% endif %}
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {% for ville in villes %}
+                                        {% if ville.id %}
+                                            <tr>
+                                                <td> {{ ville.name }} </td>
+                                                <td>{{ ville.zipCode }}</td>
+                                                <td><a href="{{ path('ville-delete', {'id': ville.id}) }}"
+                                                       title="Supprimer une ville"
+                                                       class="text-decoration-none text-dark mx-3"><img
+                                                                src="{{ asset('img/Management/xmark.png') }}"
+                                                                style="width: 10px" class="img-fluid" alt="X"></a></td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
 

@@ -28,6 +28,7 @@
                         <div class="row justify-content-center">
                             <div class="col-auto">
                                 <button class="btn btn-primary" type="submit">Ajouter un campus</button>
+                                <a href="{{ path('admin_panel') }}" class="btn btn-primary">Retour</a>
                             </div>
                         </div>
                         {{ form_end(campusForm) }}
@@ -43,10 +44,10 @@
                                     <div class="mb-3">
                                         {{ form_start(filterForm) }}
                                         <div class="row align-items-center">
-                                            <div class="col-5">
+                                            <div class="col-3">
                                                 {{ form_label(filterForm, null, {'label': 'Le nom contient : ', 'label_attr': {'class': 'me-2'}}) }}
                                             </div>
-                                            <div class="col-7">
+                                            <div class="col-5 d-flex">
                                                 <div class="input-group">
                                                     {{ form_widget(filterForm) }}
                                                     <button class="input-group-text" type="submit">
@@ -54,6 +55,10 @@
                                                              alt="Rechercher" style="width: 15px; height: auto">
                                                     </button>
                                                 </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <a href="{{ path('campus-manage') }}" class="btn btn-primary">Réinitialiser
+                                                    le filtre</a>
                                             </div>
                                         </div>
                                         {{ form_end(filterForm) }}

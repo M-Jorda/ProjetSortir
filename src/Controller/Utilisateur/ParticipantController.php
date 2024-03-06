@@ -14,6 +14,13 @@ class ParticipantController extends AbstractController
     #[Route('/user/{id}', name: 'app_user_participant', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function participant(User $participant, UserRepository $userRepository): Response
     {
+        $user = $this->getUser();
+         if ($user->getUserIdentifier() == $participant->getUserIdentifier() ) {
+             return $this->redirectToRoute('user_detail', [
+                 'id' => $participant->getId()
+             ]);
+         }
+
 
         return $this->render('user/participant.html.twig', [
                 'participant' => $participant

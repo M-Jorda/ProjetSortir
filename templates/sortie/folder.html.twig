@@ -34,6 +34,14 @@
                 </div>
             </div>
         </div>
+        <div class="buttons">
+            {% if app.user and sortie.maxInscriptionsNumber > participants|length and app.user not in sortie.participant %}
+                <form action="{{ path('sortie-folder', {'id': sortie.id}) }}" method="POST" class="smartphone mt-3">
+                    <button type="submit" class="btn btn-primary">S'inscrire à la sortie</button>
+                    <a href="{{ path('main_home') }}" class="btn btn-primary">Retour</a>
+                </form>
+            {% endif %}
+        </div>
 
         <h2 class="mt-4">Participants :</h2>
         <div class="table-responsive">
@@ -56,11 +64,5 @@
                 </tbody>
             </table>
         </div>
-
-        {% if app.user and sortie.maxInscriptionsNumber > participants|length and app.user not in sortie.participant %}
-            <form action="{{ path('sortie-folder', {'id': sortie.id}) }}" method="POST" class="smartphone mt-3">
-                <button type="submit" class="btn btn-primary">S'inscrire à la sortie</button>
-            </form>
-        {% endif %}
     </div>
 {% endblock %}
