@@ -17,7 +17,8 @@ use Symfony\Component\Routing\Attribute\Route;
 class AdminController extends AbstractController
 {
     #[Route('/manage', name: 'manage', methods: ['GET', 'POST'])]
-    public function manageUser(UserRepository $userRepo, Request $request, EntityManagerInterface $em) {
+    public function manageUser(UserRepository $userRepo, Request $request, EntityManagerInterface $em): \Symfony\Component\HttpFoundation\Response
+    {
 
         $filter = new UserDTO();
         $users = $userRepo->findAll();
@@ -26,12 +27,11 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $pseudo = $filter->getName();
-            $users = $userRepo->findByName($pseudo);
+            $users = $userRepo->findByName($filter->getName());
         }
 
         return $this->render('admin/manageUser.html.twig', [
-            "users" => $users,
+            'users' => $users,
             'form' => $form,
         ]);
     }

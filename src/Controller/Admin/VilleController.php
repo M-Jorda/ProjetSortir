@@ -3,8 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Controller\Sortie\Response;
+use App\DTO\VilleDTO;
 use App\Entity\Ville;
 use App\Form\admin\AddCityType;
+use App\Form\admin\VilleDTOType;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,13 +18,22 @@ use Symfony\Component\Routing\Attribute\Route;
 class VilleController extends AbstractController
 {
 
-    #[Route('/add', name: 'add', methods: ['GET','POST'])]
-    public function addCity(Request $request, EntityManagerInterface $em) {
+    #[Route('/manage', name: 'manage', methods: ['GET','POST'])]
+    public function addCity(Request $request, EntityManagerInterface $em, VilleRepository $villeRepo) {
+
+        $filter = new VilleDTO();
         $ville = new Ville();
         $villes = $em->getRepository(Ville::class)->findAll();
 
         $villeForm = $this->createForm(AddCityType::class, $ville)
             ->handleRequest($request);
+        $filterForm = $this->createForm(VilleDTOType::class, $filter)
+            ->handleRequest($request);
+
+        if ($filterForm->isSubmitted() && $filterForm->isValid()) {
+            $villeFiltered = $filter->getName();
+            $villes = $villeRepo->findByName($villeFiltered);
+        }
 
         if ($villeForm->isSubmitted() && $villeForm->isValid()) {
             $em->persist($ville);
@@ -33,6 +45,7 @@ class VilleController extends AbstractController
 
         return $this->render('admin/addCity.html.twig', [
             'villeForm' => $villeForm,
+            'filterForm' => $filterForm,
             'villes' => $villes
         ]);
     }
