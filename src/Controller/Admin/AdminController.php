@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\DTO\UserDTO;
 use App\Entity\User;
+use App\Form\admin\UserDTOType;
 use App\Form\Sécurité\RegistrationFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,13 +17,22 @@ use Symfony\Component\Routing\Attribute\Route;
 class AdminController extends AbstractController
 {
     #[Route('/manage', name: 'manage', methods: ['GET', 'POST'])]
-    public function manageUser(UserRepository $userRepo) {
+    public function manageUser(UserRepository $userRepo, Request $request, EntityManagerInterface $em) {
 
+        $filter = new UserDTO();
         $users = $userRepo->findAll();
+
+        $form = $this->createForm(UserDTOType::class, $filter);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $pseudo = $filter->getName();
+            $users = $userRepo->findByName($pseudo);
+        }
 
         return $this->render('admin/manageUser.html.twig', [
             "users" => $users,
-
+            'form' => $form,
         ]);
     }
 

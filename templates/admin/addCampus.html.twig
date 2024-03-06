@@ -13,11 +13,22 @@
                     </div>
                     <div class="card-body">
                         {{ form_start(campusForm, {'attr': {'class': 'form'}}) }}
-                        <div class="add-form">
-                            {{ form_widget(campusForm, {'attr': {'class': 'mb-3'}}) }}
+                        <div class="row align-items-center">
+                            <div class="col-md-10">
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(campusForm.name, null, {'label': 'Nom du campus : ', 'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(campusForm.name, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary" type="submit">Ajouter un campus</button>
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <button class="btn btn-primary" type="submit">Ajouter un campus</button>
+                            </div>
                         </div>
                         {{ form_end(campusForm) }}
                     </div>
@@ -25,28 +36,59 @@
 
                 <div class="card mt-5">
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="card-header">
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <h2>Filtrer les campus</h2>
+                                    <div class="mb-3">
+                                        {{ form_start(filterForm) }}
+                                        <div class="row align-items-center">
+                                            <div class="col-5">
+                                                {{ form_label(filterForm, null, {'label': 'Le nom contient : ', 'label_attr': {'class': 'me-2'}}) }}
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="input-group">
+                                                    {{ form_widget(filterForm) }}
+                                                    <button class="input-group-text" type="submit">
+                                                        <img src="{{ asset('img/Management/loupe.jpg') }}"
+                                                             alt="Rechercher" style="width: 15px; height: auto">
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{ form_end(filterForm) }}
 
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Campus</th>
-                                    <th scope="col">Manage</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for campus in campuss %}
-                                    {% if campus.id %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+
+                                <table class="table">
+                                    <thead>
                                     <tr>
-                                        <td> {{ campus.name}} </td>
-                                        <td><a href="{{ path('campus-delete', {'id': campus.id}) }}" title="Supprimer un campus" class="text-decoration-none text-dark mx-3"><img
-                                                        src="{{ asset('img/Management/xmark.png') }}" style="width: 10px" class="img-fluid" alt="X"></a></td>
+                                        <th scope="col">Campus</th>
+                                        <th scope="col">Manage</th>
                                     </tr>
-                                    {% endif %}
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {% for campus in campuss %}
+                                        {% if campus.id %}
+                                            <tr>
+                                                <td> {{ campus.name }} </td>
+                                                <td><a href="{{ path('campus-delete', {'id': campus.id}) }}"
+                                                       title="Supprimer un campus"
+                                                       class="text-decoration-none text-dark mx-3"><img
+                                                                src="{{ asset('img/Management/xmark.png') }}"
+                                                                style="width: 10px" class="img-fluid" alt="X"></a></td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
 
+                            </div>
                         </div>
                     </div>
                 </div>

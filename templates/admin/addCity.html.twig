@@ -10,15 +10,36 @@
                     <div class="card-header">
                         <h2 class="text-center">Ajouter une ville</h2>
                     </div>
-                    <div class="card-body">
-                        {{ form_start(villeForm, {'attr': {'class': 'form'}}) }}
-                        <div class="add-form">
-                            {{ form_widget(villeForm, {'attr': {'class': 'mb-3'}}) }}
+                    <div class="card">
+                        <div class="card-body">
+                            {{ form_start(villeForm, {'attr': {'class': 'form'}}) }}
+                            <div class="row align-items-center">
+                                <div class="col-md-10">
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-5">
+                                            {{ form_label(villeForm.name, null, {'label': 'Nom de la ville : ', 'label_attr': {'class': 'me-2'}}) }}
+                                        </div>
+                                        <div class="col-7">
+                                            {{ form_widget(villeForm.name, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-5">
+                                            {{ form_label(villeForm.ZipCode, null, {'label': 'Code postal : ', 'label_attr': {'class': 'me-2'}}) }}
+                                        </div>
+                                        <div class="col-7">
+                                            {{ form_widget(villeForm.ZipCode, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-auto">
+                                    <button class="btn btn-primary" type="submit">Ajouter un campus</button>
+                                </div>
+                            </div>
+                            {{ form_end(villeForm) }}
                         </div>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary" type="submit">Ajouter une ville</button>
-                        </div>
-                        {{ form_end(villeForm) }}
                     </div>
                 </div>
                 <div class="card mt-5">

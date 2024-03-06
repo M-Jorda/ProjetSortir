@@ -2,8 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\DTO\CampusDTO;
 use App\Entity\Campus;
 use App\Form\admin\AddCampusType;
+use App\Form\admin\CampusDTOType;
+use App\Repository\CampusRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,13 +16,22 @@ use Symfony\Component\Routing\Attribute\Route;
 class CampusController extends AbstractController
 {
 
-    #[Route('/add', name: 'add', methods: ['GET','POST'])]
-    public function addCampus(Request $request, EntityManagerInterface $em) {
+    #[Route('/manage', name: 'manage', methods: ['GET','POST'])]
+    public function addCampus(Request $request, EntityManagerInterface $em, CampusRepository $campusRepo) {
+
+        $filter = new CampusDTO();
         $campus = new Campus();
         $campuss = $em->getRepository(Campus::class)->findAll();
 
         $campusForm = $this->createForm(AddCampusType::class, $campus)
             ->handleRequest($request);
+        $filterForm = $this->createForm(CampusDTOType::class, $filter)
+            ->handleRequest($request);
+
+        if ($filterForm->isSubmitted() && $filterForm->isValid()) {
+            $campusFiltered = $filter->getName();
+            $campuss = $campusRepo->findByName($campusFiltered);
+        }
 
         if ($campusForm->isSubmitted() && $campusForm->isValid()) {
             $em->persist($campus);
@@ -31,7 +43,8 @@ class CampusController extends AbstractController
 
         return $this->render('admin/addCampus.html.twig', [
             'campusForm' => $campusForm,
-            'campuss' => $campuss
+            'filterForm' => $filterForm,
+            'campuss' => $campuss,
         ]);
     }
 

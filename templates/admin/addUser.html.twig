@@ -12,11 +12,62 @@
                     </div>
                     <div class="card-body">
                         {{ form_start(userForm, {'attr': {'class': 'form'}}) }}
-                        <div class="add-form">
-                            {{ form_widget(userForm, {'attr': {'class': 'mb-3'}}) }}
+                        <div class="row align-items-center">
+                            <div class="col-md-10">
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(userForm.lastname, null, {'label': 'Nom : ', 'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(userForm.lastname, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(userForm.firstName, null, {'label': 'Prénom : ', 'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(userForm.firstName, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(userForm.email, null, {'label': 'Email : ', 'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(userForm.email, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(userForm.plainPassword, null, {'label': 'Mot de passe : ', 'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(userForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(userForm.phoneNumber, null, {'label': 'Téléphone : ', 'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(userForm.phoneNumber, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(userForm.campus, null, {'label': 'Campus : ', 'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(userForm.campus, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary" type="submit">Ajouter un utilisateur</button>
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <button class="btn btn-primary" type="submit">Ajouter un campus</button>
+                            </div>
                         </div>
                         {{ form_end(userForm) }}
                     </div>

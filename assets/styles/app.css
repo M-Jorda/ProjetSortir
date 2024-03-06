@@ -33,21 +33,6 @@ body {
     height: 80vh;
 }
 
-mode {
-    display: flex;
-    width: 50px;
-
-    span {
-        width: 50%;
-    }
-    .normal {
-        background-color: black;
-    }
-    .retro {
-        background-color: lawngreen;
-    }
-}
-
 .filtres {
     width: 80%;
 
@@ -61,8 +46,8 @@ mode {
             height: 2rem;
         }
     }
-
 }
+
 .checkBox {
     div {
         display: flex;
