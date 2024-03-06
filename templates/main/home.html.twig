@@ -58,7 +58,7 @@
                     <th class="smartphone" scope="col">Etat</th>
                     <th class="smartphone" scope="col">Inscrit</th>
                     <th class="smartphone" scope="col">Organisateur</th>
-                    <th class="smartphone" scope="col">Actions</th>
+                    <th class="smartphone" scope="col" style="width: 25%;">Actions</th>
                 </tr>
                 </thead>
 
@@ -76,10 +76,12 @@
 
 
 
-                    <tr>
-                        <td><a href="{{ path('sortie-folder',{'id':sortie.id}) }}"
+                    <tr class="sortie_data">
+                        <td>
+                            <a href="{{ path('sortie-folder',{'id':sortie.id}) }}"
                                class="AAfficherSmartphone">{{ sortie.name }}</a>
-                            <p class="smartphone">{{ sortie.name }}</p></td>
+                            <p class="smartphone">{{ sortie.name }}</p>
+                        </td>
                         <td>{{ sortie.startDate | date('d/m/y') }}</td>
                         <td class="AAfficherSmartphone">{{ sortie.lieu.name }}</td>
                         <td class="smartphone">{{ sortie.limiteDateInscription | date('d/m/y') }}</td>
@@ -89,25 +91,48 @@
                         <td class="smartphone">
                             <a href="{{ path('app_user_participant',{'id':sortie.organisateur.id}) }}">{{ sortie.organisateur.firstName }}</a>
                         </td>
-                        <td class="smartphone">
-                            <a href="{{ path('sortie-folder',{'id':sortie.id}) }}" class="btn btn-info btn-sm">Afficher</a>
+                        <td class="smartphone d-flex">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <a href="{{ path('sortie-folder',{'id':sortie.id}) }}" class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                    <img src="{{ asset('img/Management/eye.png') }}" alt="Display" style="width: 15px; height: auto">
+                                    <span>Afficher</span>
+                                </a>
+                            </div>
                             {% if app.user == sortie.organisateur %}
-                                <a href="{{ path('sortie-modify', {'id': sortie.id}) }}"
-                                   class="btn btn-primary btn-sm">Modifier</a>
-                                <a href="{{ path('sortie-delete', {'id': sortie.id}) }}"
-                                   class="btn btn-danger btn-sm">Annuler</a>
-                            {% else %}
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <a href="{{ path('sortie-modify', {'id': sortie.id}) }}" class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                        <img src="{{ asset('img/Management/update.png') }}" alt="Update" style="width: 15px; height: auto;">
+                                        <span>Modifier</span>
+                                    </a>
+                                </div>
+
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <a href="{{ path('sortie-delete', {'id': sortie.id}) }}" class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                        <img src="{{ asset('img/Management/xmark.png') }}" alt="Cancel" style="width: 15px; height: auto">
+                                        <span>Annuler</span>
+                                    </a>
+                                </div>
                             {% endif %}
                             {% if isUserInscrit %}
-                                <a href="{{ path('sortie-unsubscribe', {'id': sortie.id}) }}"
-                                   class="btn btn-warning btn-sm">Se désister</a>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <a href="{{ path('sortie-unsubscribe', {'id': sortie.id}) }}" class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                        <img src="{{ asset('img/Management/minus.png') }}" alt="Unsubscribe" style="width: 15px; height: auto">
+                                        <span>Se désister</span>
+                                    </a>
+                                </div>
+
                             {% else %}
                                 {% if app.user
                                     and sortie.maxInscriptionsNumber > sortie.participant|length
                                     and sortie.limiteDateInscription > date('now')
                                     and app.user not in sortie.participant %}
-                                    <a href="{{ path('sortie-subscribe', {'id': sortie.id}) }}"
-                                       class="btn btn-success btn-sm">S'inscrire</a>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <a href="{{ path('sortie-subscribe', {'id': sortie.id}) }}" class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                            <img src="{{ asset('img/Management/plus.png') }}" alt="Subscribe" style="width: 15px; height: auto">
+                                            <span>S'inscrire</span>
+                                        </a>
+                                    </div>
+
                                 {% endif %}
                             {% endif %}
                         </td>

@@ -22,11 +22,15 @@ body {
         }
     }
 }
+.sortie_data td {
+    vertical-align: middle;
+    text-align: left;
+}
 .not-connected {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh; /* Prend toute la hauteur de la fenêtre */
+    height: 80vh;
 }
 
 mode {
@@ -185,12 +189,22 @@ label[for="delete_sortie_form_motif_delete"] {
     max-width: 300px;
     font-weight: bold;
 }
-input, tr {
-    background-color: #EDEDE9;
+input,
+tr,
+select,
+table th,
+table td {
+    background-color: #EDEDE9 !important;
 }
-.nav-link  {
-    color: #F6BD60;
+.nav-link, table th  {
+    color: #F6BD60 !important;
 }
 header {
     background-color: #333333;
+}
+
+.pt {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
 }
