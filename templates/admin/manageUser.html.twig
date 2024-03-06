@@ -20,11 +20,11 @@
                         </div>
                         <div class="col-7">
                             <div class="input-group">
-                                <span class="input-group-text text-decoration-none">
-                                    <button><img src="{{ asset('img/Management/loupe.jpg') }}"
-                                                 style="height: 15px; width: auto;" alt=""></button>
-                                </span>
-                                {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_widget(form) }}
+                                <button class="input-group-text" type="submit">
+                                    <img src="{{ asset('img/Management/loupe.jpg') }}"
+                                         alt="Rechercher" style="width: 15px; height: auto">
+                                </button>
                             </div>
                         </div>
                     </div>
