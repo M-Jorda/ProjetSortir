@@ -5,24 +5,24 @@
 {% block body %}
     <article class="container mt-5">
         <div class="card text-center">
-            <h1 class="card-header">Admin Panel</h1>
+            <h1 class="card-header text-light">Admin Panel</h1>
             <div class="card-body">
                 <div class="row justify-content-center">
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body cardBorder">
                                 <h5 class="card-title">Ajouter un membre</h5>
                                 <p class="card-text">Créez un nouveau compte membre.</p>
-                                <a href="{{ path('admin_add') }}" class="btn btn-primary">Ajouter</a>
+                                <a href="{{ path('admin_add') }}" class="btn btn-danger">Ajouter</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body cardBorder">
                                 <h5 class="card-title">Gérer les membres</h5>
                                 <p class="card-text">Visualisez et modifiez les comptes existants.</p>
-                                <a href="{{ path('admin_manage') }}" class="btn btn-primary">Gérer</a>
+                                <a href="{{ path('admin_manage') }}" class="btn btn-danger">Gérer</a>
                             </div>
                         </div>
                     </div>
@@ -34,26 +34,26 @@
                 <div class="row justify-content-center">
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body cardBorder">
                                 <h5 class="card-title">Ajouter une ville</h5>
                                 <p class="card-text">Introduisez de nouvelles villes dans le système.</p>
-                                <a href="{{ path('ville-manage') }}" class="btn btn-primary">Ajouter</a>
+                                <a href="{{ path('ville-manage') }}" class="btn btn-danger">Ajouter</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body cardBorder">
                                 <h5 class="card-title">Ajouter un campus</h5>
                                 <p class="card-text">Incorporez de nouveaux campus.</p>
-                                <a href="{{ path('campus-manage') }}" class="btn btn-primary">Ajouter</a>
+                                <a href="{{ path('campus-manage') }}" class="btn btn-danger">Ajouter</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="">
-                        <a href="{{ path('main_home') }}" class="btn btn-primary">Retour</a>
+                        <a href="{{ path('main_home') }}" class="btn btn-secondary">Retour</a>
                     </div>
                 </div>
             </div>

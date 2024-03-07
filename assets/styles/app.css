@@ -199,3 +199,8 @@ header {
 .card-header{
     background-color: #333333;
 }
+
+.cardBorder {
+    border: solid #333333 2px;
+    border-radius: 5px;
+}

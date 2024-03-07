@@ -5,169 +5,176 @@
 
 {% block body %}
     <article class="container mt-5">
+        <div class="card">
+            <div class="card-header">
 
-        <div class="d-flex flex-row-reverse">
-            <p>Bonjour {{ user.pseudo }} on est le {{ date | date('d/m/y') }}</p>
-        </div>
+            <div class="d-flex flex-row-reverse">
+                <p class="text-light">Bonjour {{ user.pseudo }} on est le {{ date | date('d/m/y') }}</p>
+            </div>
 
-        <div class="smartphone row mt-3">
-            <div class="col" id="form">
-                {{ form_start(form, {'attr': {'class': 'form-sortie'}}) }}
+            <div class="smartphone row mt-3">
+                <div class="col" id="form">
+                    {{ form_start(form, {'attr': {'class': 'form-sortie'}}) }}
 
-                <div class="filtres">
-                    {{ form_row(form.campus, {'attr': {'class': 'form-control'}, 'label_attr': {'class': 'me-2'}}) }}
-                    {{ form_row(form.name, {'attr': {'class': 'form-control'}, 'label_attr': {'class': 'me-2'}}) }}
-                    <div class="date">
-                        {{ form_row(form.filterDate, {'attr': {'class': 'form-control'}, 'label_attr': {'class': 'me-2'}}) }}
-                        {{ form_row(form.filterDateMax, {'attr': {'class': 'form-control'}, 'label_attr': {'class': 'me-2 mx-4'}}) }}
+                    <div class="filtres">
+                        {{ form_row(form.campus, {'attr': {'class': 'form-control'}, 'label_attr': {'class': 'mb-3 text-light'}}) }}
+                        {{ form_row(form.name, {'attr': {'class': 'form-control'}, 'label_attr': {'class': 'mb-3 text-light'}}) }}
+                        <div class="date">
+                            {{ form_row(form.filterDate, {'attr': {'class': 'form-control'}, 'label_attr': {'class': 'mb-3 text-light'}}) }}
+                            {{ form_row(form.filterDateMax, {'attr': {'class': 'form-control'}, 'label_attr': {'class': 'mb-3 mx-4  text-light'}}) }}
+                        </div>
+
                     </div>
 
-                </div>
+                    <div class="checkBox">
+                        {{ form_row(form.checkboxOrga, {'label_attr': {'class': 'mb-2 text-light'}}) }}
+                        {{ form_row(form.checkBoxInscrit, {'label_attr': {'class': 'mb-2 text-light'}}) }}
+                        {{ form_row(form.checkBoxNotInscrit, {'label_attr': {'class': 'mb-2 text-light'}}) }}
+                        {{ form_row(form.sortiePasse, {'label_attr': {'class': 'mb-2 text-light'}}) }}
+                    </div>
+                    <div>
+                        <button class="btn btn-danger btn-filtre" type="submit">Rechercher</button>
+                        <a href="{{ path('main_home') }}" class="btn btn-secondary btn-filtre mt-2">Réinitialiser le
+                            filtre</a>
 
-                <div class="checkBox">
-                    {{ form_row(form.checkboxOrga) }}
-                    {{ form_row(form.checkBoxInscrit) }}
-                    {{ form_row(form.checkBoxNotInscrit) }}
-                    {{ form_row(form.sortiePasse) }}
-                </div>
-                <div>
-                    <button class="btn btn-primary btn-filtre" type="submit">Rechercher</button>
-                    <a href="{{ path('main_home') }}" class="btn btn-primary btn-filtre mt-2">Réinitialiser le
-                        filtre</a>
+                        {% if user.piece is not null and user.piece.piece2 == 0 %}
 
-                    {% if user.piece is not null and user.piece.piece2 == 0 %}
-
-                        <a href="{{ path('piece_point2') }}"><img href="" class="piece"
-                                                                  src="{{ asset('img/PieceMK8.png') }}" alt=""></a>
-                    {% endif %}
-                </div>
-                {{ form_end(form) }}
-            </div>
-        </div>
-
-
-        <h2>Sorties :</h2>
-        <div class="table-responsive">
-            <table class="table">
-
-                <thead>
-                <tr>
-                    <th scope="col">Nom de la sortie</th>
-                    <th scope="col">Date de la sortie</th>
-                    <th class="AAfficherSmartphone" scope="col">Lieu</th>
-                    <th class="smartphone" scope="col">Clôture</th>
-                    <th class="smartphone" scope="col">inscrits/places</th>
-                    <th class="smartphone" scope="col">Etat</th>
-                    <th class="smartphone" scope="col">Inscrit</th>
-                    <th class="smartphone" scope="col">Organisateur</th>
-                    <th class="smartphone" scope="col" style="width: 25%;">Actions</th>
-                </tr>
-                </thead>
-
-
-                <tbody>
-                {% for sortie in sorties %}
-                    {% set isUserInscrit = false %}
-                    {% for participant in sortie.participant %}
-                        {% if participant.id == user.id %}
-                            {% set isUserInscrit = true %}
+                            <a href="{{ path('piece_point2') }}"><img href="" class="piece"
+                                                                      src="{{ asset('img/PieceMK8.png') }}" alt=""></a>
                         {% endif %}
-                    {% endfor %}
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+                <h2 class="text-light">Sorties :</h2>
+            </div>
 
 
 
 
+            <div class="card-body table-responsive px-5">
+                <table class=" table">
 
-                    <tr class="sortie_data">
-                        <td>
-                            <a href="{{ path('sortie-folder',{'id':sortie.id}) }}"
-                               class="AAfficherSmartphone">{{ sortie.name }}</a>
-                            <p class="smartphone">{{ sortie.name }}</p>
-                        </td>
-                        <td>{{ sortie.startDate | date('d/m/y') }}</td>
-                        <td class="AAfficherSmartphone">{{ sortie.lieu.name }}</td>
-                        <td class="smartphone">{{ sortie.limiteDateInscription | date('d/m/y') }}</td>
-                        <td class="smartphone">{{ sortie.participant|length }}/{{ sortie.maxInscriptionsNumber }}</td>
-                        <td class="smartphone">{{ sortieStateService.getEtatObject(sortie).libelle }}</td>
-                        <td class="smartphone">{% if isUserInscrit %}<img src="{{ asset('img/Management/xmark.png') }}"
-                                                                          alt="X"
-                                                                          style="width: 15px; height: auto">{% endif %}
-                        </td>
-                        <td class="smartphone">
-                            <a href="{{ path('app_user_participant',{'id':sortie.organisateur.id}) }}">{{ sortie.organisateur.firstName }}</a>
-                        </td>
-                        <td class="smartphone d-flex">
-                            <div class="d-flex justify-content-center align-items-center">
-                                <a href="{{ path('sortie-folder',{'id':sortie.id}) }}"
-                                   class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
-                                    <img src="{{ asset('img/Management/eye.png') }}" alt="Display"
-                                         style="width: 15px; height: auto">
-                                    <span>Afficher</span>
-                                </a>
-                            </div>
-                            {% if app.user == sortie.organisateur %}
-                                <div class="d-flex justify-content-center align-items-center">
-                                    <a href="{{ path('sortie-modify', {'id': sortie.id}) }}"
-                                       class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
-                                        <img src="{{ asset('img/Management/update.png') }}" alt="Update"
-                                             style="width: 15px; height: auto;">
-                                        <span>Modifier</span>
-                                    </a>
-                                </div>
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom de la sortie</th>
+                        <th scope="col">Date de la sortie</th>
+                        <th class="AAfficherSmartphone" scope="col">Lieu</th>
+                        <th class="smartphone" scope="col">Clôture</th>
+                        <th class="smartphone" scope="col">inscrits/places</th>
+                        <th class="smartphone" scope="col">Etat</th>
+                        <th class="smartphone" scope="col">Inscrit</th>
+                        <th class="smartphone" scope="col">Organisateur</th>
+                        <th class="smartphone" scope="col" style="width: 25%;">Actions</th>
+                    </tr>
+                    </thead>
 
-                                <div class="d-flex justify-content-center align-items-center">
-                                    <a href="{{ path('sortie-delete', {'id': sortie.id}) }}"
-                                       class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
-                                        <img src="{{ asset('img/Management/xmark.png') }}" alt="Cancel"
-                                             style="width: 15px; height: auto">
-                                        <span>Annuler</span>
-                                    </a>
-                                </div>
+
+                    <tbody>
+                    {% for sortie in sorties %}
+                        {% set isUserInscrit = false %}
+                        {% for participant in sortie.participant %}
+                            {% if participant.id == user.id %}
+                                {% set isUserInscrit = true %}
                             {% endif %}
-                            {% if isUserInscrit %}
+                        {% endfor %}
+
+
+
+
+
+                        <tr class="sortie_data">
+                            <td>
+                                <a href="{{ path('sortie-folder',{'id':sortie.id}) }}"
+                                   class="AAfficherSmartphone">{{ sortie.name }}</a>
+                                <p class="smartphone">{{ sortie.name }}</p>
+                            </td>
+                            <td>{{ sortie.startDate | date('d/m/y') }}</td>
+                            <td class="AAfficherSmartphone">{{ sortie.lieu.name }}</td>
+                            <td class="smartphone">{{ sortie.limiteDateInscription | date('d/m/y') }}</td>
+                            <td class="smartphone">{{ sortie.participant|length }}
+                                /{{ sortie.maxInscriptionsNumber }}</td>
+                            <td class="smartphone">{{ sortieStateService.getEtatObject(sortie).libelle }}</td>
+                            <td class="smartphone">{% if isUserInscrit %}<img
+                                    src="{{ asset('img/Management/xmark.png') }}"
+                                    alt="X"
+                                    style="width: 15px; height: auto">{% endif %}
+                            </td>
+                            <td class="smartphone">
+                                <a href="{{ path('app_user_participant',{'id':sortie.organisateur.id}) }}">{{ sortie.organisateur.firstName }}</a>
+                            </td>
+                            <td class="smartphone d-flex">
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <a href="{{ path('sortie-unsubscribe', {'id': sortie.id}) }}"
+                                    <a href="{{ path('sortie-folder',{'id':sortie.id}) }}"
                                        class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
-                                        <img src="{{ asset('img/Management/minus.png') }}" alt="Unsubscribe"
+                                        <img src="{{ asset('img/Management/eye.png') }}" alt="Display"
                                              style="width: 15px; height: auto">
-                                        <span>Se désister</span>
+                                        <span>Afficher</span>
                                     </a>
                                 </div>
-
-                            {% else %}
-                                {% if app.user
-                                    and sortie.maxInscriptionsNumber > sortie.participant|length
-                                    and sortie.limiteDateInscription > date('now')
-                                    and app.user not in sortie.participant %}
+                                {% if app.user == sortie.organisateur %}
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <a href="{{ path('sortie-subscribe', {'id': sortie.id}) }}"
+                                        <a href="{{ path('sortie-modify', {'id': sortie.id}) }}"
                                            class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
-                                            <img src="{{ asset('img/Management/plus.png') }}" alt="Subscribe"
-                                                 style="width: 15px; height: auto">
-                                            <span>S'inscrire</span>
+                                            <img src="{{ asset('img/Management/update.png') }}" alt="Update"
+                                                 style="width: 15px; height: auto;">
+                                            <span>Modifier</span>
                                         </a>
                                     </div>
 
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <a href="{{ path('sortie-delete', {'id': sortie.id}) }}"
+                                           class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                            <img src="{{ asset('img/Management/xmark.png') }}" alt="Cancel"
+                                                 style="width: 15px; height: auto">
+                                            <span>Annuler</span>
+                                        </a>
+                                    </div>
                                 {% endif %}
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                                {% if isUserInscrit %}
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <a href="{{ path('sortie-unsubscribe', {'id': sortie.id}) }}"
+                                           class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                            <img src="{{ asset('img/Management/minus.png') }}" alt="Unsubscribe"
+                                                 style="width: 15px; height: auto">
+                                            <span>Se désister</span>
+                                        </a>
+                                    </div>
+
+                                {% else %}
+                                    {% if app.user
+                                        and sortie.maxInscriptionsNumber > sortie.participant|length
+                                        and sortie.limiteDateInscription > date('now')
+                                        and app.user not in sortie.participant %}
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <a href="{{ path('sortie-subscribe', {'id': sortie.id}) }}"
+                                               class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                                <img src="{{ asset('img/Management/plus.png') }}" alt="Subscribe"
+                                                     style="width: 15px; height: auto">
+                                                <span>S'inscrire</span>
+                                            </a>
+                                        </div>
+
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            {% if sorties is empty %}
+                <p class="smartphone alert alert-warning">Aucune sortie n'a été trouvée avec les critères de recherche
+                    actuels.</p>
+            {% endif %}
+
+            <a href="{{ path('sortie-create') }}" class="smartphone btn btn-danger">Ajouter une sortie</a>
+            {% if user.piece is not null and user.piece.piece3 == 0 %}
+                <a href="{{ path('piece_point3') }}"><img href="" class="piece" src="{{ asset('img/PieceMK8.png') }}"
+                                                          alt=""></a>
+            {% endif %}
+            </div>
         </div>
-        {% if sorties is empty %}
-            <p class="smartphone alert alert-warning">Aucune sortie n'a été trouvée avec les critères de recherche
-                actuels.</p>
-        {% endif %}
-
-        <a href="{{ path('sortie-create') }}" class="smartphone btn btn-primary">Ajouter une sortie</a>
-        {% if user.piece is not null and user.piece.piece3 == 0 %}
-            <a href="{{ path('piece_point3') }}"><img href="" class="piece" src="{{ asset('img/PieceMK8.png') }}"
-                                                      alt=""></a>
-        {% endif %}
-
-
     </article>
 
 {% endblock %}
