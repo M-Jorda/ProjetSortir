@@ -11,7 +11,7 @@
             <div class="col-md-10">
                 <div class="card mt-5">
                     <div class="card-header">
-                        <h2 class="text-center">Créer une sortie</h2>
+                        <h2 class="text-center text-light">Créer une sortie</h2>
                     </div>
                     <div class="card-body">
                         {{ form_start(sortieForm, {'attr': {'class': ' form'}}) }}
@@ -148,20 +148,20 @@
                                         </span>
                                     </div>
                                 </div>
-
+                                <div class="row justify-content-center mb-5 mt-4">
+                                    <div class="col-auto">
+                                        <div class="d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-primary mx-2">Enregistrer</button>
+                                            <button type="submit" class="btn btn-warning mx-2">Publier la sortie</button>
+                                            <a href="{{ path('main_home') }}" class="btn btn-danger mx-2">Annuler</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row justify-content-center mb-5">
-                        <div class="col-auto">
-                            <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary mx-2">Enregistrer</button>
-                                <button type="submit" class="btn btn-warning mx-2">Publier la sortie</button>
-                                <a href="{{ path('main_home') }}" class="btn btn-danger mx-2">Annuler</a>
-                            </div>
-                        </div>
-                    </div>
+
 
                     {{ form_end(sortieForm) }}
                 </div>
