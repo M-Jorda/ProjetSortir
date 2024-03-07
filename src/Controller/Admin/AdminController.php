@@ -71,7 +71,7 @@ class AdminController extends AbstractController
        ]);
     }
 
-    #[Route('/delete/{id}', name: 'delete', methods: ['GET','POST'])]
+    #[Route('/delete/{id}', name: 'delete', methods: ['POST'])]
     public function deleteUser(int $id, EntityManagerInterface $em) {
 
         $userRepo = $em->getRepository(User::class);
@@ -88,7 +88,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_manage');
     }
 
-    #[Route('/block/{id}', name: 'block', methods: ['GET', 'POST'])]
+    #[Route('/block/{id}', name: 'block', methods: ['POST'])]
     public function blockUser(int $id, EntityManagerInterface $em) {
         $userRepo = $em->getRepository(User::class);
         $user = $userRepo->find($id);

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panneau des groupes{% endblock %}
+
+{% block body %}
+    <article class="container mt-5">
+        <div class="card text-center">
+            <h1 class="card-header">Groupe Panel</h1>
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <div class="col-md-3 col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Ajouter un groupe</h5>
+                                <p class="card-text">Créez un nouveau groupee.</p>
+                                <a href="{{ path('group_create') }}" class="btn btn-primary">Ajouter</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Gérer le Groupe</h5>
+                                <p class="card-text">Visualisez et modifiez le groupe existants.</p>
+                                <a href="{{ path('group_detail') }}" class="btn btn-primary">Gérer</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-3 col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Liste des groupes</h5>
+                                <p class="card-text">Voir et rejoindre un groupe.</p>
+                                <a href="{{ path('group_list') }}" class="btn btn-primary">Ajouter</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row justify-content-center">
+                    <div class="">
+                        <a href="{{ path('main_home') }}" class="btn btn-primary">Retour</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}
+
+

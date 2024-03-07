@@ -72,9 +72,13 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?Lieu $lieu = null;
 
+    #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'idGroup')]
+    private Collection $groupes;
+
     public function __construct()
     {
         $this->participant = new ArrayCollection();
+        $this->groupes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -278,6 +282,33 @@ class Sortie
     {
         $etat = $sortieStateService->getEtatObject($this);
         $this->etat = $etat;
+    }
+
+    /**
+     * @return Collection<int, Group>
+     */
+    public function getGroupes(): Collection
+    {
+        return $this->groupes;
+    }
+
+    public function addGroupe(Group $groupe): static
+    {
+        if (!$this->groupes->contains($groupe)) {
+            $this->groupes->add($groupe);
+            $groupe->addIdGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupe(Group $groupe): static
+    {
+        if ($this->groupes->removeElement($groupe)) {
+            $groupe->removeIdGroup($this);
+        }
+
+        return $this;
     }
 
 }

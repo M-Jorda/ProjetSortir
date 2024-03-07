@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer le groupe{% endblock %}
+
+{% block body %}
+    <article class="container mt-5">
+        <div class="card">
+            <div class="card-header text-center">
+                <h1 class="text-light"> {% app.user.idGroup. %} </h1>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <img src="{{ asset('img/photoProfil/' ~ user.picture) }}" alt="Photo de profil" class="img-thumbnail mb-3">
+                        <a href="{{ path('app_utilisateur_user_editpassword', {'id': app.user.id}) }}" class="btn btn-outline-secondary btn-sm d-block">Modifier le mot de passe</a>
+                    </div>
+                    <div class="col-md-8">
+                        {{ form_start(userForm, {'attr': {'class': 'form'}}) }}
+                        <div class="row g-3">
+                            {% for field in [userForm.pseudo, userForm.lastname, userForm.firstName, userForm.phoneNumber, userForm.email,userForm.campus, userForm.picture] %}
+                                <div class="col-12">
+                                    <div class="align-items-center"  id="form-profile">
+                                        {{ form_label(field, null, {'label_attr': {'class': 'me-2 fw-bold'}}) }}
+                                        {{ form_widget(field, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <button type="submit" class="btn btn-danger">Enregistrer</button>
+                            {% if user.piece is null %}
+                                <a class="text-light" href="{{ path('piece_quete') }}">Commence la quête des pieces !</a>
+                            {% endif %}
+                            <a href="{{ path('main_home') }}" class="btn btn-secondary">Annuler</a>
+                        </div>
+                        {{ form_end(userForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}
