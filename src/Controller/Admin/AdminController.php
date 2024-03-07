@@ -92,7 +92,6 @@ class AdminController extends AbstractController
     public function blockUser(int $id, EntityManagerInterface $em) {
         $userRepo = $em->getRepository(User::class);
         $user = $userRepo->find($id);
-        $users = $userRepo->findAll();
 
         if (!$user) {
             throw $this->createNotFoundException('Cet utilisateur n\'existe pas');

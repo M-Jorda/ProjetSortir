@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gérer les groupes{% endblock %}
+{% block title %}tous les groupes{% endblock %}
 
 {% block body %}
     <article class="container mt-5">
         <div class="row">
             <div class="col">
-                <h1>Gérer les groupes</h1>
+                <h1>Groupes</h1>
             </div>
         </div>
 {#        <div class="row mt-3">#}
 {#            <div class="col">#}
-{#                <h2>Filtrer les groupes</h2>#}
+{#                <h2>Filtrer les utilisateurs</h2>#}
 {#                <div class="col-md-6 mb-3">#}
 {#                    {{ form_start(form) }}#}
 {#                    <div class="row align-items-center">#}
@@ -44,7 +44,9 @@
                     <tr>
                         <th scope="col">Nom</th>
                         <th scope="col">Date de création</th>
-                        <th scope="col">Manage</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Membres</th>
+                        <th scope="col" style="text-align: center">Manage</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -53,35 +55,31 @@
 
                             <tr>
                                 <td>{{ group.name }}</td>
-                                <td>{{ group.createdDate | date('d/m/y') }}</td>
+                                <td>{{ group.createdDate | date('d/m/y H:i') }}</td>
+                                <td>{{ group.status.label }}</td>
+                                <td>{{ group.nbrMembers }}</td>
                                 <td>
-
-                                    <div class="d-flex justify-content-center align-items-center">
+                                    {% if is_granted('ROLE_ADMIN') %}
                                         <a href="{{ path('group_detail', {'id': group.id}) }}"
                                            class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
-                                            <img src="{{ asset('img/Management/update.png') }}" alt="Update"
+                                            <img src="{{ asset('img/Management/eye.png') }}" alt="Display"
                                                  style="width: 15px; height: auto;">
-                                            <span>Modifier</span>
+                                            <span>Privée</span>
                                         </a>
-                                    </div>
-
-                                    {#                                    <a href="{{ path('admin_delete') }}"#}
-{#                                       title="Supprimer un utilisateur" class="text-decoration-none text-dark mx-3"><img#}
-{#                                                src="{{ asset('img/Management/xmark.png') }}" style="width: 10px"#}
-{#                                                class="img-fluid" alt="X"></a>#}
-
-{#                                    {% if user.blocked %}#}
-{#                                        <a href="{{ path('admin_block', {'id': user.id}) }}"#}
-{#                                           title="Débloquer un utilisateur" class="text-decoration-none text-dark"><img#}
-{#                                                    src="{{ asset('img/Management/unlock.jpg') }}" style="width: 10px"#}
-{#                                                    class="img-fluid" alt="lock"></a>#}
-{#                                    {% else %}#}
-{#                                        <a href="{{ path('admin_block', {'id': user.id}) }}"#}
-{#                                           title="Bloquer un utilisateur" class="text-decoration-none text-dark"><img#}
-{#                                                    src="{{ asset('img/Management/lock.jpg') }}" style="width: 10px"#}
-{#                                                    class="img-fluid" alt="unlock"></a>#}
-{#                                    {% endif %}#}
-
+                                    {% elseif group.private %}
+                                        <div class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                            <img src="{{ asset('img/Management/private.png') }}" alt="Private"
+                                                 style="width: 15px; height: auto; text-align: center">
+                                            <span>Privée</span>
+                                        </div>
+                                    {% else %}
+                                        <a href="{{ path('group_detail', {'id': group.id}) }}"
+                                           class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                            <img src="{{ asset('img/Management/eye.png') }}" alt="Display"
+                                                 style="width: 15px; height: auto;">
+                                            <span>Plus d'infos</span>
+                                        </a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endif %}

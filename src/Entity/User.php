@@ -88,9 +88,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(targetEntity: Piece::class, inversedBy: "point", cascade: ["persist"])]
     private ?Piece $piece = null;
 
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    private ?Group $idGroup = null;
-
+    #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'users')]
+    private Collection $groupes;
 
     //   #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     //   private ?\DateTimeImmutable $updatedAt = null;
@@ -100,6 +99,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->sorties = new ArrayCollection();
         $this->sortiesOrganized = new ArrayCollection();
+        $this->groupes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -365,17 +365,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getIdGroup(): ?Group
+    /**
+     * @return Collection<int, Group>
+     */
+    public function getGroupes(): Collection
     {
-        return $this->idGroup;
+        return $this->groupes;
     }
 
-    public function setIdGroup(?Group $idGroup): static
+    public function addGroupe(Group $groupe): static
     {
-        $this->idGroup = $idGroup;
+        if (!$this->groupes->contains($groupe)) {
+            $this->groupes->add($groupe);
+            $groupe->addUser($this);
+        }
 
         return $this;
     }
 
+    public function removeGroupe(Group $groupe): static
+    {
+        if ($this->groupes->removeElement($groupe)) {
+            $groupe->removeUser($this);
+        }
+
+        return $this;
+    }
 
 }

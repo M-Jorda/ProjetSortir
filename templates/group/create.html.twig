@@ -3,24 +3,49 @@
 {% block title %}Créer un groupe{% endblock %}
 
 {% block body %}
-    <section class="container mt-5">
+    <article class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-
-                <div class="card">
+            <div class="col-md-10">
+                <div class="card mt-5">
                     <div class="card-header">
-                        <h2 class="text-center">Ajouter un groupe</h2>
+                        <h1 class="text-center">Ajouter un groupe</h1>
                     </div>
                     <div class="card-body">
                         {{ form_start(groupForm, {'attr': {'class': 'form'}}) }}
-                        <div class="row align-items-center">
-                            <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="row mb-3 align-items-center">
                                     <div class="col-5">
                                         {{ form_label(groupForm.name, null, {'label': 'Nom du groupe : ', 'label_attr': {'class': 'me-2'}}) }}
                                     </div>
                                     <div class="col-7">
                                         {{ form_widget(groupForm.name, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(groupForm.logo, null, {'label': 'Logo du groupe : ', 'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(groupForm.logo, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(groupForm.private, null, {'label': 'Privé : ', 'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(groupForm.private) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row mb-3 align-items-center">
+                                    <div class="col-5">
+                                        {{ form_label(groupForm.description, null, {'label': 'Description : ', 'label_attr': {'class': 'me-2'}}) }}
+                                    </div>
+                                    <div class="col-7">
+                                        {{ form_widget(groupForm.description, {'attr': {'class': 'form-control'}}) }}
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +61,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </article>
 {% endblock %}
 
 

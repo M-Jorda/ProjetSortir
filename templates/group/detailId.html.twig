@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{group.name}}
+{% endblock %}
+
+{% block body %}
+    <article class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <h1>{{ group.name }}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-5">
+                                <p>Date de création : </p>
+                            </div>
+                            <div class="col-7">
+                                <p>{{ group.createdDate | date('d/m/y') }}</p>
+                            </div>
+                        </div>
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-5">
+                                <p>Dernière date de modification : </p>
+                            </div>
+                            <div class="col-7">
+                                <p>{{ group.updateDate | date('d/m/y') }}</p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-5">
+                                <p>Status : </p>
+                            </div>
+                            <div class="col-7">
+                                <p>{{ group.status.label }}</p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-5">
+                                <p>Nombre de membre</p>
+                            </div>
+                            <div class="col-7">
+                                <p>{{ group.nbrMembers }}</p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-5">
+                                <p>Ce groupe est : </p>
+                            </div>
+                            <div class="col-7">
+                                <p>{% if group.private %} privé {% else %} public {% endif %}</p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-5">
+                                <p>Description : </p>
+                            </div>
+                            <div class="col-7">
+                                <p>{{ group.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="{{ path('group_panel') }}" class="btn btn-primary mt-4">Retour</a>
+        {% if is_granted('ROLE_ADMIN') %}  <a href="{{ path('admin_group_manage') }}" class="btn btn-primary mt-4">Gérer les groupes</a>{% endif %}
+        <div class="row mt3">
+            <div class="col">
+                <h2></h2>
+                <div class="col-md-6 mb-3">
+{#                    {{ form_start(form) }}#}
+{#                    <div class="row align-items-center">#}
+{#                        <div class="col-5">#}
+{#                            {{ form_label(form, null, {'label': 'Le nom contient : ', 'label_attr': {'class': 'me-2'}}) }}#}
+{#                        </div>#}
+{#                        <div class="col-7">#}
+{#                            <div class="input-group">#}
+{#                                {{ form_widget(form) }}#}
+{#                                <button class="input-group-text" type="submit">#}
+{#                                    <img src="{{ asset('img/Management/loupe.jpg') }}"#}
+{#                                         alt="Rechercher" style="width: 15px; height: auto">#}
+{#                                </button>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="d-flex">#}
+{#                        <a href="{{ path('admin_manage') }}" class="btn btn-primary mx-5 mt-4">Réinitialiser le#}
+{#                            filtre</a>#}
+{#                        <a href="{{ path('admin_panel') }}" class="btn btn-primary mt-4">Retour</a>#}
+{#                    </div>#}
+{#                    {{ form_end(form) }}#}
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Pseudo</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Campus</th>
+                        <th scope="col">Date d'ajout</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Téléphone</th>
+                        <th scope="col">Manage</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in group.users %}
+                        {% if user.id %}
+
+                            <tr>
+                                <td>{{ user.pseudo }}</td>
+                                <td>{{ user.firstName }}</td>
+                                <td>{{ user.lastName }}</td>
+                                <td>{{ user.campus.name }}</td>
+                                <td>{{ user.createdDate | date('d/m/y') }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.phoneNumber }}</td>
+                                <td><a href="{{ path('group_user_delete', {'id': user.id}) }}"
+                                       title="Supprimer un utilisateur" class="text-decoration-none text-dark mx-3"><img
+                                                src="{{ asset('img/Management/xmark.png') }}" style="width: 10px"
+                                                class="img-fluid" alt="X"></a>
+                                </td>
+                            </tr>
+                        {% endif %}
+
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </article>
+{% endblock %}

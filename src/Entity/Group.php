@@ -7,9 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
-#[UniqueEntity(fields: ['name'], message: 'Un groupe avec ce nom existe déjà')]
 
 #[ORM\Entity(repositoryClass: GroupRepository::class)]
 #[ORM\Table(name: '`group`')]
@@ -20,23 +17,44 @@ class Group
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, unique: true)]
-    #[Assert\NotBlank(message: 'Merci de renseigner un nom pour le groupe')]
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
-
-    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'idGroup')]
-    private Collection $users;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $createdDate = null;
 
-    #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'groupes')]
-    private Collection $idGroup;
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updateDate = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $logo = null;
+
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'groupes')]
+    private Collection $users;
+
+    #[ORM\OneToMany(targetEntity: Sortie::class, mappedBy: 'groupe')]
+    private Collection $sorties;
+
+    #[ORM\Column]
+    private ?int $nbrMembers = null;
+
+    #[ORM\Column]
+    private ?bool $private = null;
+
+    #[ORM\ManyToOne(inversedBy: 'groupes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?GroupStatus $status = null;
 
     public function __construct()
     {
+        $this->createdDate = new \DateTime();
         $this->users = new ArrayCollection();
-        $this->idGroup = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
+        $this->private = false;
     }
 
     public function getId(): ?int
@@ -56,36 +74,6 @@ class Group
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->setIdGroup($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): static
-    {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getIdGroup() === $this) {
-                $user->setIdGroup(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getCreatedDate(): ?\DateTimeInterface
     {
         return $this->createdDate;
@@ -98,26 +86,130 @@ class Group
         return $this;
     }
 
-    /**
-     * @return Collection<int, Sortie>
-     */
-    public function getIdGroup(): Collection
+    public function getUpdateDate(): ?\DateTimeInterface
     {
-        return $this->idGroup;
+        return $this->updateDate;
     }
 
-    public function addIdGroup(Sortie $idGroup): static
+    public function setUpdateDate(?\DateTimeInterface $updateDate): static
     {
-        if (!$this->idGroup->contains($idGroup)) {
-            $this->idGroup->add($idGroup);
+        $this->updateDate = $updateDate;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(?string $logo): static
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+
+            $this->nbrMembers++;
         }
 
         return $this;
     }
 
-    public function removeIdGroup(Sortie $idGroup): static
+    public function removeUser(User $user): static
     {
-        $this->idGroup->removeElement($idGroup);
+        $this->users->removeElement($user);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
+    }
+
+    public function addSorty(Sortie $sorty): static
+    {
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties->add($sorty);
+            $sorty->setGroupe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSorty(Sortie $sorty): static
+    {
+        if ($this->sorties->removeElement($sorty)) {
+            // set the owning side to null (unless already changed)
+            if ($sorty->getGroupe() === $this) {
+                $sorty->setGroupe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getNbrMembers(): ?int
+    {
+        return $this->nbrMembers;
+    }
+
+    public function setNbrMembers(int $nbrMembers): static
+    {
+        $this->nbrMembers = $nbrMembers;
+
+        return $this;
+    }
+
+    public function isPrivate(): ?bool
+    {
+        return $this->private;
+    }
+
+    public function setPrivate(bool $private): static
+    {
+        $this->private = $private;
+
+        return $this;
+    }
+
+    public function getStatus(): ?GroupStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?GroupStatus $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

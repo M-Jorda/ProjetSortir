@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}tous les groupes{% endblock %}
+
+{% block body %}
+    <article class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <h1>Groupes</h1>
+            </div>
+        </div>
+        {#        <div class="row mt-3">#}
+        {#            <div class="col">#}
+        {#                <h2>Filtrer les utilisateurs</h2>#}
+        {#                <div class="col-md-6 mb-3">#}
+        {#                    {{ form_start(form) }}#}
+        {#                    <div class="row align-items-center">#}
+        {#                        <div class="col-5">#}
+        {#                            {{ form_label(form, null, {'label': 'Le nom contient : ', 'label_attr': {'class': 'me-2'}}) }}#}
+        {#                        </div>#}
+        {#                        <div class="col-7">#}
+        {#                            <div class="input-group">#}
+        {#                                {{ form_widget(form) }}#}
+        {#                                <button class="input-group-text" type="submit">#}
+        {#                                    <img src="{{ asset('img/Management/loupe.jpg') }}"#}
+        {#                                         alt="Rechercher" style="width: 15px; height: auto">#}
+        {#                                </button>#}
+        {#                            </div>#}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                    <div class="d-flex">#}
+        {#                        <a href="{{ path('admin_manage') }}" class="btn btn-primary mx-5 mt-4">Réinitialiser le#}
+        {#                            filtre</a>#}
+        <a href="{{ path('group_panel') }}" class="btn btn-primary mt-4">Retour</a>
+        {#                    </div>#}
+        {#                    {{ form_end(form) }}#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Date de création</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Membres</th>
+                        <th scope="col" style="text-align: center">Manage</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for group in groups %}
+                        {% if group.id %}
+
+                            <tr>
+                                <td>{{ group.name }}</td>
+                                <td>{{ group.createdDate | date('d/m/y H:i') }}</td>
+                                <td>{{ group.status.label }}</td>
+                                <td>{{ group.nbrMembers }}</td>
+                                <td class="smartphone d-flex">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <a href="{{ path('group_detail', {'id': group.id}) }}"
+                                           class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                            <img src="{{ asset('img/Management/eye.png') }}" alt="Display"
+                                                 style="width: 15px; height: auto;">
+                                            <span>Plus d'infos</span>
+                                        </a>
+                                    </div>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <a href="{{ path('admin_group_manage_status', {'id': group.id}) }}"
+                                           class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                            <img src="{{ asset('img/Management/update.png') }}" alt="Update"
+                                                 style="width: 15px; height: auto;">
+                                            <span>Modifier</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <a href="{{ path('sortie-delete', {'id': group.id}) }}"
+                                           class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                            <img src="{{ asset('img/Management/xmark.png') }}" alt="Cancel"
+                                                 style="width: 15px; height: auto">
+                                            <span>Annuler</span>
+                                        </a>
+                                    </div>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <a href="{{ path('sortie-unsubscribe', {'id': group.id}) }}"
+                                           class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                            <img src="{{ asset('img/Management/minus.png') }}" alt="Unsubscribe"
+                                                 style="width: 15px; height: auto">
+                                            <span>Se désister</span>
+                                        </a>
+                                    </div>
+
+
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <a href="{{ path('sortie-subscribe', {'id': group.id}) }}"
+                                           class="btn btn-sm d-flex flex-column align-items-center text-decoration-none">
+                                            <img src="{{ asset('img/Management/plus.png') }}" alt="Subscribe"
+                                                 style="width: 15px; height: auto">
+                                            <span>S'inscrire</span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </article>
+
+{% endblock %}
