@@ -6,13 +6,16 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Détails de la s{% if user.piece is not null and user.piece.piece1 == 0 %} <a
-                href="{{ path('piece_point1') }}"><img href="" class="pieceO"
-                                                       src="{{ asset('img/PieceMK8.png') }}"
-                                                       alt=""></a> {% else %}o{% endif %}rtie</h1>
+
 
         <div class="card">
-            <div class="container">
+            <div class="card-header text-center text-light">
+                <h1>Détails de la s{% if user.piece is not null and user.piece.piece1 == 0 %} <a
+                        href="{{ path('piece_point1') }}"><img href="" class="pieceO"
+                                                               src="{{ asset('img/PieceMK8.png') }}"
+                                                               alt=""></a> {% else %}o{% endif %}rtie</h1>
+            </div>
+
                 <div class="card-body d-flex justify-content-around">
                     <div>
                         <h5 class="mb-5">{{ sortie.name }}</h5>
@@ -32,7 +35,7 @@
                         <p class="mb-4">Longitude : {{ sortie.lieu.longitude }}</p>
                     </div>
                 </div>
-            </div>
+
         </div>
         <div class="buttons">
             {% if app.user and sortie.maxInscriptionsNumber > participants|length and app.user not in sortie.participant %}
