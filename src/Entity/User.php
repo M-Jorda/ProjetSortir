@@ -16,7 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[AllowDynamicProperties] #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Un compte avec cet email existe déjà')]
+#[UniqueEntity(fields: ['pseudo'], message: 'Un compte avec ce pseudo existe déjà')]
+#[UniqueEntity(fields: ['city', 'ZipCode'], message: 'Cette ville est déjà en base de données')]
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -26,7 +28,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Assert\NotBlank(message:'Merci de renseigner un e-mail')]
+    #[Assert\NotBlank(message: 'Merci de renseigner un e-mail')]
     #[Assert\Email(message: 'L\'adresse e-mail "{{ value }}" n\'est pas valide.')]
     private ?string $email;
 
@@ -43,22 +45,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\NotBlank(message:'Merci de renseigner un nom de famille')]
+    #[Assert\NotBlank(message: 'Merci de renseigner un nom de famille')]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\NotBlank(message:'Merci de renseigner un prénom')]
+    #[Assert\NotBlank(message: 'Merci de renseigner un prénom')]
     private ?string $FirstName = null;
 
     #[ORM\Column(length: 15)]
-    #[Assert\NotBlank(message:'Merci de renseigner un numéro de téléphone')]
+    #[Assert\NotBlank(message: 'Merci de renseigner un numéro de téléphone')]
     #[Assert\Regex(
         pattern: "/^\+(?:[0-9] ?){6,14}[0-9]$/",
         message: 'Le numéro de téléphone "{{ value }}" n\'est pas valide.')]
     private ?string $PhoneNumber = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message:'Merci de renseigner ce champ', groups: ['regAdmin'])]
+    #[Assert\NotBlank(message: 'Merci de renseigner ce champ', groups: ['regAdmin'])]
     private ?bool $Blocked = null;
 
     #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'participant', cascade: ["remove"])]
@@ -84,19 +86,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
-
-
     #[ORM\ManyToOne(targetEntity: Piece::class, inversedBy: "point", cascade: ["persist"])]
     private ?Piece $piece = null;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Group $idGroup = null;
+
 
     //   #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
- //   private ?\DateTimeImmutable $updatedAt = null;
-
-
-
-
-
+    //   private ?\DateTimeImmutable $updatedAt = null;
 
 
     public function __construct()
@@ -129,13 +127,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
+     * @return list<string>
      * @see UserInterface
      *
-     * @return list<string>
      */
     public function getRoles(): array
     {
@@ -299,7 +297,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-
     public function getPseudo(): ?string
     {
         return $this->pseudo;
@@ -336,11 +333,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
     public function setUpdatedAtValue(): static
     {
         $this->updatedAt = new \DateTimeImmutable();
 
-       return $this;
+        return $this;
     }
 
     public function getPicture(): ?string
@@ -364,6 +362,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPiece(?Piece $piece): static
     {
         $this->piece = $piece;
+
+        return $this;
+    }
+
+    public function getIdGroup(): ?Group
+    {
+        return $this->idGroup;
+    }
+
+    public function setIdGroup(?Group $idGroup): static
+    {
+        $this->idGroup = $idGroup;
 
         return $this;
     }
