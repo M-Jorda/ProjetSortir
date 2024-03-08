@@ -40,7 +40,7 @@ class VilleController extends AbstractController
             $em->flush();
 
             $this->addFlash('Success', 'Ville ajoutée');
-            return $this->redirectToRoute('admin_panel');
+            return $this->redirectToRoute('ville-manage');
         }
 
         return $this->render('admin/addCity.html.twig', [
@@ -62,7 +62,7 @@ class VilleController extends AbstractController
 
             $this->addFlash('success', 'Celle ville à été correctement supprimé');
         }
-        return $this->redirectToRoute('ville-add');
+        return $this->redirectToRoute('ville-manage');
     }
 
     #[Route('/get/{id}', name: 'get')]

@@ -38,7 +38,7 @@ class CampusController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Campus ajouté');
-            return $this->redirectToRoute('admin_panel');
+            return $this->redirectToRoute('campus-manage');
         }
 
         return $this->render('admin/addCampus.html.twig', [
@@ -60,6 +60,6 @@ class CampusController extends AbstractController
 
             $this->addFlash('success', 'Ce campus é été correctement supprimé');
         }
-        return $this->redirectToRoute('campus-add');
+        return $this->redirectToRoute('campus-manage');
     }
 }
