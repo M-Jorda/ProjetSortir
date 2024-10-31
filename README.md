@@ -1,8 +1,8 @@
 # ProjetSortir
 
 ## Links
-- [Version française](README_FR.md)
-- [Versión en Español](README_ES.md)
+- [Version française](README/README_FR.md)
+- [Versión en Español](README/README_ES.md)
 
 ## Description
 ENI wishes to develop a web platform for its active trainees and former trainees, allowing them to organize outings. The platform is private, and registration will be managed by the administrator(s). Outings and participants are linked to a campus to facilitate geographical organization of events.
@@ -31,8 +31,8 @@ To set up a web platform for trainees in training and former trainees that allow
 - PhpStorm
 
 ## Diagrams
-- **Use Case Diagram**: ![Use Case Diagram](URL_OF_YOUR_USE_CASE_DIAGRAM)
-- **Class Diagram**: ![Class Diagram](URL_OF_YOUR_CLASS_DIAGRAM)
+- **Use Case Diagram**: ![Use Case Diagram](README/UseCaseDiagram.png)
+- **Class Diagram**: ![Class Diagram](README/ClassDiagram.png)
 
 ## Usage
 With this application, users can:
@@ -60,6 +60,11 @@ With this application, users can:
 
 ## Screenshots
 Here are some screenshots to show the result of the application:
+- **Add User**: ![Add User](README/AddUser.png)
+- **Manage User**: ![Manage Usem](README/ManageUser.png)
+- **Admin Panel**: ![Admin Panel](README/AdminPanel.png)
+- **Add & Manage Campus**: ![Add & Manage Campus](README/ManageCampus.png)
+- **Add & Manage City**: ![Add & Manage City](README/ManageCity.png)
 
 ## Licenses
 This project is under the ENI-informatique license.

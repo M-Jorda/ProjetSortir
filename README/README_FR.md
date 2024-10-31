@@ -2,7 +2,7 @@
 
 ## Liens
 - [English version](README.md)
-- [Versión en Español](README_ES.md)
+- [Versión en Español](README/README_ES.md)
 
 ## Description
 La société ENI souhaite développer pour ses stagiaires actifs ainsi que ses anciens stagiaires une plateforme web leur permettant d’organiser des sorties. La plateforme est privée et l’inscription sera gérée par le ou les administrateurs. Les sorties ainsi que les participants sont rattachés à un campus pour permettre une organisation géographique des événements.
@@ -31,8 +31,8 @@ Monter une plateforme web destinée aux stagiaires en formation ainsi qu’aux a
 - PhpStorm
 
 ## Diagrammes
-- **Diagramme des cas d'utilisation** : ![Diagramme des cas d'utilisation](URL_DE_VOTRE_DIAGRAMME_UTILISATION)
-- **Diagramme de classe** : ![Diagramme de classe](URL_DE_VOTRE_DIAGRAMME_CLASSE)
+- **Diagramme de cas d'utilisation**: ![Use Case Diagram](README/UseCaseDiagram.png)
+- **Diagramme de classe**: ![Class Diagram](README/ClassDiagram.png)
 
 ## Utilisation
 Avec cette application, les utilisateurs peuvent :
@@ -61,6 +61,11 @@ Pour les administrateurs :
 
 ## Screenshots
 Voici quelques captures d'écran pour montrer le résultat de l'application :
+- **Ajouter un utilisateur**: ![Add User](README/AddUser.png)
+- **Gérer les utilisateurs**: ![Manage Usem](README/ManageUser.png)
+- **Panneau d'administrateur**: ![Admin Panel](README/AdminPanel.png)
+- **Ajouter et gérer les campus**: ![Add & Manage Campus](README/ManageCampus.png)
+- **Ajouter et gérer les villes**: ![Add & Manage City](README/ManageCity.png)
 
 ## Licences
 Ce projet est sous la licence ENI-informatique
