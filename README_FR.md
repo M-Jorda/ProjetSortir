@@ -1,7 +1,7 @@
 # ProjetSortir
 
 ## Liens
-- [English version](README_EN.md)
+- [English version](README.md)
 - [Versión en Español](README_ES.md)
 
 ## Description
