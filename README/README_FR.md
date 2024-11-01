@@ -31,8 +31,8 @@ Monter une plateforme web destinée aux stagiaires en formation ainsi qu’aux a
 - PhpStorm
 
 ## Diagrammes
-- **Diagramme de cas d'utilisation**: ![Use Case Diagram](README/UseCaseDiagram.png)
-- **Diagramme de classe**: ![Class Diagram](README/ClassDiagram.png)
+- **Diagramme de cas d'utilisation**: ![Use Case Diagram](UseCaseDiagram.png)
+- **Diagramme de classe**: ![Class Diagram](ClassDiagram.png)
 
 ## Utilisation
 Avec cette application, les utilisateurs peuvent :
@@ -61,11 +61,11 @@ Pour les administrateurs :
 
 ## Screenshots
 Voici quelques captures d'écran pour montrer le résultat de l'application :
-- **Ajouter un utilisateur**: ![Add User](README/AddUser.png)
-- **Gérer les utilisateurs**: ![Manage Usem](README/ManageUser.png)
-- **Panneau d'administrateur**: ![Admin Panel](README/AdminPanel.png)
-- **Ajouter et gérer les campus**: ![Add & Manage Campus](README/ManageCampus.png)
-- **Ajouter et gérer les villes**: ![Add & Manage City](README/ManageCity.png)
+- **Ajouter un utilisateur**: ![Add User](AddUser.png)
+- **Gérer les utilisateurs**: ![Manage Usem](ManageUser.png)
+- **Panneau d'administrateur**: ![Admin Panel](AdminPanel.png)
+- **Ajouter et gérer les campus**: ![Add & Manage Campus](ManageCampus.png)
+- **Ajouter et gérer les villes**: ![Add & Manage City](ManageCity.png)
 
 ## Licences
 Ce projet est sous la licence ENI-informatique

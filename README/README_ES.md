@@ -31,8 +31,8 @@ Establecer una plataforma web para los aprendices en formación y antiguos apren
 - PhpStorm
 
 ## Diagramas
-- **Diagrama de casos de uso**: ![Use Case Diagram](README/UseCaseDiagram.png)
-- **Diagrama de clases**: ![Class Diagram](README/ClassDiagram.png)
+- **Diagrama de casos de uso**: ![Use Case Diagram](UseCaseDiagram.png)
+- **Diagrama de clases**: ![Class Diagram](ClassDiagram.png)
 
 ## Uso
 Con esta aplicación, los usuarios pueden:
@@ -60,11 +60,11 @@ Con esta aplicación, los usuarios pueden:
 
 ## Capturas de pantalla
 Aquí hay algunas capturas de pantalla para mostrar el resultado de la aplicación:
-- **Añadir un usuario**: ![Add User](README/AddUser.png)
-- **Gestionar usuarios**: ![Manage Usem](README/ManageUser.png)
-- **Panel de administrador**: ![Admin Panel](README/AdminPanel.png)
-- **Añadir y gestionar campus**: ![Add & Manage Campus](README/ManageCampus.png)
-- **Añadir y gestionar ciudades**: ![Add & Manage City](README/ManageCity.png)
+- **Añadir un usuario**: ![Add User](AddUser.png)
+- **Gestionar usuarios**: ![Manage Usem](ManageUser.png)
+- **Panel de administrador**: ![Admin Panel](AdminPanel.png)
+- **Añadir y gestionar campus**: ![Add & Manage Campus](ManageCampus.png)
+- **Añadir y gestionar ciudades**: ![Add & Manage City](ManageCity.png)
 
 ## Licencias
 Este proyecto está bajo la licencia ENI-informatique.
