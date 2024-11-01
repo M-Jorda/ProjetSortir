@@ -1,8 +1,8 @@
 # ProjetSortir
 
 ## Enlaces
-- [Version en français](README/README_FR.md)
-- [English Version](README.md)
+- [Version en français](README_FR.md)
+- [English Version](../README.md)
 
 ## Descripción
 ENI desea desarrollar una plataforma web para sus aprendices activos y antiguos aprendices que les permita organizar salidas. La plataforma es privada y la inscripción será gestionada por el o los administradores. Las salidas y los participantes están vinculados a un campus para facilitar la organización geográfica de los eventos.
