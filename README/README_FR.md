@@ -1,8 +1,8 @@
 # ProjetSortir
 
 ## Liens
-- [English version](README.md)
-- [Versión en Español](README/README_ES.md)
+- [English version](../README.md)
+- [Versión en Español](README_ES.md)
 
 ## Description
 La société ENI souhaite développer pour ses stagiaires actifs ainsi que ses anciens stagiaires une plateforme web leur permettant d’organiser des sorties. La plateforme est privée et l’inscription sera gérée par le ou les administrateurs. Les sorties ainsi que les participants sont rattachés à un campus pour permettre une organisation géographique des événements.
